@@ -13,8 +13,8 @@ public abstract class Controller {
         Storage.storeDestillat(destillat);
     }
 
-    public static void createFad(int id, double størrelse, boolean erAktiv, FadType fadType){
-        Fad fad = new Fad(id, størrelse, erAktiv, fadType);
+    public static void createFad(int id, double størrelse, boolean erAktiv, FadType fadType, Leverandør leverandør){
+        Fad fad = new Fad(id, størrelse, erAktiv, fadType, leverandør);
         Storage.storeFad(fad);
     }
 

@@ -7,12 +7,14 @@ public class Fad {
     private Destillat destillat;
     private FadType fadType;
     private Hylde hylde;
+    private Leverandør leverandør;
 
-    public Fad(int id, double størrelse, boolean erAktiv, FadType fadType) {
+    public Fad(int id, double størrelse, boolean erAktiv, FadType fadType, Leverandør leverandør) {
         this.id = id;
         this.størrelse = størrelse;
         this.erAktiv = erAktiv;
         this.fadType = fadType;
+        this.leverandør = leverandør;
 
     }
 
