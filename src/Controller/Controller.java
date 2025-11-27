@@ -24,10 +24,12 @@ public abstract class Controller {
             double rest = destillat.getMaengde() - fad.getStørrelse();
             fad.setDestillat(destillat);
             destillat.setMaengde(rest);
+            destillat.addFad(fad);
             throw new RuntimeException("Der er " + rest + " liter destillat til overs");
         }
         else {
             fad.setDestillat(destillat);
+            destillat.addFad(fad);
         }
     }
 
