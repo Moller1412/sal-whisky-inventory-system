@@ -6,7 +6,6 @@ import java.util.ArrayList;
 public class Destillat {
     private int nr;
     private double maengde;
-    private double vandPåfyldt;
     private double alkoholProcent;
 
 

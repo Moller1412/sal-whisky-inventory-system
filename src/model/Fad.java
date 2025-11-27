@@ -7,6 +7,7 @@ public class Fad {
     private int id;
     private double størrelse;
     private boolean erAktiv;
+    private double literIFad;
     private Destillat destillat;
     private FadType fadType;
     private Hylde hylde;
@@ -19,6 +20,7 @@ public class Fad {
         this.erAktiv = erAktiv;
         this.fadType = fadType;
         this.leverandør = leverandør;
+        this.literIFad = 0;
 
     }
 
@@ -46,6 +48,14 @@ public class Fad {
         this.startLagring = startLagring;
     }
 
+    public double getLiterIFad() {
+        return literIFad;
+    }
+
+    public void setLiterIFad(double literIFad) {
+        this.literIFad = literIFad;
+    }
+
     public boolean isErAktiv() {
         return erAktiv;
     }
@@ -63,5 +73,22 @@ public class Fad {
             return true;
         }
         return false;
+    }
+
+    private double getAngelShare(double nuVærendeMængde){
+        double angelShare = literIFad - nuVærendeMængde;
+        literIFad = nuVærendeMængde;
+        destillat.setMaengde(destillat.getMaengde()-angelShare);
+        return angelShare;
+    }
+
+    private double addVandTilFad(double literVand){
+        double nyMængde = literVand + literIFad;
+        if(nyMængde > størrelse) throw new IllegalArgumentException("Denne mængde kan ikke være i fadet ");
+        else {
+            literIFad = nyMængde;
+            destillat.setMaengde(destillat.getMaengde()+literVand);
+        }
+        return nyMængde;
     }
 }

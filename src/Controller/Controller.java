@@ -26,12 +26,14 @@ public abstract class Controller {
             destillat.setMaengde(rest);
             destillat.addFad(fad);
             fad.setStartLagring(LocalDate.now());
+            fad.setLiterIFad(fad.getStørrelse());
             throw new RuntimeException("Der er " + rest + " liter destillat til overs");
         }
         else {
             fad.setDestillat(destillat);
             destillat.addFad(fad);
             fad.setStartLagring(LocalDate.now());
+            fad.setLiterIFad(destillat.getMaengde());
         }
     }
 
@@ -41,12 +43,13 @@ public abstract class Controller {
         hylde.setErOptaget(true);
     }
 
-    public static void addDestillatPåFadTilFærdigvare(Destillat destillat, FærdigVare færdigVare, Fad fad){
+    public static void addDestillatFraFadTilFærdigvare(Destillat destillat, FærdigVare færdigVare, Fad fad){
         if(fad.getDestillat() != destillat) throw new IllegalArgumentException("Fadets Destillat matcher ikke med det indtastede destillat");
        if(fad.erFadKlarTilTapning()){
            destillat.setFærdigVare(færdigVare);
            fad.setErAktiv(false);
            fad.setStartLagring(null);
+           fad.setLiterIFad(0);
        }
        else
            throw new IllegalArgumentException("Destillat på fad er ikke klar ");
