@@ -47,4 +47,12 @@ public class Destillat {
     public void setMaengde(double maengde) {
         this.maengde = maengde;
     }
+
+    @Override
+    public String toString() {
+        return
+                "NR: " + nr +
+                " | MÆNGDE: " + maengde +
+                " | ALC: " + alkoholProcent;
+    }
 }

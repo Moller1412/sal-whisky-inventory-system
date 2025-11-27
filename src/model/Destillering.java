@@ -6,7 +6,6 @@ import java.util.List;
 
 public class Destillering {
 
-
     private boolean erRøget;
     private int antalRåvare;
     private Råvare råvare;
@@ -19,7 +18,11 @@ public class Destillering {
         this.medarbejder = medarbejder;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return
+                "RÅVARE: " + råvare + ", RØGET: " + erRøget +
+                ", ANTAL RÅVARE: " + antalRåvare +
+                ", MEDARBEJDER: " + medarbejder;
+    }
 }

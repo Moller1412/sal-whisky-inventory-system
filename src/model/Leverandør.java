@@ -20,4 +20,12 @@ public class Leverandør {
     public void setFad(Fad fad) {
         this.fad = fad;
     }
+
+    @Override
+    public String toString() {
+        return  "NAVN: " + navn  +
+                ", TLF: " + mobilnummer +
+                ", ADRESSE: '" + adresse +
+                '}';
+    }
 }

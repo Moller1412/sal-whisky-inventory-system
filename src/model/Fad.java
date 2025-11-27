@@ -90,4 +90,13 @@ public class Fad {
         }
         return nyMængde;
     }
+
+    @Override
+    public String toString() {
+        return "ID: " + id +
+                ", STR: " + størrelse +
+                ", AKTIV: " + erAktiv +
+                ", TYPE: " + fadType +
+                '}';
+    }
 }

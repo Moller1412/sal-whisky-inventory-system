@@ -20,4 +20,7 @@ public class Råvare {
         this.oprindelse = oprindelse;
     }
 
+    @Override
+    public String toString() {
+        return navn;}
 }

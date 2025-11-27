@@ -27,4 +27,12 @@ public class Medarbejder {
     public List<Destillering> getDestilleringer() {
         return destilleringer;
     }
+
+    @Override
+    public String toString() {
+        return "NAVN: " + navn +
+                " TLF: " + tlf +
+                " NR" + medarbejderNr
+                ;
+    }
 }
