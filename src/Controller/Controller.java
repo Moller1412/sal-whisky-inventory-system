@@ -7,9 +7,9 @@ import java.time.LocalDate;
 
 public abstract class Controller {
 
-    public static void createDestillat(int nr, double maengde, double vandPåfyldt, double alkoholProcent,
-                                       LocalDate slutDato, Destillering destillering, FærdigVare færdigVare){
-        Destillat destillat = new Destillat(nr, maengde, vandPåfyldt, alkoholProcent, slutDato, destillering, færdigVare);
+    public static void createDestillat(int nr, double maengde, double alkoholProcent,
+                                       LocalDate slutDato, Destillering destillering){
+        Destillat destillat = new Destillat(nr, maengde, alkoholProcent, slutDato, destillering);
         Storage.storeDestillat(destillat);
     }
 
@@ -25,11 +25,13 @@ public abstract class Controller {
             fad.setDestillat(destillat);
             destillat.setMaengde(rest);
             destillat.addFad(fad);
+            fad.setStartLagring(LocalDate.now());
             throw new RuntimeException("Der er " + rest + " liter destillat til overs");
         }
         else {
             fad.setDestillat(destillat);
             destillat.addFad(fad);
+            fad.setStartLagring(LocalDate.now());
         }
     }
 
@@ -38,4 +40,10 @@ public abstract class Controller {
         fad.setHylde(hylde);
         hylde.setErOptaget(true);
     }
+
+    public static void addDestillatTilFærdigvare(Destillat destillat, FærdigVare færdigVare){
+
+    }
+
+
 }
