@@ -8,8 +8,8 @@ import java.time.LocalDate;
 public abstract class Controller {
 
     public static void createDestillat(int nr, double maengde, double alkoholProcent,
-                                       LocalDate slutDato, Destillering destillering){
-        Destillat destillat = new Destillat(nr, maengde, alkoholProcent, slutDato, destillering);
+                                        Destillering destillering){
+        Destillat destillat = new Destillat(nr, maengde, alkoholProcent, destillering);
         Storage.storeDestillat(destillat);
     }
 

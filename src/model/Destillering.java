@@ -6,14 +6,13 @@ import java.util.List;
 
 public class Destillering {
 
-    private LocalDate startDato;
+
     private boolean erRøget;
     private int antalRåvare;
     private Råvare råvare;
     private Medarbejder medarbejder;
 
-    public Destillering(LocalDate startDato, boolean erRøget, int antalRåvare, Råvare råvare, Medarbejder medarbejder) {
-        this.startDato = startDato;
+    public Destillering( boolean erRøget, int antalRåvare, Råvare råvare, Medarbejder medarbejder) {
         this.erRøget = erRøget;
         this.antalRåvare = antalRåvare;
         this.råvare = råvare;

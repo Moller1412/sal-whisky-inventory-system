@@ -8,7 +8,7 @@ public class Destillat {
     private double maengde;
     private double vandPåfyldt;
     private double alkoholProcent;
-    private LocalDate slutDato;
+
 
     //Links
     private ArrayList<Fad> fade = new ArrayList<>();
@@ -17,11 +17,10 @@ public class Destillat {
 
 
     public Destillat(int nr, double maengde, double alkoholProcent,
-                     LocalDate slutDato, Destillering destillering) {
+                      Destillering destillering) {
         this.nr = nr;
         this.maengde = maengde;
         this.alkoholProcent = alkoholProcent;
-        this.slutDato = slutDato;
         this.destillering = destillering;
 
     }
