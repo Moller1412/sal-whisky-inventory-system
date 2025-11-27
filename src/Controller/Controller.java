@@ -17,4 +17,17 @@ public abstract class Controller {
         Fad fad = new Fad(id, størrelse, erAktiv, fadType);
         Storage.storeFad(fad);
     }
+
+    public static void addDestillatTilFad(Fad fad, Destillat destillat){
+        if(fad.isErAktiv()) throw new IllegalArgumentException("Fadet er fyldt");
+        if(destillat.getMaengde() > fad.getStørrelse()){
+            double rest = destillat.getMaengde() - fad.getStørrelse();
+            fad.setDestillat(destillat);
+            destillat.setMaengde(rest);
+            throw new RuntimeException("Der er " + rest + " liter destillat til overs");
+        }
+        else {
+            fad.setDestillat(destillat);
+        }
+    }
 }

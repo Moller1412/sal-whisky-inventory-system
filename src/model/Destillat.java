@@ -38,4 +38,12 @@ public class Destillat {
     public ArrayList<Fad> getFade() {
         return fade;
     }
+
+    public double getMaengde() {
+        return maengde;
+    }
+
+    public void setMaengde(double maengde) {
+        this.maengde = maengde;
+    }
 }

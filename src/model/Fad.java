@@ -31,4 +31,12 @@ public class Fad {
     public void setHylde(Hylde hylde) {
         this.hylde = hylde;
     }
+
+    public boolean isErAktiv() {
+        return erAktiv;
+    }
+
+    public double getStørrelse() {
+        return størrelse;
+    }
 }
