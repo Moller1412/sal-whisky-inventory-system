@@ -8,12 +8,12 @@ public class Fad {
     private FadType fadType;
     private Hylde hylde;
 
-    public Fad(int id, double størrelse, boolean erAktiv, FadType fadType, Hylde hylde) {
+    public Fad(int id, double størrelse, boolean erAktiv, FadType fadType) {
         this.id = id;
         this.størrelse = størrelse;
         this.erAktiv = erAktiv;
         this.fadType = fadType;
-        this.hylde = hylde;
+
     }
 
     public Destillat getDestillat(){
