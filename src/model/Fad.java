@@ -6,7 +6,7 @@ import java.time.Period;
 public class Fad {
     private int id;
     private double størrelse;
-    private boolean erAktiv;
+    private boolean erAktiv = false;
     private double literIFad;
     private Destillat destillat;
     private FadType fadType;
@@ -14,10 +14,9 @@ public class Fad {
     private Leverandør leverandør;
     private LocalDate startLagring;
 
-    public Fad(int id, double størrelse, boolean erAktiv, FadType fadType, Leverandør leverandør) {
+    public Fad(int id, double størrelse, FadType fadType, Leverandør leverandør) {
         this.id = id;
         this.størrelse = størrelse;
-        this.erAktiv = erAktiv;
         this.fadType = fadType;
         this.leverandør = leverandør;
         this.literIFad = 0;

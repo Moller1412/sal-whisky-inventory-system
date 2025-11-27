@@ -6,11 +6,11 @@ public class Leverandør {
     private int mobilnummer;
     private Fad fad;
 
-    public Leverandør(String navn, String adresse, int mobilnummer, Fad fad) {
+    public Leverandør(String navn, String adresse, int mobilnummer ) {
         this.navn = navn;
         this.adresse = adresse;
         this.mobilnummer = mobilnummer;
-        this.fad = fad;
+
     }
 
     public Fad getFad() {

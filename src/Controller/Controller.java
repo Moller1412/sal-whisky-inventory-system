@@ -14,8 +14,8 @@ public abstract class Controller {
         Storage.storeDestillat(destillat);
     }
 
-    public static void createFad(int id, double størrelse, boolean erAktiv, FadType fadType, Leverandør leverandør){
-        Fad fad = new Fad(id, størrelse, erAktiv, fadType, leverandør);
+    public static void createFad(int id, double størrelse, FadType fadType, Leverandør leverandør){
+        Fad fad = new Fad(id, størrelse, fadType, leverandør);
         Storage.storeFad(fad);
     }
 
@@ -64,4 +64,14 @@ public abstract class Controller {
     public static ArrayList<Destillat> getDestillater() {
         return Storage.getDestillater();
     }
+
+    public static ArrayList<Leverandør> getLeverandører() {
+        return Storage.getLeverandører();
+    }
+
+    public static ArrayList<Fad> getFade(){
+        return Storage.getFade();
+    }
+
+
 }

@@ -3,10 +3,7 @@ package app;
 import Storage.Storage;
 import gui.Gui;
 import javafx.application.Application;
-import model.Destillering;
-import model.Medarbejder;
-import model.Oprindelse;
-import model.Råvare;
+import model.*;
 
 import java.time.LocalDate;
 
@@ -24,5 +21,8 @@ public class App {
         Medarbejder medarbejder = new Medarbejder(1,"test",123123);
         Destillering destillering = new Destillering(true,1,råvare,medarbejder);
         Storage.storeDestillering(destillering);
+
+        Leverandør leverandør = new Leverandør("John whisky", "test Adresse", 123456789);
+        Storage.storeLeverandører(leverandør);
     }
 }
