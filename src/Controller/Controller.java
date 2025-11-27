@@ -41,8 +41,15 @@ public abstract class Controller {
         hylde.setErOptaget(true);
     }
 
-    public static void addDestillatTilFærdigvare(Destillat destillat, FærdigVare færdigVare){
-
+    public static void addDestillatPåFadTilFærdigvare(Destillat destillat, FærdigVare færdigVare, Fad fad){
+        if(fad.getDestillat() != destillat) throw new IllegalArgumentException("Fadets Destillat matcher ikke med det indtastede destillat");
+       if(fad.erFadKlarTilTapning()){
+           destillat.setFærdigVare(færdigVare);
+           fad.setErAktiv(false);
+           fad.setStartLagring(null);
+       }
+       else
+           throw new IllegalArgumentException("Destillat på fad er ikke klar ");
     }
 
 

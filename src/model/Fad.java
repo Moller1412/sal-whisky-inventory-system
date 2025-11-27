@@ -50,6 +50,10 @@ public class Fad {
         return erAktiv;
     }
 
+    public void setErAktiv(boolean erAktiv) {
+        this.erAktiv = erAktiv;
+    }
+
     public double getStørrelse() {
         return størrelse;
     }
