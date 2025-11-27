@@ -16,15 +16,14 @@ public class Destillat {
     private FærdigVare færdigVare;
 
 
-    public Destillat(int nr, double maengde, double vandPåfyldt, double alkoholProcent,
-                     LocalDate slutDato, Destillering destillering, FærdigVare færdigVare) {
+    public Destillat(int nr, double maengde, double alkoholProcent,
+                     LocalDate slutDato, Destillering destillering) {
         this.nr = nr;
         this.maengde = maengde;
-        this.vandPåfyldt = vandPåfyldt;
         this.alkoholProcent = alkoholProcent;
         this.slutDato = slutDato;
         this.destillering = destillering;
-        this.færdigVare = færdigVare;
+
     }
 
     public void addFad(Fad fad){
@@ -37,6 +36,10 @@ public class Destillat {
 
     public ArrayList<Fad> getFade() {
         return fade;
+    }
+
+    public void setFærdigVare(FærdigVare færdigVare) {
+        this.færdigVare = færdigVare;
     }
 
     public double getMaengde() {
