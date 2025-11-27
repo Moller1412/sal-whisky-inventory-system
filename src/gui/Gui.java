@@ -1,14 +1,10 @@
 package gui;
 
 import javafx.application.Application;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import model.Fad;
 
 public class Gui extends Application {
     public static void main(String[] args) {
@@ -19,10 +15,10 @@ public class Gui extends Application {
     public void start(Stage stage) {
 
         TabPane tabPane = new TabPane();
-        Tab destilleringTab = new Tab("Opret destillering",new DestilleringTab().getContent());
+        Tab destillatTab = new Tab("Opret destillat",new DestillatTab().getContent());
         Tab fadTab = new Tab("opret fad", new FadTab().getContent());
 
-        tabPane.getTabs().addAll(destilleringTab, fadTab);
+        tabPane.getTabs().addAll(destillatTab, fadTab);
 
         stage.setTitle("Sall Whisky");
         GridPane pane = new GridPane();

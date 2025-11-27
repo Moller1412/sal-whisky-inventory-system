@@ -1,6 +1,7 @@
 package Storage;
 
 import model.Destillat;
+import model.Destillering;
 import model.Fad;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 public class Storage {
     private static final ArrayList<Destillat> destillater = new ArrayList<>();
     private static final ArrayList<Fad> fade = new ArrayList<>();
+    private static final ArrayList<Destillering> destilleringer = new ArrayList<>();
 
     public static void storeDestillat(Destillat destillat){
         destillater.add(destillat);
@@ -22,4 +24,13 @@ public class Storage {
     public static ArrayList<Fad> getFade(){
         return fade;
     }
+
+    public static void storeDestillering(Destillering destillering){
+        destilleringer.add(destillering);
+    }
+    public static ArrayList<Destillering> getDestillering(){
+        return destilleringer;
+    }
+
+
 }
