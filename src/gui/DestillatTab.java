@@ -44,7 +44,7 @@ public class DestillatTab {
         pane.add(new Label("%"), 2, 2);
 
         pane.add(new Label("Vælg destillering:"), 0, 3);
-        destilleringListView.getItems().setAll(Storage.getDestillering()); // ændre til at hente gennem controller
+        destilleringListView.getItems().setAll(Controller.getDestillering()); // ændre til at hente gennem controller
         pane.add(destilleringListView,0,4,2,1);
 
         pane.add(new Label("Destillater:"), 2, 3);
@@ -63,6 +63,6 @@ public class DestillatTab {
                 Integer.parseInt(nrTxtF.getText()),Double.parseDouble(mængdeTxtF.getText()),
                 Double.parseDouble(alkoholPrcentTxtf.getText()), destilleringListView.getSelectionModel().getSelectedItem());
 
-        eksisterendeDestillater.getItems().setAll(Storage.getDestillater());
+        eksisterendeDestillater.getItems().setAll(Controller.getDestillater());
     }
 }

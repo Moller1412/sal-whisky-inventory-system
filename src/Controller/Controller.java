@@ -4,6 +4,7 @@ import Storage.Storage;
 import model.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public abstract class Controller {
 
@@ -56,4 +57,11 @@ public abstract class Controller {
     }
 
 
+    public static ArrayList<Destillering> getDestillering() {
+        return Storage.getDestillering();
+    }
+
+    public static ArrayList<Destillat> getDestillater() {
+        return Storage.getDestillater();
+    }
 }
