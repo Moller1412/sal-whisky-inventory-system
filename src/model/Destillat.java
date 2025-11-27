@@ -10,17 +10,32 @@ public class Destillat {
     private double alkoholProcent;
     private LocalDate slutDato;
 
-    //Link til Fad, ArrayList 0..*
-    //Link til Destillering, 1 (Skal med i constructor)
-    //Link til Færdigvare, 1 (Skal med i constructor)
+    //Links
+    private ArrayList<Fad> fade = new ArrayList<>();
+    private Destillering destillering;
+    private FærdigVare færdigVare;
 
 
-    public Destillat(int nr, double maengde, double vandPåfyldt, double alkoholProcent, LocalDate slutDato) {
+    public Destillat(int nr, double maengde, double vandPåfyldt, double alkoholProcent,
+                     LocalDate slutDato, Destillering destillering, FærdigVare færdigVare) {
         this.nr = nr;
         this.maengde = maengde;
         this.vandPåfyldt = vandPåfyldt;
         this.alkoholProcent = alkoholProcent;
         this.slutDato = slutDato;
+        this.destillering = destillering;
+        this.færdigVare = færdigVare;
     }
 
+    public void addFad(Fad fad){
+        fade.add(fad);
+    }
+
+    public void removeFad(Fad fad){
+        fade.remove(fad);
+    }
+
+    public ArrayList<Fad> getFade() {
+        return fade;
+    }
 }
