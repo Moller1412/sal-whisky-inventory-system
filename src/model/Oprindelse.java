@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Oprindelse {
 
     private String mark;
@@ -9,4 +12,5 @@ public class Oprindelse {
         this.mark = mark;
         this.gaard = gaard;
     }
+
 }
