@@ -5,11 +5,15 @@ public class FærdigVare {
     private int pris;
     private int mængde;
 
-    //Link til destillat, 1 (Skal med i constructor)
+    //Link til destillat
+    private Destillat destillat;
 
-    public FærdigVare(String navn, int pris, int mængde) {
+
+    public FærdigVare(String navn, int pris, int mængde, Destillat destillat) {
         this.navn = navn;
         this.pris = pris;
         this.mængde = mængde;
+        this.destillat = destillat;
     }
+
 }
