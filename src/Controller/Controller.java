@@ -30,4 +30,10 @@ public abstract class Controller {
             fad.setDestillat(destillat);
         }
     }
+
+    public static void addFadTilHylde(Fad fad, Hylde hylde){
+        if (hylde.isErOptaget()) throw new IllegalArgumentException("Hylde er optaget ");
+        fad.setHylde(hylde);
+        hylde.setErOptaget(true);
+    }
 }
