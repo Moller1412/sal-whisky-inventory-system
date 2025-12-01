@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
 import java.time.LocalDate;
+import java.util.concurrent.atomic.DoubleAdder;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -51,9 +52,17 @@ class FadTest {
         assertThrows(IllegalArgumentException.class, () -> fad.addVandTilFad(-3));
     }
 
+    Fad fad2 = new Fad(2,200,FadType.Sherry,leverandør);
 
     @Test
-    void getAngelShare(){
+    void getAngelShare01(){
+        fad2.setLiterIFad(100);
+        fad2.setAlkoholProcent(50);
+        fad2.setDestillat(destillat);
+        destillat.setMaengde(200);
+        double resultat = fad2.getAngelShare(80,40);
+
+        assertEquals(20, resultat, 0.0001);
 
     }
 }
