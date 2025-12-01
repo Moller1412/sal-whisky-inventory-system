@@ -52,6 +52,10 @@ public class Destillat {
         return alkoholProcent;
     }
 
+    public int getNr() {
+        return nr;
+    }
+
     @Override
     public String toString() {
         return

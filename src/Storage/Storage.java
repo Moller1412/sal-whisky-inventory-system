@@ -20,6 +20,7 @@ public class Storage {
         return destillater;
     }
 
+
     public static void storeFad(Fad fad){
         fade.add(fad);
     }

@@ -83,7 +83,7 @@ public class Fad {
         return false;
     }
 
-    private double getAngelShare(double nuVærendeMængde, double nyAlkoholProcent){
+    public double getAngelShare(double nuVærendeMængde, double nyAlkoholProcent){
         if(nuVærendeMængde > literIFad || nuVærendeMængde < 0 ) throw new IllegalArgumentException("ugyldig mængde ændret");
         if(nyAlkoholProcent > alkoholProcent || nyAlkoholProcent < 0) throw new IllegalArgumentException("ugyldig alkoholprocent ændret");
         double angelShare = literIFad - nuVærendeMængde;
@@ -93,7 +93,7 @@ public class Fad {
         return angelShare;
     }
 
-    private double addVandTilFad(double literVand){
+    public double addVandTilFad(double literVand){
         double nyMængde = literVand + literIFad;
         if (literVand <= 0) throw new IllegalArgumentException("Denne mængde er ugyldig, " +
                 "indtast venligst et tal større end 0.");
