@@ -6,7 +6,7 @@ import java.time.Period;
 public class Fad {
     private int id;
     private double størrelse;
-    private boolean erAktiv = false;
+    private boolean erAktiv;
     private double literIFad;
     private Destillat destillat;
     private FadType fadType;
@@ -21,7 +21,7 @@ public class Fad {
         this.fadType = fadType;
         this.leverandør = leverandør;
         this.literIFad = 0;
-
+        this.erAktiv = false;
     }
 
     public Destillat getDestillat() {
