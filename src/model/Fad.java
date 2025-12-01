@@ -13,6 +13,7 @@ public class Fad {
     private Hylde hylde;
     private Leverandør leverandør;
     private LocalDate startLagring;
+    private double alkoholProcent;
 
     public Fad(int id, double størrelse, FadType fadType, Leverandør leverandør) {
         this.id = id;
@@ -87,6 +88,10 @@ public class Fad {
         else {
             literIFad = nyMængde;
             destillat.setMaengde(destillat.getMaengde()+literVand);
+
+            double renAlkohol = literIFad * (alkoholProcent / 100);
+            double samletVolume = literIFad + renAlkohol;
+            alkoholProcent = (literVand / samletVolume) * 100;
         }
         return nyMængde;
     }
