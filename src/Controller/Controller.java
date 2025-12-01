@@ -10,6 +10,9 @@ public abstract class Controller {
 
     public static void createDestillat(int nr, double maengde, double alkoholProcent,
                                         Destillering destillering){
+        if (nr <= 0 || maengde <= 0) throw new IllegalArgumentException("Nummer skal være 0 eller over.");
+        if (alkoholProcent < 0 || alkoholProcent > 100) throw new IllegalArgumentException("Alkohol procent skal være mellem 0 og 100.");
+        if (destillering == null) throw new IllegalArgumentException("Destillering må ikke være null.");
         Destillat destillat = new Destillat(nr, maengde, alkoholProcent, destillering);
         Storage.storeDestillat(destillat);
     }
