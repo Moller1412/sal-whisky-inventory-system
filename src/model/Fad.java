@@ -92,6 +92,8 @@ public class Fad {
 
     private double addVandTilFad(double literVand){
         double nyMængde = literVand + literIFad;
+        if (literVand <= 0) throw new IllegalArgumentException("Denne mængde er ugyldig, " +
+                "indtast venligst et tal større end 0.");
         if(nyMængde > størrelse) throw new IllegalArgumentException("Denne mængde kan ikke være i fadet ");
         else {
             destillat.setMaengde(destillat.getMaengde()+literVand);
