@@ -83,8 +83,9 @@ public class Fad {
         return false;
     }
 
-    private double getAngelShare(double nuVærendeMængde){
+    private double getAngelShare(double nuVærendeMængde, double nyAlkoholProcent){
         double angelShare = literIFad - nuVærendeMængde;
+        alkoholProcent = nyAlkoholProcent;
         literIFad = nuVærendeMængde;
         destillat.setMaengde(destillat.getMaengde()-angelShare);
         return angelShare;
