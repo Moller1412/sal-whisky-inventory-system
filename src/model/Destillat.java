@@ -48,6 +48,10 @@ public class Destillat {
         this.maengde = maengde;
     }
 
+    public double getAlkoholProcent() {
+        return alkoholProcent;
+    }
+
     @Override
     public String toString() {
         return

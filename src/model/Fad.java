@@ -68,6 +68,14 @@ public class Fad {
         return størrelse;
     }
 
+    public double getAlkoholProcent() {
+        return alkoholProcent;
+    }
+
+    public void setAlkoholProcent(double alkoholProcent) {
+        this.alkoholProcent = alkoholProcent;
+    }
+
     public boolean erFadKlarTilTapning() {
         if (erAktiv && Period.between(startLagring, LocalDate.now()).getYears() >= 3) {
             return true;
