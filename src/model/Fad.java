@@ -94,12 +94,12 @@ public class Fad {
         double nyMængde = literVand + literIFad;
         if(nyMængde > størrelse) throw new IllegalArgumentException("Denne mængde kan ikke være i fadet ");
         else {
-            literIFad = nyMængde;
             destillat.setMaengde(destillat.getMaengde()+literVand);
 
             double renAlkohol = literIFad * (alkoholProcent / 100);
-            double samletVolume = literIFad + renAlkohol;
-            alkoholProcent = (literVand / samletVolume) * 100;
+            double samletVolume = literIFad + literVand;
+            alkoholProcent = renAlkohol / samletVolume * 100;
+            literIFad = nyMængde;
         }
         return nyMængde;
     }
