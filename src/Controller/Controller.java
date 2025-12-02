@@ -63,6 +63,7 @@ public abstract class Controller {
            fad.setErAktiv(false);
            fad.setStartLagring(null);
            fad.setLiterIFad(0);
+           fad.setHylde(null);
        }
        else
            throw new IllegalArgumentException("Der er ikke gået de minimum 3 år ");
