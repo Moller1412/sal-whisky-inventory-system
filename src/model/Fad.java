@@ -85,7 +85,7 @@ public class Fad {
 
     public double getAngelShare(double nuVærendeMængde, double nyAlkoholProcent){
         if(nuVærendeMængde > literIFad || nuVærendeMængde < 0 ) throw new IllegalArgumentException("ugyldig mængde ændret");
-        if(nyAlkoholProcent > alkoholProcent || nyAlkoholProcent < 0) throw new IllegalArgumentException("ugyldig alkoholprocent ændret");
+        if(nyAlkoholProcent > alkoholProcent || nyAlkoholProcent < 40) throw new IllegalArgumentException("ugyldig alkoholprocent ændret");
         double angelShare = literIFad - nuVærendeMængde;
         alkoholProcent = nyAlkoholProcent;
         literIFad = nuVærendeMængde;
