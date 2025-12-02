@@ -122,4 +122,50 @@ class ControllerTest {
         Controller.addDestillatTilFad(null,destillat);
         assertThrows(IllegalArgumentException.class, () ->Controller.addDestillatTilFad(fad,destillat));
     }
+
+
+
+    @Test
+    void addFadTilHylde01() {
+
+        Fad fad = new Fad(1,200,FadType.Bourbon, leverandør);
+        Hylde hylde = new Hylde(1);
+        hylde.setErOptaget(false);
+
+        Controller.addFadTilHylde(fad, hylde);
+
+        assertEquals(hylde, fad.getHylde(), "Fadet skal stå på den valgte hylde");
+        assertTrue(hylde.isErOptaget(), "Hylden skal være markeret som optaget");
+    }
+
+
+    @Test
+    void addFadTilHylde02() {
+        Fad fad = new Fad(1,200,FadType.Bourbon, leverandør);
+        Hylde hylde = new Hylde(1);
+
+        hylde.setErOptaget(true);
+
+        assertThrows(IllegalArgumentException.class, () -> Controller.addFadTilHylde(fad,hylde));
+    }
+
+    @Test
+    void addFadTilHylde03() {
+
+        Fad fad = null;
+        Hylde hylde = new Hylde(1);
+        hylde.setErOptaget(false);
+
+        IllegalArgumentException ex = assertThrows(
+                IllegalArgumentException.class, () -> Controller.addFadTilHylde(fad, hylde));
+    }
+
+    @Test
+    void addFadTilHylde04() {
+        Fad fad = new Fad(1,200,FadType.Bourbon, leverandør);
+        Hylde hylde = null;
+
+        IllegalArgumentException ex = assertThrows(
+                IllegalArgumentException.class, () -> Controller.addFadTilHylde(fad, hylde));
+    }
 }
