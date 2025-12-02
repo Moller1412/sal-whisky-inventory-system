@@ -57,17 +57,15 @@ public abstract class Controller {
         hylde.setErOptaget(true);
     }
 
-    public static void addDestillatFraFadTilFærdigvare(Destillat destillat, FærdigVare færdigVare, Fad fad){
-        if (destillat == null || færdigVare == null || fad == null) throw new IllegalArgumentException("Destillat, færdigVare og Fad må ikke være null.");
-        if(fad.getDestillat() != destillat) throw new IllegalArgumentException("Fadets Destillat matcher ikke med det indtastede destillat");
+    public static void createFærdigvare(String navn, int pris, int mængde, Fad fad){
        if(fad.erFadKlarTilTapning()){
-           destillat.setFærdigVare(færdigVare);
+          FærdigVare færdigVare = new FærdigVare(navn, pris, mængde, fad);
            fad.setErAktiv(false);
            fad.setStartLagring(null);
            fad.setLiterIFad(0);
        }
        else
-           throw new IllegalArgumentException("Destillat på fad er ikke klar ");
+           throw new IllegalArgumentException("Der er ikke gået de minimum 3 år ");
     }
 
 

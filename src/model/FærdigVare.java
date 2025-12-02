@@ -6,14 +6,14 @@ public class FærdigVare {
     private int mængde;
 
     //Link til destillat
-    private Destillat destillat;
+    private Fad fad;
 
 
-    public FærdigVare(String navn, int pris, int mængde, Destillat destillat) {
+    public FærdigVare(String navn, int pris, int mængde, Fad fad) {
         this.navn = navn;
         this.pris = pris;
         this.mængde = mængde;
-        this.destillat = destillat;
+        this.fad = fad;
     }
 
 }
