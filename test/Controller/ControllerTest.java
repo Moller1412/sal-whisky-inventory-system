@@ -103,9 +103,23 @@ class ControllerTest {
     }
 
     @Test
-    void addDestillatTilFad(){
+    void addDestillatTilFad01(){
         fad.setErAktiv(false);
         Controller.addDestillatTilFad(fad,destillat);
         assertTrue(fad.isErAktiv());
+    }
+
+    @Test
+    void addDestillatTilFad02(){
+        fad.setErAktiv(false);
+        destillat.setMaengde(210);
+        assertThrows(RuntimeException.class, () ->Controller.addDestillatTilFad(fad,destillat));
+    }
+
+    @Test
+    void addDestillatTilFad03(){
+        fad.setErAktiv(false);
+        Controller.addDestillatTilFad(null,destillat);
+        assertThrows(IllegalArgumentException.class, () ->Controller.addDestillatTilFad(fad,destillat));
     }
 }
