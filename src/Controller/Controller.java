@@ -56,6 +56,7 @@ public abstract class Controller {
     }
 
     public static void addDestillatFraFadTilFærdigvare(Destillat destillat, FærdigVare færdigVare, Fad fad){
+        if (destillat == null || færdigVare == null || fad == null) throw new IllegalArgumentException("Destillat, færdigVare og Fad må ikke være null.");
         if(fad.getDestillat() != destillat) throw new IllegalArgumentException("Fadets Destillat matcher ikke med det indtastede destillat");
        if(fad.erFadKlarTilTapning()){
            destillat.setFærdigVare(færdigVare);
