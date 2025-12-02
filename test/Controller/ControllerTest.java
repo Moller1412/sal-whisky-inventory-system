@@ -119,10 +119,20 @@ class ControllerTest {
     @Test
     void addDestillatTilFad03(){
         fad.setErAktiv(false);
-        Controller.addDestillatTilFad(null,destillat);
-        assertThrows(IllegalArgumentException.class, () ->Controller.addDestillatTilFad(fad,destillat));
+        assertThrows(IllegalArgumentException.class, () ->Controller.addDestillatTilFad(null,destillat));
     }
 
+    @Test
+    void addDestillatTilFad04(){
+        fad.setErAktiv(false);
+        assertThrows(IllegalArgumentException.class, () ->Controller.addDestillatTilFad(fad,null));
+    }
+
+    @Test
+    void addDestillatTilFad05(){
+        fad.setErAktiv(true);
+        assertThrows(IllegalArgumentException.class, () ->Controller.addDestillatTilFad(fad,destillat));
+    }
 
 
     @Test
