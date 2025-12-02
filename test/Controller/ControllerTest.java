@@ -15,6 +15,8 @@ class ControllerTest {
     Medarbejder medarbejder = new Medarbejder(1,"test testerson", 123123);
     Destillering destillering = new Destillering(true,1,råvare,medarbejder);
     Leverandør leverandør = new Leverandør("test","test",123123123);
+    Fad fad = new Fad(1,200,FadType.Sherry,leverandør);
+    Destillat destillat = new Destillat(1,200,50,destillering);
 
     @Test
     void createDestillat01() {
@@ -98,5 +100,12 @@ class ControllerTest {
     @Test
     void createFad06(){
         assertThrows(IllegalArgumentException.class, () -> Controller.createFad(2,50,FadType.Bourbon,null));
+    }
+
+    @Test
+    void addDestillatTilFad(){
+        fad.setErAktiv(false);
+        Controller.addDestillatTilFad(fad,destillat);
+        assertTrue(fad.isErAktiv());
     }
 }

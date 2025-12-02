@@ -32,6 +32,7 @@ public abstract class Controller {
         if(destillat.getMaengde() > fad.getStørrelse()){
             double rest = destillat.getMaengde() - fad.getStørrelse();
             fad.setDestillat(destillat);
+            fad.setErAktiv(true);
             destillat.setMaengde(rest); //Skal vi kunne ændre på mængde? Mængde for hele destillatet skal vi bruge på færdigvare.
             destillat.addFad(fad);
             fad.setStartLagring(LocalDate.now());
@@ -45,6 +46,7 @@ public abstract class Controller {
             fad.setStartLagring(LocalDate.now());
             fad.setLiterIFad(destillat.getMaengde());
             fad.setAlkoholProcent(destillat.getAlkoholProcent());
+            fad.setErAktiv(true);
         }
     }
 
