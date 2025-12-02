@@ -27,11 +27,12 @@ public abstract class Controller {
     }
 
     public static void addDestillatTilFad(Fad fad, Destillat destillat){
+        if (fad == null || destillat == null) throw new IllegalArgumentException("Fad og Destillat må ikke være null");
         if(fad.isErAktiv()) throw new IllegalArgumentException("Fadet er fyldt");
         if(destillat.getMaengde() > fad.getStørrelse()){
             double rest = destillat.getMaengde() - fad.getStørrelse();
             fad.setDestillat(destillat);
-            destillat.setMaengde(rest);
+            destillat.setMaengde(rest); //Skal vi kunne ændre på mængde? Mængde for hele destillatet skal vi bruge på færdigvare.
             destillat.addFad(fad);
             fad.setStartLagring(LocalDate.now());
             fad.setLiterIFad(fad.getStørrelse());
@@ -48,6 +49,7 @@ public abstract class Controller {
     }
 
     public static void addFadTilHylde(Fad fad, Hylde hylde){
+        if (fad == null || hylde == null) throw new IllegalArgumentException("Fad og Hylde må ikke være null.");
         if (hylde.isErOptaget()) throw new IllegalArgumentException("Hylde er optaget ");
         fad.setHylde(hylde);
         hylde.setErOptaget(true);
