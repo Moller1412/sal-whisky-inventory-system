@@ -10,7 +10,8 @@ public abstract class Controller {
 
     public static void createDestillat(int nr, double maengde, double alkoholProcent,
                                         Destillering destillering){
-        if (nr <= 0 || maengde <= 0) throw new IllegalArgumentException("Nummer skal være 0 eller over.");
+
+        if (nr <= 0 || maengde <= 0) throw new IllegalArgumentException("Nummer og mængde skal være et positivt tal.");
         if (alkoholProcent < 0 || alkoholProcent > 100) throw new IllegalArgumentException("Alkohol procent skal være mellem 0 og 100.");
         if (destillering == null) throw new IllegalArgumentException("Destillering må ikke være null.");
         Destillat destillat = new Destillat(nr, maengde, alkoholProcent, destillering);
@@ -18,6 +19,9 @@ public abstract class Controller {
     }
 
     public static void createFad(int id, double størrelse, FadType fadType, Leverandør leverandør){
+
+        if (id <= 0 || størrelse <= 0) throw new IllegalArgumentException("Id og størrelse skal være et positivt tal.");
+        if (fadType == null || leverandør == null) throw new IllegalArgumentException("fadType og leverandør må ikke være null.");
         Fad fad = new Fad(id, størrelse, fadType, leverandør);
         Storage.storeFad(fad);
     }
