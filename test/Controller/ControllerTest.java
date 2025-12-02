@@ -14,6 +14,7 @@ class ControllerTest {
     Råvare råvare = new Råvare("test","test",100, LocalDate.of(2025,12,1),oprindelse);
     Medarbejder medarbejder = new Medarbejder(1,"test testerson", 123123);
     Destillering destillering = new Destillering(true,1,råvare,medarbejder);
+    Leverandør leverandør = new Leverandør("test","test",123123123);
 
     @Test
     void createDestillat01() {
@@ -55,5 +56,47 @@ class ControllerTest {
     @Test
     void createDestillat06() {
         assertThrows(IllegalArgumentException.class, () -> Controller.createDestillat(5, 90, 62, null));
+    }
+
+    @Test
+    void createFad01(){
+        int før = Storage.getFade().size();
+
+        Controller.createFad(5,90,FadType.Sherry,leverandør);
+
+        int efter = Storage.getFade().size();
+
+        assertEquals(før + 1, efter);
+    }
+
+    @Test
+    void createFad02(){
+        int før = Storage.getFade().size();
+
+        Controller.createFad(1,1,FadType.Fondillion,leverandør);
+
+        int efter = Storage.getFade().size();
+
+        assertEquals(før + 1, efter);
+    }
+
+    @Test
+    void createFad03(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createFad(-2,80,FadType.Bourbon,leverandør));
+    }
+
+    @Test
+    void createFad04(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createFad(2,-50,FadType.Bourbon,leverandør));
+    }
+
+    @Test
+    void createFad05(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createFad(2,50,null,leverandør));
+    }
+
+    @Test
+    void createFad06(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createFad(2,50,FadType.Bourbon,null));
     }
 }
