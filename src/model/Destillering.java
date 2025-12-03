@@ -1,9 +1,5 @@
 package model;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 public class Destillering {
 
     private boolean erRøget;
@@ -16,6 +12,14 @@ public class Destillering {
         this.antalRåvare = antalRåvare;
         this.råvare = råvare;
         this.medarbejder = medarbejder;
+    }
+
+    public String printInformationFraDestillering(){
+        StringBuilder sb = new StringBuilder();
+        if (erRøget)sb.append("Denne whisky er røget");
+        else sb.append("Denne whisky er ikke røget.");
+
+        return sb.toString();
     }
 
     @Override

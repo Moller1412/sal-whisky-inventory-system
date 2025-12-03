@@ -20,6 +20,14 @@ public class Råvare {
         this.oprindelse = oprindelse;
     }
 
+    public String printInformationFraRåvare(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Råvare navn: ").append(navn);
+        sb.append("\nType: ").append(type);
+
+        return sb.toString();
+    }
+
     @Override
     public String toString() {
         return navn;}
