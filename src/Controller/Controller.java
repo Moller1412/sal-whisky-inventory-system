@@ -65,6 +65,8 @@ public abstract class Controller {
            fad.setLiterIFad(0);
            fad.setHylde(null);
            færdigVare.setDatoForTabning(LocalDate.now());
+           Storage.storeFærdigvare(færdigVare);
+
        }
        else
            throw new IllegalArgumentException("Der er ikke gået de minimum 3 år ");
