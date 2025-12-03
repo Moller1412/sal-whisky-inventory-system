@@ -53,6 +53,13 @@ public class Destillat {
         return nr;
     }
 
+    public String printInformationFraDestillat(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Sall Whisky Destillat Nummer: "); sb.append(nr);
+
+        return sb.toString();
+    }
+
     @Override
     public String toString() {
         return
