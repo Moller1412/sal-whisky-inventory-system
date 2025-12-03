@@ -2,8 +2,11 @@ package gui;
 
 import Controller.Controller;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import model.Fad;
 import model.FadType;
 import model.Leverandør;
@@ -16,6 +19,12 @@ public class FadTab {
     private ListView<Leverandør> leverandørListView = new ListView<>();
     private Button opretFadBtn = new Button("Opret Fad");
     private ListView<Fad> fadListView = new ListView<>();
+    private Button opretLeverandøtBtn = new Button("Opret leverandør");
+    private TextField levNavn = new TextField();
+    private TextField levAdresse = new TextField();
+    private TextField levTLF= new TextField();
+
+    private Stage popup;
 
     public GridPane getContent() {
         GridPane pane = new GridPane();
@@ -47,9 +56,11 @@ public class FadTab {
         fadListView.getItems().setAll(Controller.getFade());
         pane.add(fadListView, 2,4,2,1);
 
-        pane.add(opretFadBtn,0,5);
+        pane.add(opretFadBtn,3,5);
         opretFadBtn.setOnAction(event -> opretFad());
 
+        pane.add(opretLeverandøtBtn,0,5);
+        opretLeverandøtBtn.setOnAction(event -> opretLeverandørPopUp());
 
         return pane;
     }
@@ -60,5 +71,45 @@ public class FadTab {
 
         fadListView.getItems().setAll(Controller.getFade());
     }
+
+    private void opretLeverandørPopUp() {
+        popup = new Stage();
+        popup.setTitle("Opret leverandør");
+
+        Button knap = new Button("Opret leverandør");
+
+        VBox box = new VBox(10);
+        box.setPadding(new Insets(10));
+        box.getChildren().add(new Label("Navn: "));
+        box.getChildren().add(levNavn);
+        box.getChildren().add(new Label("Adresse: "));
+        box.getChildren().add(levAdresse);
+        box.getChildren().add(new Label("TLF: "));
+        box.getChildren().add(levTLF);
+        box.getChildren().add(knap);
+
+        knap.setOnAction(event -> opretLeverandør());
+
+        popup.setScene(new Scene(box, 200, 250));
+        popup.show();
+
+
+    }
+
+    private void opretLeverandør(){
+
+        if (!levNavn.getText().isEmpty() && !levAdresse.getText().isEmpty() && !levTLF.getText().isEmpty()){
+            Controller.createLeverandør(levNavn.getText(),levAdresse.getText(),levTLF.getText());
+            leverandørListView.getItems().setAll(Controller.getLeverandører());
+
+            levTLF.clear();
+            levAdresse.clear();
+            levNavn.clear();
+
+            popup.close();
+        }
+
+    }
+
 
 }
