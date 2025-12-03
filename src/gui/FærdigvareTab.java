@@ -38,7 +38,7 @@ public class FærdigvareTab implements Updatable{
         pane.add(færdigvareListView, 3,4,2,1);
 
         pane.add(new Label("Vælg fad:"), 0,3,2,1);
-        fadListView.getItems().setAll(Controller.getFade());
+        fadListView.getItems().setAll(Controller.fadeDerErKlarTilFærdigvare());
         pane.add(fadListView,0,4,2,1);
 
         pane.add(opretFærdigvareBtn,0,5);
@@ -52,14 +52,13 @@ public class FærdigvareTab implements Updatable{
        Controller.createFærdigvare(navn.getText(),Integer.parseInt(pris.getText()),
                fadListView.getSelectionModel().getSelectedItem());
 
-       færdigvareListView.getItems().setAll(Controller.getFærdigvare());
-
+       update();
     }
 
 
     @Override
     public void update() {
-        fadListView.getItems().setAll(Controller.getFade());
+        fadListView.getItems().setAll(Controller.fadeDerErKlarTilFærdigvare());
         færdigvareListView.getItems().setAll(Controller.getFærdigvare());
 
     }
