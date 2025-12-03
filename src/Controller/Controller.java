@@ -38,7 +38,7 @@ public abstract class Controller {
             fad.setStartLagring(LocalDate.now());
             fad.setLiterIFad(fad.getStørrelse());
             fad.setAlkoholProcent(destillat.getAlkoholProcent());
-            throw new RuntimeException("Der er " + rest + " liter destillat til overs");
+            System.out.println("Der er " + rest + " Til overs");
         }
         else {
             fad.setDestillat(destillat);
