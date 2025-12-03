@@ -33,7 +33,7 @@ public abstract class Controller {
             double rest = destillat.getMaengde() - fad.getStørrelse();
             fad.setDestillat(destillat);
             fad.setErAktiv(true);
-            destillat.setMaengde(rest); //Skal vi kunne ændre på mængde? Mængde for hele destillatet skal vi bruge på færdigvare.
+            destillat.setMaengde(rest);
             destillat.addFad(fad);
             fad.setStartLagring(LocalDate.now());
             fad.setLiterIFad(fad.getStørrelse());
@@ -67,6 +67,11 @@ public abstract class Controller {
        }
        else
            throw new IllegalArgumentException("Der er ikke gået de minimum 3 år ");
+    }
+
+    public static void createLeverandør(String navn, String adresse, String tlf){
+        Leverandør leverandør = new Leverandør(navn, adresse, tlf);
+        Storage.storeLeverandører(leverandør);
     }
 
 
