@@ -11,6 +11,14 @@ public class Leverandør {
         this.mobilnummer = mobilnummer;
     }
 
+    public String printInformationOmLeverandør(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Information om Leverandør");
+        sb.append("\nNavn"); sb.append(navn);
+        sb.append("\nAdresse"); sb.append(adresse);
+        return sb.toString();
+    }
+
     @Override
     public String toString() {
         return  "NAVN: " + navn  +
