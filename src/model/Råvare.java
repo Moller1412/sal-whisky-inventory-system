@@ -24,8 +24,14 @@ public class Råvare {
         StringBuilder sb = new StringBuilder();
         sb.append("Råvare navn: ").append(navn);
         sb.append("\nType: ").append(type);
+        sb.append("\n");
+        sb.append(oprindelse.printInformationFraOprindelse());
 
         return sb.toString();
+    }
+
+    public Oprindelse getOprindelse() {
+        return oprindelse;
     }
 
     @Override

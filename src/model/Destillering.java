@@ -18,8 +18,14 @@ public class Destillering {
         StringBuilder sb = new StringBuilder();
         if (erRøget)sb.append("Denne whisky er røget");
         else sb.append("Denne whisky er ikke røget.");
+        sb.append("\n");
+        sb.append(printInformationFraDestillering());
 
         return sb.toString();
+    }
+
+    public Råvare getRåvare() {
+        return råvare;
     }
 
     @Override

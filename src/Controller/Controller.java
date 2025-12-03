@@ -75,7 +75,9 @@ public abstract class Controller {
         Storage.storeLeverandører(leverandør);
     }
 
-
+    public static void printHistorie(FærdigVare færdigVare){
+        System.out.println(færdigVare.printInformationFraFærdigvare());
+    }
 
     public static ArrayList<Destillering> getDestillering() {
         return Storage.getDestillering();

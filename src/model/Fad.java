@@ -76,6 +76,10 @@ public class Fad {
         this.alkoholProcent = alkoholProcent;
     }
 
+    public Leverandør getLeverandør() {
+        return leverandør;
+    }
+
     public boolean erFadKlarTilTapning() {
         if (erAktiv && Period.between(startLagring, LocalDate.now()).getYears() >= 3) {
             return true;
@@ -114,6 +118,11 @@ public class Fad {
         sb.append("Information om fad ");
         sb.append("\nId "); sb.append(id);
         sb.append("\nFad type "); sb.append(fadType);
+        sb.append("\n");
+        sb.append(leverandør.printInformationOmLeverandør());
+        sb.append("\n");
+        sb.append(destillat.printInformationFraDestillat());
+
         return sb.toString();
     }
 

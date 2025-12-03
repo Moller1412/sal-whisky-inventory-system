@@ -53,9 +53,15 @@ public class Destillat {
         return nr;
     }
 
+    public Destillering getDestillering() {
+        return destillering;
+    }
+
     public String printInformationFraDestillat(){
         StringBuilder sb = new StringBuilder();
         sb.append("Sall Whisky Destillat Nummer: "); sb.append(nr);
+        sb.append("\n");
+        sb.append(destillering.printInformationFraDestillering());
 
         return sb.toString();
     }

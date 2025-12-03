@@ -35,6 +35,8 @@ public class FærdigVare {
         sb.append("\nResterende mængde "); sb.append(restVærdi);
         sb.append("\nAlkohol procent "); sb.append(fad.getAlkoholProcent());
         sb.append("\nAntal år på fad "); sb.append(Period.between(fad.getStartLagring(), LocalDate.ofEpochDay(datoForTabning.getYear())));
+        sb.append("\n");
+        sb.append(fad.printInformationOmFad());
         return sb.toString();
     }
 
