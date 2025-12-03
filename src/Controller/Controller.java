@@ -57,13 +57,14 @@ public abstract class Controller {
         hylde.setErOptaget(true);
     }
 
-    public static void createFærdigvare(String navn, int pris, int mængde, Fad fad){
+    public static void createFærdigvare(String navn, int pris, Fad fad){
        if(fad.erFadKlarTilTapning()){
-          FærdigVare færdigVare = new FærdigVare(navn, pris, mængde, fad);
+          FærdigVare færdigVare = new FærdigVare(navn, pris, fad);
            fad.setErAktiv(false);
            fad.setStartLagring(null);
            fad.setLiterIFad(0);
            fad.setHylde(null);
+           færdigVare.setDatoForTabning(LocalDate.now());
        }
        else
            throw new IllegalArgumentException("Der er ikke gået de minimum 3 år ");
@@ -73,6 +74,7 @@ public abstract class Controller {
         Leverandør leverandør = new Leverandør(navn, adresse, tlf);
         Storage.storeLeverandører(leverandør);
     }
+
 
 
     public static ArrayList<Destillering> getDestillering() {
@@ -90,6 +92,9 @@ public abstract class Controller {
     public static ArrayList<Fad> getFade(){
         return Storage.getFade();
     }
+
+    public static ArrayList<FærdigVare> getFærdigvare(){
+        return Storage.getFærdigvarer();}
 
 
 }

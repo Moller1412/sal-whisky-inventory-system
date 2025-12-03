@@ -109,6 +109,13 @@ public class Fad {
         return nyMængde;
     }
 
+    public String printInformationOmFad(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Information om fad ");
+        sb.append("Nr "); sb.append(id);
+
+    }
+
     @Override
     public String toString() {
         return "ID: " + id +
