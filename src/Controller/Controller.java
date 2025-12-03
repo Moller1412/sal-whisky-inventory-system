@@ -60,12 +60,12 @@ public abstract class Controller {
     public static void createFærdigvare(String navn, int pris, Fad fad){
        if(fad.erFadKlarTilTapning()){
           FærdigVare færdigVare = new FærdigVare(navn, pris, fad);
+           færdigVare.setDatoForTabning(LocalDate.now());
+           Storage.storeFærdigvare(færdigVare);
            fad.setErAktiv(false);
            fad.setStartLagring(null);
            fad.setLiterIFad(0);
            fad.setHylde(null);
-           færdigVare.setDatoForTabning(LocalDate.now());
-           Storage.storeFærdigvare(færdigVare);
 
        }
        else
