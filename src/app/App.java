@@ -22,6 +22,7 @@ public class App {
         Destillering destillering = new Destillering(true,1,råvare,medarbejder);
         Storage.storeDestillering(destillering);
 
+
         Leverandør leverandør = new Leverandør("John whisky", "test Adresse", "123456789");
         Storage.storeLeverandører(leverandør);
     }

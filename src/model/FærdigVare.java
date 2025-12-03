@@ -19,6 +19,11 @@ public class FærdigVare {
     }
 
     public double udregnAntalFlaskerFraFærdigvare(){
+        if (fad.getLiterIFad() <= 0)throw new IllegalArgumentException("Fadet er tom");
+        if (mængde <= 0)throw new IllegalArgumentException("Mængden på flasker er 0. Ikke muligt at fylde op.");
+        if (fad.getLiterIFad() < mængde){
+            System.out.println("Ikke nok whisky i fadet til at fylde flasker op.");
+        }
         double antalFlaskerTilgængelig = fad.getLiterIFad() /  mængde;
         double rest = antalFlaskerTilgængelig * mængde - fad.getLiterIFad();
         restVærdi = rest;
