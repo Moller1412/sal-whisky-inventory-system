@@ -12,7 +12,7 @@ public class Destillat {
     //Links
     private ArrayList<Fad> fade = new ArrayList<>();
     private Destillering destillering;
-    private FærdigVare færdigVare;
+
 
 
     public Destillat(int nr, double maengde, double alkoholProcent,
@@ -36,9 +36,6 @@ public class Destillat {
         return fade;
     }
 
-    public void setFærdigVare(FærdigVare færdigVare) {
-        this.færdigVare = færdigVare;
-    }
 
     public double getMaengde() {
         return maengde;
