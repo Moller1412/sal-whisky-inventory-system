@@ -112,8 +112,9 @@ public class Fad {
     public String printInformationOmFad(){
         StringBuilder sb = new StringBuilder();
         sb.append("Information om fad ");
-        sb.append("Nr "); sb.append(id);
-
+        sb.append("\nId "); sb.append(id);
+        sb.append("\nFad type "); sb.append(fadType);
+        return sb.toString();
     }
 
     @Override

@@ -25,16 +25,17 @@ public class FærdigVare {
         return antalFlaskerTilgængelig;
     }
 
-    public void printInformationFraFærdigvare(){
+    public String printInformationFraFærdigvare(){
         StringBuilder sb = new StringBuilder();
         sb.append("Information om færdigvaren");
-        sb.append("Navn ");  sb.append(navn);
-        sb.append("Pris pr flaske ");  sb.append(pris);
-        sb.append("Størrelse på flaske "); sb.append(mængde);
-        sb.append("antal flasker "); sb.append(udregnAntalFlaskerFraFærdigvare());
-        sb.append("Resterende mængde "); sb.append(restVærdi);
-        sb.append("Alkohol procent "); sb.append(fad.getAlkoholProcent());
-        sb.append("Antal år på fad "); sb.append(Period.between(fad.getStartLagring(), LocalDate.ofEpochDay(datoForTabning.getYear())));
+        sb.append("\n Navn ");  sb.append(navn);
+        sb.append("\nPris pr flaske ");  sb.append(pris);
+        sb.append("\nStørrelse på flaske "); sb.append(mængde);
+        sb.append("\nantal flasker "); sb.append(udregnAntalFlaskerFraFærdigvare());
+        sb.append("\nResterende mængde "); sb.append(restVærdi);
+        sb.append("\nAlkohol procent "); sb.append(fad.getAlkoholProcent());
+        sb.append("\nAntal år på fad "); sb.append(Period.between(fad.getStartLagring(), LocalDate.ofEpochDay(datoForTabning.getYear())));
+        return sb.toString();
     }
 
     public String getNavn() {
