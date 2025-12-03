@@ -1,5 +1,6 @@
 package app;
 
+import Controller.Controller;
 import Storage.Storage;
 import gui.Gui;
 import javafx.application.Application;
@@ -25,5 +26,14 @@ public class App {
 
         Leverandør leverandør = new Leverandør("John whisky", "test Adresse", "123456789");
         Storage.storeLeverandører(leverandør);
+
+        Destillat destillat = new Destillat(1,200,50,destillering);
+        Fad fad = new Fad(1,500,FadType.Sherry,leverandør);
+        Controller.addDestillatTilFad(fad,destillat);
+        fad.setStartLagring(LocalDate.of(2020,12,1));
+
+
+        Storage.storeFad(fad);
+
     }
 }
