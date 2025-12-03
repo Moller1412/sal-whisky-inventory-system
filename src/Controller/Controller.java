@@ -72,6 +72,16 @@ public abstract class Controller {
            throw new IllegalArgumentException("Der er ikke gået de minimum 3 år ");
     }
 
+    public static ArrayList<Fad> fadeDerErKlarTilFærdigvare(){
+        ArrayList<Fad> fadeKlarTilTap = new ArrayList<>();
+        for (Fad f : Storage.getFade()) {
+            if(f.erFadKlarTilTapning()){
+                fadeKlarTilTap.add(f);
+            }
+        }
+        return fadeKlarTilTap;
+    }
+
     public static void createLeverandør(String navn, String adresse, String tlf){
         Leverandør leverandør = new Leverandør(navn, adresse, tlf);
         Storage.storeLeverandører(leverandør);
