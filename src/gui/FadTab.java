@@ -19,7 +19,7 @@ public class FadTab {
     private ListView<Leverandør> leverandørListView = new ListView<>();
     private Button opretFadBtn = new Button("Opret Fad");
     private ListView<Fad> fadListView = new ListView<>();
-    private Button opretLeverandøtBtn = new Button("Opret leverandør");
+    private Button opretLeverandørBtn = new Button("Opret leverandør");
     private TextField levNavn = new TextField();
     private TextField levAdresse = new TextField();
     private TextField levTLF= new TextField();
@@ -59,8 +59,8 @@ public class FadTab {
         pane.add(opretFadBtn,3,5);
         opretFadBtn.setOnAction(event -> opretFad());
 
-        pane.add(opretLeverandøtBtn,0,5);
-        opretLeverandøtBtn.setOnAction(event -> opretLeverandørPopUp());
+        pane.add(opretLeverandørBtn,0,5);
+        opretLeverandørBtn.setOnAction(event -> opretLeverandørPopUp());
 
         return pane;
     }
