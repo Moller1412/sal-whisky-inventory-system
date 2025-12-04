@@ -242,6 +242,21 @@ class ControllerTest {
 
     @Test
     void createLeverandør03(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createLeverandør("","adresse 12","12345678"));
+        assertThrows(IllegalArgumentException.class, () -> Controller.createLeverandør("Sall whisky","adresse 12","12345678"));
+    }
+
+    @Test
+    void createLeverandør04(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createLeverandør("Sall whisky",null,"12345678"));
+    }
+
+    @Test
+    void createLeverandør05(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createLeverandør("Sall whisky","adresse 12",null));
+    }
+
+    @Test
+    void createLeverandør06(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createLeverandør("Sall whisky","","12345678"));
     }
 }
