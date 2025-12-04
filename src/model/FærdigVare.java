@@ -24,8 +24,8 @@ public class FærdigVare {
         if (fad.getLiterIFad() < mængde){
             System.out.println("Ikke nok whisky i fadet til at fylde flasker op.");
         }
-        double antalFlaskerTilgængelig = fad.getLiterIFad() /  mængde;
-        double rest = antalFlaskerTilgængelig * mængde - fad.getLiterIFad();
+        double antalFlaskerTilgængelig = Math.floor(fad.getLiterIFad()/mængde);
+        double rest = fad.getLiterIFad() - (antalFlaskerTilgængelig * mængde);
         restVærdi = rest;
         return antalFlaskerTilgængelig;
     }
