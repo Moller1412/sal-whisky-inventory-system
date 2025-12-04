@@ -2,12 +2,14 @@ package model;
 
 public class Destillering {
 
+    private int nr;
     private boolean erRøget;
     private int antalRåvare;
     private Råvare råvare;
     private Medarbejder medarbejder;
 
-    public Destillering( boolean erRøget, int antalRåvare, Råvare råvare, Medarbejder medarbejder) {
+    public Destillering( int nr, boolean erRøget, int antalRåvare, Råvare råvare, Medarbejder medarbejder) {
+        this.nr = nr;
         this.erRøget = erRøget;
         this.antalRåvare = antalRåvare;
         this.råvare = råvare;
@@ -16,8 +18,9 @@ public class Destillering {
 
     public String printInformationFraDestillering(){
         StringBuilder sb = new StringBuilder();
-        if (erRøget)sb.append("Denne whisky er røget");
-        else sb.append("Denne whisky er ikke røget.");
+        sb.append("Destillering nummmer:" ).append(nr);
+        if (erRøget)sb.append("\nDenne whisky er røget");
+        else sb.append("\nDenne whisky er ikke røget.");
         sb.append("\n");
         sb.append(printInformationFraDestillering());
 
@@ -31,7 +34,7 @@ public class Destillering {
     @Override
     public String toString() {
         return
-                "RÅVARE: " + råvare + ", RØGET: " + erRøget +
+                "NR: " + nr + "RÅVARE: " + råvare + ", RØGET: " + erRøget +
                 ", ANTAL RÅVARE: " + antalRåvare +
                 ", MEDARBEJDER: " + medarbejder;
     }
