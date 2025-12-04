@@ -20,7 +20,7 @@ public class App {
         Oprindelse oprindelse = new Oprindelse("markTest", "gaardTest");
         Råvare råvare = new Råvare("test","test",5, LocalDate.of(2025, 1, 1),oprindelse);
         Medarbejder medarbejder = new Medarbejder(1,"test",123123);
-        Destillering destillering = new Destillering(true,1,råvare,medarbejder);
+        Destillering destillering = new Destillering(1,true,100,råvare,medarbejder);
         Storage.storeDestillering(destillering);
 
 

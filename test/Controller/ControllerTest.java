@@ -14,7 +14,7 @@ class ControllerTest {
     Oprindelse oprindelse = new Oprindelse("gaard", "mark");
     Råvare råvare = new Råvare("test","test",100, LocalDate.of(2025,12,1),oprindelse);
     Medarbejder medarbejder = new Medarbejder(1,"test testerson", 123123);
-    Destillering destillering = new Destillering(true,1,råvare,medarbejder);
+    Destillering destillering = new Destillering(1,true,100,råvare,medarbejder);
     Leverandør leverandør = new Leverandør("test","test","123123123");
     Fad fad = new Fad(1,200,FadType.Sherry,leverandør);
     Destillat destillat = new Destillat(1,200,50,destillering);
@@ -238,5 +238,10 @@ class ControllerTest {
     @Test
     void createLeverandør02(){
         assertThrows(IllegalArgumentException.class, () -> Controller.createLeverandør(null,"adresse 12","12345678"));
+    }
+
+    @Test
+    void createLeverandør03(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createLeverandør("","adresse 12","12345678"));
     }
 }

@@ -86,13 +86,13 @@ public abstract class Controller {
     }
 
     public static void createLeverandør(String navn, String adresse, String tlf){
-        if (navn == null ){
+        if (navn == null || navn.equals("")){
             throw new IllegalArgumentException("leverandør mangler gyldigt navn");
         }
-        if (adresse == null){
+        if (adresse == null || adresse.equals("")){
             throw new IllegalArgumentException("leverandør mangler gyldigt adresse");
         }
-        if (tlf == null){
+        if (tlf == null || tlf.equals("")){
             throw new IllegalArgumentException("leverandør mangler gyldigt tlf");
         }
         Leverandør leverandør = new Leverandør(navn, adresse, tlf);
