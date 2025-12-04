@@ -20,6 +20,10 @@ public class Råvare {
         this.oprindelse = oprindelse;
     }
 
+    public void setMængde(int mængde) {
+        this.mængde = mængde;
+    }
+
     public String printInformationFraRåvare(){
         StringBuilder sb = new StringBuilder();
         sb.append("Råvare navn: ").append(navn);
@@ -28,6 +32,10 @@ public class Råvare {
         sb.append(oprindelse.printInformationFraOprindelse());
 
         return sb.toString();
+    }
+
+    public int getMængde() {
+        return mængde;
     }
 
     public Oprindelse getOprindelse() {

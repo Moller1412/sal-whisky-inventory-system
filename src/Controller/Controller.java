@@ -100,13 +100,30 @@ public abstract class Controller {
     }
 
     public static void createDestillering(int nr, boolean erRøget, int antalRåvare, Råvare råvare, Medarbejder medarbejder){
+        if (råvare.getMængde() - antalRåvare < 0)throw new IllegalArgumentException("Ikke nok råvare på lager " +
+                "til at oprette destillering.");
+
         Destillering destillering = new Destillering(nr, erRøget, antalRåvare, råvare, medarbejder);
+        medarbejder.addDestillering(destillering);
+
+        int mængde = råvare.getMængde() - antalRåvare;
+        råvare.setMængde(mængde);
         Storage.storeDestillering(destillering);
     }
 
     public static void createMedarbejder(int medarbejderNr, String navn, int tlf){
         Medarbejder medarbejder = new Medarbejder(medarbejderNr, navn, tlf);
         Storage.storeMedarbejder(medarbejder);
+    }
+
+    public static void createRåvare(String navn, String type, int mængde, LocalDate høstDato, Oprindelse oprindelse){
+        Råvare råvare = new Råvare(navn, type, mængde, høstDato, oprindelse);
+        Storage.storeRåvarer(råvare);
+    }
+
+    public static void createOprindelse(String mark, String gaard){
+        Oprindelse oprindelse = new Oprindelse(mark, gaard);
+        Storage.storeOprindelse(oprindelse);
     }
 
     public static void printHistorie(FærdigVare færdigVare){
