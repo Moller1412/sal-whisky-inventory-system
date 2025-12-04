@@ -122,13 +122,18 @@ public abstract class Controller {
 
     public static void createMedarbejder(int medarbejderNr, String navn, String tlf){
         if (medarbejderNr <= 0)throw new IllegalArgumentException("medarbejderNr må ikke være 0 eller under.");
-        if (navn.isEmpty() || tlf.isEmpty())throw new IllegalArgumentException("Navn og tlf må ikke stå tomt");
+        if (navn.isBlank() || tlf.isBlank())throw new IllegalArgumentException("Navn og tlf må ikke stå tomt");
 
         Medarbejder medarbejder = new Medarbejder(medarbejderNr, navn, tlf);
         Storage.storeMedarbejder(medarbejder);
     }
 
     public static void createRåvare(String navn, String type, int mængde, LocalDate høstDato, Oprindelse oprindelse){
+        if (navn.isBlank() || type.isBlank())throw new IllegalArgumentException("navn og type må ikke være tomt.");
+        if (mængde <= 0)throw new IllegalArgumentException("mængde må ikke være 0 eller under.");
+        if (!høstDato.isBefore(LocalDate.now().plusDays(1)))throw new IllegalArgumentException("høstDato skal være senest datoen i dag.");
+        if (oprindelse == null)throw new IllegalArgumentException("oprindelse må ikke være null.");
+
         Råvare råvare = new Råvare(navn, type, mængde, høstDato, oprindelse);
         Storage.storeRåvarer(råvare);
     }
