@@ -12,7 +12,7 @@ class FærdigVareTest {
 
     Oprindelse oprindelse = new Oprindelse("gaard", "mark");
     Råvare råvare = new Råvare("test","test",100, LocalDate.of(2025,12,1),oprindelse);
-    Medarbejder medarbejder = new Medarbejder(1,"test testerson", 123123);
+    Medarbejder medarbejder = new Medarbejder(1,"test testerson", "123123");
     Destillering destillering = new Destillering(1,true,1,råvare,medarbejder);
     Leverandør leverandør = new Leverandør("test","test","123123123");
     Fad fad = new Fad(1,200,FadType.Sherry,leverandør);

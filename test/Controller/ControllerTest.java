@@ -13,7 +13,7 @@ class ControllerTest {
 
     Oprindelse oprindelse = new Oprindelse("gaard", "mark");
     Råvare råvare = new Råvare("test","test",100, LocalDate.of(2025,12,1),oprindelse);
-    Medarbejder medarbejder = new Medarbejder(1,"test testerson", 123123);
+    Medarbejder medarbejder = new Medarbejder(1,"test testerson", "123123");
     Destillering destillering = new Destillering(1,true,100,råvare,medarbejder);
     Leverandør leverandør = new Leverandør("test","test","123123123");
     Fad fad = new Fad(1,200,FadType.Sherry,leverandør);
@@ -285,10 +285,51 @@ class ControllerTest {
 
     @Test
     void createDestillering02(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createDestillering(0,false,101,råvare,medarbejder));
+        assertThrows(IllegalArgumentException.class, () -> Controller.createDestillering(0,false,50,råvare,medarbejder));
     }
 
+    @Test
+    void createDestillering03(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createDestillering(-1,false,101,råvare,medarbejder));
+    }
+
+    @Test
+    void createDestillering04(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createDestillering(1,false,0,råvare,medarbejder));
+    }
+
+    @Test
+    void createDestillering05(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createDestillering(1,false,-30,råvare,medarbejder));
+    }
+
+    @Test
+    void createDestillering07(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createDestillering(1,false,-30,null,medarbejder));
+    }
+
+    @Test
+    void createDestillering08(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createDestillering(1,false,-30,råvare, null));
+    }
+
+    @Test
+    void createDestillering09(){
+
+        int før = Storage.getDestillering().size();
+
+        råvare.setMængde(1);
+        Controller.createDestillering(1,false,1,råvare,medarbejder);
 
 
+        int efter = Storage.getDestillering().size();
+
+        assertEquals(før + 1, efter);
+    }
+
+    @Test
+    void createDestillering10(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createDestillering(1,false,150,råvare, medarbejder));
+    }
 
 }

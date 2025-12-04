@@ -15,7 +15,7 @@ class FadTest {
     Fad fad = new Fad(1,90.0,FadType.Sherry,leverandør);
     Oprindelse oprindelse = new Oprindelse("gaard", "mark");
     Råvare råvare = new Råvare("test","test",100, LocalDate.of(2025,12,1),oprindelse);
-    Medarbejder medarbejder = new Medarbejder(1,"test testerson", 123123);
+    Medarbejder medarbejder = new Medarbejder(1,"test testerson", "123123");
     Destillering destillering = new Destillering(1,true,100,råvare,medarbejder);
     Destillat destillat = new Destillat(1,0,0,destillering);
     Fad fad2 = new Fad(2,200,FadType.Sherry,leverandør);

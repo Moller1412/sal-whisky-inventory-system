@@ -101,16 +101,20 @@ public abstract class Controller {
     }
 
     public static void createDestillering(int nr, boolean erRøget, int antalRåvare, Råvare råvare, Medarbejder medarbejder){
-        if (råvare.getMængde() - antalRåvare < 0)throw new IllegalArgumentException("Ikke nok råvare på lager " +
-                "til at oprette destillering.");
+        if (råvare == null)
+            throw new IllegalArgumentException("Råvare kan ikke være null");
 
-        if (medarbejder.equals(null)){
+        if (medarbejder == null)
             throw new IllegalArgumentException("Medarbejder kan ikke være null");
-        }
 
-        if (nr < 1){
+        if (nr < 1)
             throw new IllegalArgumentException("nr må ikke være mindre end 0");
-        }
+
+        if (antalRåvare < 1)
+            throw new IllegalArgumentException("Antal råvare må ikke være mindre end 1");
+
+        if (råvare.getMængde() - antalRåvare < 0)
+            throw new IllegalArgumentException("Ikke nok råvare på lager til at oprette destillering.");
 
         Destillering destillering = new Destillering(nr, erRøget, antalRåvare, råvare, medarbejder);
         medarbejder.addDestillering(destillering);
