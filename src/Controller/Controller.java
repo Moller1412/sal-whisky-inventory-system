@@ -150,5 +150,16 @@ public abstract class Controller {
     public static ArrayList<FærdigVare> getFærdigvare(){
         return Storage.getFærdigvarer();}
 
+    public static ArrayList<Råvare> getRåvare(){
+        return Storage.getRåvarer();
+    }
+
+    public static ArrayList<Medarbejder> getMedarbejder(){
+        return Storage.getMedarbejdere();
+    }
+
+    public static ArrayList<Oprindelse> oprindelser(){
+        return Storage.getOprindelser();
+    }
 
 }
