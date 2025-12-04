@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FadTest {
 
-    Leverandør leverandør = new Leverandør("test", "test", 123456789);
+    Leverandør leverandør = new Leverandør("test", "test", "123456789");
     Fad fad = new Fad(1,90.0,FadType.Sherry,leverandør);
     Oprindelse oprindelse = new Oprindelse("gaard", "mark");
     Råvare råvare = new Råvare("test","test",100, LocalDate.of(2025,12,1),oprindelse);

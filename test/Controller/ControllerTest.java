@@ -4,6 +4,7 @@ import Storage.Storage;
 import model.*;
 import org.junit.jupiter.api.Test;
 
+import javax.naming.ldap.Control;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,7 +15,7 @@ class ControllerTest {
     Råvare råvare = new Råvare("test","test",100, LocalDate.of(2025,12,1),oprindelse);
     Medarbejder medarbejder = new Medarbejder(1,"test testerson", 123123);
     Destillering destillering = new Destillering(true,1,råvare,medarbejder);
-    Leverandør leverandør = new Leverandør("test","test",123123123);
+    Leverandør leverandør = new Leverandør("test","test","123123123");
     Fad fad = new Fad(1,200,FadType.Sherry,leverandør);
     Destillat destillat = new Destillat(1,200,50,destillering);
 
@@ -177,5 +178,48 @@ class ControllerTest {
 
         IllegalArgumentException ex = assertThrows(
                 IllegalArgumentException.class, () -> Controller.addFadTilHylde(fad, hylde));
+    }
+
+    @Test
+    void createFærdigvare01(){
+        int før = Storage.getFærdigvarer().size();
+
+        fad.setStartLagring(LocalDate.of(2020,12,1));
+        fad.setErAktiv(true);
+        Controller.createFærdigvare("GLØD 3.2",749,fad);
+
+
+        int efter = Storage.getFærdigvarer().size();
+
+        assertEquals(før + 1, efter);
+    }
+
+    @Test
+    void createFærdigvare02(){
+        int før = Storage.getFærdigvarer().size();
+
+        fad.setStartLagring(LocalDate.of(2020,12,1));
+        fad.setErAktiv(true);
+        Controller.createFærdigvare("GLØD 3.2",0,fad);
+
+
+        int efter = Storage.getFærdigvarer().size();
+
+        assertEquals(før + 1, efter);
+    }
+
+    @Test
+    void createFærdigvare03(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createFærdigvare("",749,fad));
+    }
+
+    @Test
+    void createFærdigvare04(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createFærdigvare("GLØD 3.2",-1,fad));
+    }
+
+    @Test
+    void createFærdigvare05(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createFærdigvare("GLØD 3.2",749,null));
     }
 }

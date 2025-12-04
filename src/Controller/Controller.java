@@ -58,6 +58,9 @@ public abstract class Controller {
     }
 
     public static void createFærdigvare(String navn, int pris, Fad fad){
+        if (fad == null){
+            throw new IllegalArgumentException("Fadet kan ikke være null");
+        }
        if(fad.erFadKlarTilTapning()){
           FærdigVare færdigVare = new FærdigVare(navn, pris, fad);
            færdigVare.setDatoForTabning(LocalDate.now());
