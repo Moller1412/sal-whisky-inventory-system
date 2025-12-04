@@ -121,6 +121,9 @@ public abstract class Controller {
     }
 
     public static void createMedarbejder(int medarbejderNr, String navn, String tlf){
+        if (medarbejderNr <= 0)throw new IllegalArgumentException("medarbejderNr må ikke være 0 eller under.");
+        if (navn.isEmpty() || tlf.isEmpty())throw new IllegalArgumentException("Navn og tlf må ikke stå tomt");
+
         Medarbejder medarbejder = new Medarbejder(medarbejderNr, navn, tlf);
         Storage.storeMedarbejder(medarbejder);
     }
