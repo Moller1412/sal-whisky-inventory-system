@@ -104,6 +104,14 @@ public abstract class Controller {
         if (råvare.getMængde() - antalRåvare < 0)throw new IllegalArgumentException("Ikke nok råvare på lager " +
                 "til at oprette destillering.");
 
+        if (medarbejder.equals(null)){
+            throw new IllegalArgumentException("Medarbejder kan ikke være null");
+        }
+
+        if (nr < 1){
+            throw new IllegalArgumentException("nr må ikke være mindre end 0");
+        }
+
         Destillering destillering = new Destillering(nr, erRøget, antalRåvare, råvare, medarbejder);
         medarbejder.addDestillering(destillering);
 

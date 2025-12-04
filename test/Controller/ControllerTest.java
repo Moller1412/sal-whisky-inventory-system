@@ -270,4 +270,25 @@ class ControllerTest {
     void createLeverandør08(){
         assertThrows(IllegalArgumentException.class, () -> Controller.createLeverandør("Sall whisky","adresse 12","abcdefgh"));
     }
+
+    @Test
+    void createDestillering01(){
+        int før = Storage.getDestillering().size();
+
+        Controller.createDestillering(1,false,50,råvare,medarbejder);
+
+
+        int efter = Storage.getDestillering().size();
+
+        assertEquals(før + 1, efter);
+    }
+
+    @Test
+    void createDestillering02(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createDestillering(0,false,101,råvare,medarbejder));
+    }
+
+
+
+
 }
