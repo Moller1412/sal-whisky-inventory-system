@@ -8,7 +8,7 @@ public class Destillering {
     private Råvare råvare;
     private Medarbejder medarbejder;
 
-    public Destillering( int nr, boolean erRøget, int antalRåvare, Råvare råvare, Medarbejder medarbejder) {
+    public Destillering(int nr, boolean erRøget, int antalRåvare, Råvare råvare, Medarbejder medarbejder) {
         this.nr = nr;
         this.erRøget = erRøget;
         this.antalRåvare = antalRåvare;

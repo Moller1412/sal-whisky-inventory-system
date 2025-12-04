@@ -99,6 +99,16 @@ public abstract class Controller {
         Storage.storeLeverandører(leverandør);
     }
 
+    public static void createDestillering(int nr, boolean erRøget, int antalRåvare, Råvare råvare, Medarbejder medarbejder){
+        Destillering destillering = new Destillering(nr, erRøget, antalRåvare, råvare, medarbejder);
+        Storage.storeDestillering(destillering);
+    }
+
+    public static void createMedarbejder(int medarbejderNr, String navn, int tlf){
+        Medarbejder medarbejder = new Medarbejder(medarbejderNr, navn, tlf);
+        Storage.storeMedarbejder(medarbejder);
+    }
+
     public static void printHistorie(FærdigVare færdigVare){
         System.out.println(færdigVare.printInformationFraFærdigvare());
     }
