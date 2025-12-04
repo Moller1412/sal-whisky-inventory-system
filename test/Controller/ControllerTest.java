@@ -114,7 +114,8 @@ class ControllerTest {
     void addDestillatTilFad02(){
         fad.setErAktiv(false);
         destillat.setMaengde(210);
-        assertThrows(RuntimeException.class, () ->Controller.addDestillatTilFad(fad,destillat));
+        double rest = destillat.getMaengde() - fad.getStørrelse();
+        assertEquals("Der er " + rest + " Til overs",Controller.addDestillatTilFad(fad,destillat));
     }
 
     @Test
@@ -242,7 +243,7 @@ class ControllerTest {
 
     @Test
     void createLeverandør03(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createLeverandør("Sall whisky","adresse 12","12345678"));
+        assertThrows(IllegalArgumentException.class, () -> Controller.createLeverandør("","adresse 12","12345678"));
     }
 
     @Test

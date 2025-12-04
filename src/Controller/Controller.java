@@ -26,7 +26,7 @@ public abstract class Controller {
         Storage.storeFad(fad);
     }
 
-    public static void addDestillatTilFad(Fad fad, Destillat destillat){
+    public static String addDestillatTilFad(Fad fad, Destillat destillat){
         if (fad == null || destillat == null) throw new IllegalArgumentException("Fad og Destillat må ikke være null");
         if(fad.isErAktiv()) throw new IllegalArgumentException("Fadet er fyldt");
         if(destillat.getMaengde() > fad.getStørrelse()){
@@ -38,7 +38,7 @@ public abstract class Controller {
             fad.setStartLagring(LocalDate.now());
             fad.setLiterIFad(fad.getStørrelse());
             fad.setAlkoholProcent(destillat.getAlkoholProcent());
-            System.out.println("Der er " + rest + " Til overs");
+            return "Der er " + rest + " Til overs";
         }
         else {
             fad.setDestillat(destillat);
@@ -47,6 +47,7 @@ public abstract class Controller {
             fad.setLiterIFad(destillat.getMaengde());
             fad.setAlkoholProcent(destillat.getAlkoholProcent());
             fad.setErAktiv(true);
+            return "Fadet er fyldt med alt destillatet";
         }
     }
 
