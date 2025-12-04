@@ -92,7 +92,7 @@ public abstract class Controller {
         if (adresse == null || adresse.isBlank()){
             throw new IllegalArgumentException("leverandør mangler gyldigt adresse");
         }
-        if (tlf == null || tlf.isBlank()){
+        if (tlf == null || tlf.isBlank() || !tlf.matches("\\d{8}")){
             throw new IllegalArgumentException("leverandør mangler gyldigt tlf");
         }
         Leverandør leverandør = new Leverandør(navn, adresse, tlf);
