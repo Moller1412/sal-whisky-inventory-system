@@ -112,7 +112,7 @@ public abstract class Controller {
         Storage.storeDestillering(destillering);
     }
 
-    public static void createMedarbejder(int medarbejderNr, String navn, int tlf){
+    public static void createMedarbejder(int medarbejderNr, String navn, String tlf){
         Medarbejder medarbejder = new Medarbejder(medarbejderNr, navn, tlf);
         Storage.storeMedarbejder(medarbejder);
     }

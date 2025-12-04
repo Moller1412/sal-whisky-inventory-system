@@ -7,10 +7,10 @@ public class Medarbejder {
 
     private int medarbejderNr;
     private String navn;
-    private int tlf;
+    private String tlf;
     private List<Destillering> destilleringer = new ArrayList<>();
 
-    public Medarbejder(int medarbejderNr, String navn, int tlf) {
+    public Medarbejder(int medarbejderNr, String navn, String tlf) {
         this.medarbejderNr = medarbejderNr;
         this.navn = navn;
         this.tlf = tlf;
