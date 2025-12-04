@@ -10,6 +10,9 @@ public class Storage {
     private static final ArrayList<Destillering> destilleringer = new ArrayList<>();
     private static final ArrayList<Leverandør> leverandører = new ArrayList<>();
     private static final ArrayList<FærdigVare> færdigvarer = new ArrayList<>();
+    private static final ArrayList<Medarbejder> medarbejdere = new ArrayList<>();
+    private static final ArrayList<Råvare> råvarer = new ArrayList<>();
+    private static final ArrayList<Oprindelse> oprindelser = new ArrayList<>();
 
     public static void storeDestillat(Destillat destillat){
         destillater.add(destillat);
@@ -17,7 +20,6 @@ public class Storage {
     public static ArrayList<Destillat> getDestillater(){
         return destillater;
     }
-
 
     public static void storeFad(Fad fad){
         fade.add(fad);
@@ -33,7 +35,6 @@ public class Storage {
         return destilleringer;
     }
 
-
     public static void storeLeverandører(Leverandør leverandør){
         leverandører.add(leverandør);
     }
@@ -44,4 +45,12 @@ public class Storage {
     public static void storeFærdigvare(FærdigVare færdigVare) {færdigvarer.add(færdigVare);}
     public static ArrayList<FærdigVare> getFærdigvarer(){return færdigvarer;}
 
+    public static void storeRåvarer(Råvare råvare) {råvarer.add(råvare);}
+    public static ArrayList<Råvare> getRåvarer(){return råvarer;}
+
+    public static void storeMedarbejder(Medarbejder medarbejder) {medarbejdere.add(medarbejder);}
+    public static ArrayList<Medarbejder> getMedarbejdere(){return medarbejdere;}
+
+    public static void storeOprindelse(Oprindelse oprindelse) {oprindelser.add(oprindelse);}
+    public static ArrayList<Oprindelse> getOprindelser(){return oprindelser;}
 }
