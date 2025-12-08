@@ -15,7 +15,9 @@ public class FærdigvareTab implements Updatable{
     private TextField pris = new TextField();
     private ListView<FærdigVare> færdigvareListView = new ListView<>();
     private Button opretFærdigvareBtn = new Button("Opret færdigvare");
+    private Button opretPrintHistorieBtn = new Button("Print historie");
     private ListView<Fad> fadListView = new ListView<>();
+    private TextArea historieTxtArea = new TextArea();
 
     public GridPane getContent() {
         GridPane pane = new GridPane();
@@ -34,15 +36,28 @@ public class FærdigvareTab implements Updatable{
         pane.add(new Label("Pris:"), 0, 1);
         pane.add(pris,1,1);
 
-        pane.add(new Label("Nuværende færdigvare:"), 2,3,2,1);
+        pane.add(new Label("Nuværende færdigvare:"), 3,3,2,1);
+        færdigvareListView.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) -> {
+                    if (newItem != null) {
+                        historieTxtArea.appendText(færdigvareListView.getSelectionModel().getSelectedItem().printInformationFraFærdigvare());
+
+                    }
+        }
+        );
         pane.add(færdigvareListView, 3,4,2,1);
 
         pane.add(new Label("Vælg fad:"), 0,3,2,1);
         fadListView.getItems().setAll(Controller.fadeDerErKlarTilFærdigvare());
         pane.add(fadListView,0,4,2,1);
 
+        pane.add(new Label("Historie over valgt færdigvare"), 5,3,2,1);
+        historieTxtArea.setEditable(false);
+        pane.add(historieTxtArea,5,4,2,1);
+
         pane.add(opretFærdigvareBtn,0,5);
         opretFærdigvareBtn.setOnAction(event -> opretFærdigvare());
+
+        pane.add(opretPrintHistorieBtn, 3, 5);
 
 
         return pane;
