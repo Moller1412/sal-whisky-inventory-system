@@ -18,8 +18,11 @@ public class App {
     public static void initStorage(){
         //test
         Oprindelse oprindelse = new Oprindelse("markTest", "gaardTest");
+        Storage.storeOprindelse(oprindelse);
         Råvare råvare = new Råvare("test","test",5, LocalDate.of(2025, 1, 1),oprindelse);
+        Storage.storeRåvarer(råvare);
         Medarbejder medarbejder = new Medarbejder(1,"test","123123");
+        Storage.storeMedarbejder(medarbejder);
         Destillering destillering = new Destillering(1,true,100,råvare,medarbejder);
         Storage.storeDestillering(destillering);
 
