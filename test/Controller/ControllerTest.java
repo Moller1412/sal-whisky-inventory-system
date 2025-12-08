@@ -332,4 +332,57 @@ class ControllerTest {
         assertThrows(IllegalArgumentException.class, () -> Controller.createDestillering(1,false,150,råvare, medarbejder));
     }
 
+    @Test
+    void createRåvare01(){
+        int før = Storage.getRåvarer().size();
+        Controller.createRåvare("E3", "Evergreen", 110, LocalDate.of(2025,9,4), oprindelse);
+        int efter = Storage.getRåvarer().size();
+        assertEquals(før +1, efter);
+    }
+
+    @Test
+    void createRåvare02(){
+        int før = Storage.getRåvarer().size();
+        Controller.createRåvare("E5", "Evergreen", 1, LocalDate.of(2025,3,1), oprindelse);
+        int efter = Storage.getRåvarer().size();
+        assertEquals(før + 1, efter);
+    }
+
+    @Test
+    void createRåvare03(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createRåvare("", "Evergreen", 100, LocalDate.of(2025,8,3), oprindelse));
+    }
+
+    @Test
+    void createRåvare04(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createRåvare("E6", "", 100, LocalDate.of(2025,8,3), oprindelse));
+    }
+
+    @Test
+    void createRåvare05(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createRåvare("E6", "Evergreen", 0, LocalDate.of(2025,8,3), oprindelse));
+    }
+
+    @Test
+    void createRåvare06(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createRåvare("E6", "Evergreen", 100, LocalDate.of(2026,8,3), oprindelse));
+    }
+
+    @Test
+    void createRåvare07(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createRåvare("E3", "Evergreen", 100, LocalDate.of(2025,8,3), null));
+    }
+
+    @Test
+    void createOprindelse01(){
+        int før = Storage.getOprindelser().size();
+        Controller.createOprindelse("Marken", "Gården");
+        int efter = Storage.getOprindelser().size();
+        assertEquals(før + 1, efter);
+    }
+
+    @Test
+    void createOprindelse02(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createOprindelse(null, "Gården"));
+    }
 }
