@@ -580,4 +580,87 @@ class ControllerTest {
     void createHylde04(){
         assertThrows(IllegalArgumentException.class, () -> Controller.createHylde(5, null));
     }
+
+    @Test
+    void createRække01(){
+        int før = Storage.getRækker().size();
+        Controller.createRække(5, reol);
+        int efter = Storage.getRækker().size();
+        assertEquals(før +1, efter);
+    }
+
+    @Test
+    void createRække02(){
+        int før = Storage.getRækker().size();
+        Controller.createRække(1, reol);
+        int efter = Storage.getRækker().size();
+        assertEquals(før +1, efter);
+    }
+
+    @Test
+    void createRække03(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createRække(0, reol));
+    }
+
+    @Test
+    void createRække04(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createRække(5, null));
+    }
+
+    @Test
+    void createReol01(){
+        int før = Storage.getReoler().size();
+        Controller.createReol(5,lager);
+        int efter = Storage.getReoler().size();
+        assertEquals(før + 1, efter);
+    }
+
+    @Test
+    void createReol02(){
+        int før = Storage.getReoler().size();
+        Controller.createReol(1,lager);
+        int efter = Storage.getReoler().size();
+        assertEquals(før + 1, efter);
+    }
+
+    @Test
+    void createReol03(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createReol(0, lager));
+    }
+
+    @Test
+    void createReol04(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createReol(5, null));
+    }
+
+    @Test
+    void createLager01(){
+        int før = Storage.getLagere().size();
+        Controller.createLager("Lager 1", 200);
+        int efter = Storage.getLagere().size();
+        assertEquals(før + 1, efter);
+    }
+
+    @Test
+    void createLager02(){
+        int før = Storage.getLagere().size();
+        Controller.createLager("Lager 1", 1);
+        int efter = Storage.getLagere().size();
+        assertEquals(før + 1, efter);
+    }
+
+    @Test
+    void createLager03(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createLager(null, 200));
+    }
+
+    @Test
+    void createLager04(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createLager("", 200));
+    }
+
+    @Test
+    void createLager05(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createLager("Lager 1", 0));
+    }
 }
