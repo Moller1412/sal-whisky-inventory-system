@@ -2,6 +2,7 @@ package Storage;
 
 import model.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Storage {
@@ -13,6 +14,10 @@ public class Storage {
     private static final ArrayList<Medarbejder> medarbejdere = new ArrayList<>();
     private static final ArrayList<Råvare> råvarer = new ArrayList<>();
     private static final ArrayList<Oprindelse> oprindelser = new ArrayList<>();
+    private static final ArrayList<Lager> lagere = new ArrayList<>();
+    private static final ArrayList<Reol> reoler = new ArrayList<>();
+    private static final ArrayList<Række> rækker = new ArrayList<>();
+    private static final ArrayList<Hylde> hylder = new ArrayList<>();
 
     public static void storeDestillat(Destillat destillat){
         destillater.add(destillat);
@@ -53,4 +58,16 @@ public class Storage {
 
     public static void storeOprindelse(Oprindelse oprindelse) {oprindelser.add(oprindelse);}
     public static ArrayList<Oprindelse> getOprindelser(){return oprindelser;}
+
+    public static void storeLager(Lager lager){lagere.add(lager);}
+    public static ArrayList<Lager> getLagere(){return lagere;}
+
+    public static void storeReol(Reol reol){reoler.add(reol);}
+    public static ArrayList<Reol> getReoler(){return reoler;}
+
+    public static void storeRække(Række række){rækker.add(række);}
+    public static ArrayList<Række> getRækker(){return rækker;}
+
+    public static void storeHylde(Hylde hylde){hylder.add(hylde);}
+    public static ArrayList<Hylde> getHylder(){return hylder;}
 }
