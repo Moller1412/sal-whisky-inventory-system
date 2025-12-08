@@ -22,7 +22,7 @@ public class Destillering {
         if (erRøget)sb.append("\nDenne whisky er røget");
         else sb.append("\nDenne whisky er ikke røget.");
         sb.append("\n");
-        sb.append(printInformationFraDestillering());
+        sb.append(råvare.printInformationFraRåvare());
 
         return sb.toString();
     }

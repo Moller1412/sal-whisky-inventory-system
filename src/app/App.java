@@ -40,6 +40,6 @@ public class App {
 
         Storage.storeFad(fad);
 
-
+        System.out.println(Controller.printHistorie(færdigVare));
     }
 }
