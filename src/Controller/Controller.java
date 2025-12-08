@@ -151,6 +151,36 @@ public abstract class Controller {
         Storage.storeOprindelse(oprindelse);
     }
 
+    public static void createLager(String navn, int antalKvadratMeter){
+        if (navn == null || navn.isBlank())throw new IllegalArgumentException("navn skal være udfyldt.");
+        if (antalKvadratMeter <= 0)throw new IllegalArgumentException("Antal kvadratmeter skal være over 0.");
+        Lager lager = new Lager(navn, antalKvadratMeter);
+        Storage.storeLager(lager);
+    }
+
+    public static void createReol(int nr, Lager lager){
+        if (nr < 0)throw new IllegalArgumentException("nummer skal være et positivt tal.");
+        if (lager == null)throw new IllegalArgumentException("Lager må ikke være null.");
+        Reol reol = new Reol(nr);
+        lager.addReolTilLager(reol);
+        Storage.storeReol(reol);
+    }
+
+    public static void createRække(int nr, Reol reol){
+        if (nr < 0)throw new IllegalArgumentException("nummer skal være et positivt tal.");
+        if (reol == null)throw new IllegalArgumentException("Reol må ikke være null.");
+        Række række = new Række(nr);
+        reol.addRækkeTilReol(række);
+        Storage.storeRække(række);
+    }
+
+    public static void createHylde(int nr, Række række){
+        if (nr < 0)throw new IllegalArgumentException("nummer skal være et positivt tal.");
+        Hylde hylde = new Hylde(nr);
+        række.addHyldeTilRække(hylde);
+        Storage.storeHylde(hylde);
+    }
+
     public static void printHistorie(FærdigVare færdigVare){
         System.out.println(færdigVare.printInformationFraFærdigvare());
     }
