@@ -58,10 +58,10 @@ public class DestilleringTab implements Updatable{
         destilleringListView.getItems().setAll(Controller.getDestillering());
         pane.add(destilleringListView,4,4,2,1);
 
-        pane.add(opretDestilleringBtn,3,5);
+        pane.add(opretDestilleringBtn,0,5);
         opretDestilleringBtn.setOnAction(event -> opretDestillering());
 
-        pane.add(opretMedarbejderBtn,0,5);
+        pane.add(opretMedarbejderBtn,3,5);
         opretMedarbejderBtn.setOnAction(event -> opretMedarbejderPopUp());
 
         return pane;

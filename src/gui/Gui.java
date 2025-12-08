@@ -36,6 +36,9 @@ public class Gui extends Application {
         DestilleringTab destilleringContent = new DestilleringTab();
         Tab destilleringTab = new Tab("Opret destillering", destilleringContent.getContent());
 
+        LagerTab lagerContent = new LagerTab();
+        Tab lagerTab = new Tab("Lager", lagerContent.getContent());
+
         // brug updatable
         færdigvareTab.setOnSelectionChanged(event -> færdigvareContent.update());
         fadTab.setOnSelectionChanged(event -> fadContent.update());
@@ -48,8 +51,9 @@ public class Gui extends Application {
         fadTab.setClosable(false);
         råvareTab.setClosable(false);
         destilleringTab.setClosable(false);
+        lagerTab.setClosable(false);
 
-        tabPane.getTabs().addAll(destillatTab, fadTab, færdigvareTab, råvareTab, destilleringTab);
+        tabPane.getTabs().addAll(lagerTab, destillatTab, fadTab, færdigvareTab, råvareTab, destilleringTab);
 
         stage.setTitle("Sall Whisky");
         GridPane pane = new GridPane();
