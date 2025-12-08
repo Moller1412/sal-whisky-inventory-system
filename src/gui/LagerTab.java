@@ -1,28 +1,32 @@
 package gui;
 
 import Controller.Controller;
+import Storage.Storage;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.Destillering;
-import model.Medarbejder;
-import model.Råvare;
+import model.*;
 
 public class LagerTab implements Updatable{
-    private TextField NRTxtF = new TextField();
-    private TextField antalRåvareTxtF = new TextField();
-    private CheckBox erRøgetCheckBox = new CheckBox();
-    private ListView<Råvare> råvareListView = new ListView<>();
-    private Button opretDestilleringBtn = new Button("Opret destillering");
-    private ListView<Medarbejder> medarbejderListView = new ListView<>();
-    private Button opretMedarbejderBtn = new Button("Opret medarbejder");
+
+    private ListView<Lager> LagerListView = new ListView<>();
+    private Button opretLagerBtn = new Button("Opret lager");
+
+    private ListView<Reol> ReolListView = new ListView<>();
+    private Button opretReolBtn = new Button("Opret Reol");
+
+    private ListView<Række> rækkeListView = new ListView<>();
+    private Button opretRækkeBtn = new Button("Opret Række");
+
+    private ListView<Hylde> hyldeListView = new ListView<>();
+    Button opretHylde = new Button("Opret Hylde");
+
     private TextField medNavn = new TextField();
     private TextField medNr = new TextField();
     private TextField medTLF = new TextField();
-    private ListView<Destillering> destilleringListView = new ListView<>();
 
     private Stage popup;
 
@@ -37,96 +41,35 @@ public class LagerTab implements Updatable{
         pane.setVgap(10);
 
 
-        pane.add(new Label("NR:"), 0, 0);
+        pane.add(new Label("Lager:"), 0, 0);
+        LagerListView.getItems().setAll(Storage.getLagere());
+        pane.add(LagerListView, 0,1,1,1);
 
-        pane.add(new Label("Vælg medarbejder:"), 2,3,2,1);
-        medarbejderListView.getItems().setAll(Controller.getMedarbejder());
-        pane.add(medarbejderListView, 0,1,1,1);
+        pane.add(new Label("Reol"), 1,0);
+        ReolListView.getItems().setAll(Storage.getReoler());
+        pane.add(ReolListView,1,1,1,1);
 
-        pane.add(new Label("Nuværende destilleringer"), 1,2,1,1);
-        destilleringListView.getItems().setAll(Controller.getDestillering());
-        pane.add(destilleringListView,1,2,1,1);
+        pane.add(new Label("Række"), 2,0);
+        rækkeListView.getItems().setAll(Storage.getRækker());
+        pane.add(rækkeListView,2,1,1,1);
 
-        pane.add(opretDestilleringBtn,0,5);
-        opretDestilleringBtn.setOnAction(event -> opretDestillering());
+        pane.add(opretLagerBtn,0,2);
+        //opretLagerBtn.setOnAction(event -> opretDestillering());
 
-        pane.add(opretMedarbejderBtn,3,5);
-        opretMedarbejderBtn.setOnAction(event -> opretMedarbejderPopUp());
+        pane.add(opretReolBtn,1,2);
+        //opretReolBtn.setOnAction(event -> opretMedarbejderPopUp());
+
+        pane.add(opretRækkeBtn,2,2);
 
         return pane;
     }
 
-    private void opretDestillering(){
 
-        if (råvareListView.getSelectionModel().getSelectedItem() == null){
-            Alert alert = new Alert(Alert.AlertType.ERROR,"Der blev ikke valgt en råvare");
-            alert.showAndWait();
-        }
-
-        if (råvareListView.getSelectionModel().getSelectedItem().getMængde() < Integer.parseInt(antalRåvareTxtF.getText())){
-            Alert alert = new Alert(Alert.AlertType.ERROR,"antal råvare overstiger mængden af valgte råvare");
-            alert.showAndWait();
-        }
-
-        if (medarbejderListView.getSelectionModel().getSelectedItem() == null){
-            Alert alert = new Alert(Alert.AlertType.ERROR,"Der blev ikke valgt en medarbejder");
-            alert.showAndWait();
-        }
-
-
-        Controller.createDestillering(Integer.parseInt(NRTxtF.getText()), erRøgetCheckBox.isSelected(),
-                Integer.parseInt(antalRåvareTxtF.getText()),råvareListView.getSelectionModel().getSelectedItem(),
-                medarbejderListView.getSelectionModel().getSelectedItem());
-
-        update();
-    }
-
-    private void opretMedarbejderPopUp() {
-        popup = new Stage();
-        popup.setTitle("Opret medarbejder");
-
-        Button knap = new Button("Opret medarbejder");
-
-        VBox box = new VBox(10);
-        box.setPadding(new Insets(10));
-        box.getChildren().add(new Label("Navn: "));
-        box.getChildren().add(medNavn);
-        box.getChildren().add(new Label("Nr: "));
-        box.getChildren().add(medNr);
-        box.getChildren().add(new Label("TLF: "));
-        box.getChildren().add(medTLF);
-        box.getChildren().add(knap);
-
-        knap.setOnAction(event -> opretMedarbejder());
-
-        popup.setScene(new Scene(box, 200, 250));
-        popup.show();
-
-
-    }
-
-    private void opretMedarbejder(){
-
-        if (!medNavn.getText().isEmpty() && !medNr.getText().isEmpty() && !medTLF.getText().isEmpty()){
-
-            Controller.createMedarbejder(Integer.parseInt(medNr.getText()),medNavn.getText(),medTLF.getText());
-            update();
-
-            medTLF.clear();
-            medNr.clear();
-            medNavn.clear();
-
-            popup.close();
-        }
-
-    }
 
 
     @Override
     public void update() {
-        råvareListView.getItems().setAll(Controller.getRåvare());
-        medarbejderListView.getItems().setAll(Controller.getMedarbejder());
-        destilleringListView.getItems().setAll(Controller.getDestillering());
+
     }
 
 }
