@@ -7,21 +7,23 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.Fad;
-import model.FadType;
-import model.Leverandør;
+import model.Oprindelse;
+import model.Råvare;
+
+import java.time.LocalDate;
 
 public class RåvareTab implements Updatable {
-    private TextField IDTxtF = new TextField();
-    private TextField strTxtF = new TextField();
-    private ComboBox<FadType> fadTypeComboBox = new ComboBox<>();
-    private ListView<Leverandør> leverandørListView = new ListView<>();
-    private Button opretFadBtn = new Button("Opret Fad");
-    private ListView<Fad> fadListView = new ListView<>();
-    private Button opretLeverandørBtn = new Button("Opret leverandør");
-    private TextField levNavn = new TextField();
-    private TextField levAdresse = new TextField();
-    private TextField levTLF= new TextField();
+    private DatePicker høstDatePicker = new DatePicker();
+    private TextField navnTxtF = new TextField();
+    private TextField typeTxtF = new TextField();
+    private TextField mængdeTxtF = new TextField();
+    private ListView<Oprindelse> oprindelseListView = new ListView<>();
+    private Button opretRåvare = new Button("Opret råvare");
+    private ListView<Råvare> råvareListView = new ListView<>();
+    private Button opretOprindelseBtn = new Button("Opret oprindelse");
+    private TextField oprindelseMark = new TextField();
+    private TextField oprindelseGaard = new TextField();
+
 
     private Stage popup;
 
@@ -36,58 +38,75 @@ public class RåvareTab implements Updatable {
         pane.setVgap(10);
 
 
-        pane.add(new Label("ID"), 0, 0);
-        pane.add(IDTxtF,1,0);
+        pane.add(new Label("Navn"), 0, 0);
+        pane.add(navnTxtF,1,0);
 
-        pane.add(new Label("str:"), 0, 1);
-        pane.add(strTxtF,1,1);
+        pane.add(new Label("Type:"), 0, 1);
+        pane.add(typeTxtF,1,1);
 
-        pane.add(new Label("Fad type:"), 0, 2);
-        fadTypeComboBox.getItems().setAll(FadType.values());
-        fadTypeComboBox.setValue(FadType.Sherry);
-        pane.add(fadTypeComboBox, 1, 2);
+        pane.add(new Label("Mængde:"), 0, 2);
+        pane.add(mængdeTxtF, 1, 2);
 
-        pane.add(new Label("Vælg leverandør:"), 0,3,2,1);
-        leverandørListView.getItems().setAll(Controller.getLeverandører());
-        pane.add(leverandørListView, 0,4,2,1);
+        pane.add(new Label("Høst dato: "), 0, 3);
+        høstDatePicker.setPromptText("dd-mm-år");
+        høstDatePicker.valueProperty().addListener((obs, oldValue, newValue) -> {
+            if (newValue != null && newValue.isAfter(LocalDate.now())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Ugyldig dato");
+                alert.setHeaderText("Datoen kan ikke lægge ude i fremtiden");
+                alert.showAndWait();
+            }
+        });
+        pane.add(høstDatePicker, 1, 3);
 
-        pane.add(new Label("Nuværende fade:"), 2,3,2,1);
-        fadListView.getItems().setAll(Controller.getFade());
-        pane.add(fadListView, 2,4,2,1);
 
-        pane.add(opretFadBtn,3,5);
-        opretFadBtn.setOnAction(event -> opretFad());
+        pane.add(new Label("Vælg oprindelse:"), 0,4,2,1);
+        oprindelseListView.getItems().setAll(Controller.oprindelser());
+        pane.add(oprindelseListView, 0,5,2,1);
 
-        pane.add(opretLeverandørBtn,0,5);
-        opretLeverandørBtn.setOnAction(event -> opretLeverandørPopUp());
+        pane.add(new Label("Nuværende råvarer:"), 2,4,2,1);
+        råvareListView.getItems().setAll(Controller.getRåvare());
+        pane.add(råvareListView, 2,5,2,1);
+
+        pane.add(opretRåvare,3,6);
+        opretRåvare.setOnAction(event -> opretRåvare());
+
+        pane.add(opretOprindelseBtn,0,6);
+        opretOprindelseBtn.setOnAction(event -> opretOprindelsePopUp());
 
         return pane;
     }
 
-    private void opretFad(){
-        Controller.createFad(Integer.parseInt(IDTxtF.getText()), Double.parseDouble(strTxtF.getText())
-                ,fadTypeComboBox.getValue(),leverandørListView.getSelectionModel().getSelectedItem());
+    private void opretRåvare(){
+        if (oprindelseListView.getSelectionModel().getSelectedItem() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Manger oprindelse");
+            alert.setHeaderText("Vælg en oprindelse");
+            alert.setContentText("Opret oprindelse hvis der mangler nogen");
+            alert.showAndWait();
+        }
 
-        fadListView.getItems().setAll(Controller.getFade());
+        Controller.createRåvare(navnTxtF.getText(), typeTxtF.getText(), Integer.parseInt(mængdeTxtF.getText()),
+                høstDatePicker.getValue(), oprindelseListView.getSelectionModel().getSelectedItem());
+
+        råvareListView.getItems().setAll(Controller.getRåvare());
     }
 
-    private void opretLeverandørPopUp() {
+    private void opretOprindelsePopUp() {
         popup = new Stage();
-        popup.setTitle("Opret leverandør");
+        popup.setTitle("Opret oprindelse");
 
-        Button knap = new Button("Opret leverandør");
+        Button knap = new Button("Opret oprindelse");
 
         VBox box = new VBox(10);
         box.setPadding(new Insets(10));
-        box.getChildren().add(new Label("Navn: "));
-        box.getChildren().add(levNavn);
-        box.getChildren().add(new Label("Adresse: "));
-        box.getChildren().add(levAdresse);
-        box.getChildren().add(new Label("TLF: "));
-        box.getChildren().add(levTLF);
+        box.getChildren().add(new Label("Mark: "));
+        box.getChildren().add(oprindelseMark);
+        box.getChildren().add(new Label("Gaard: "));
+        box.getChildren().add(oprindelseGaard);
         box.getChildren().add(knap);
 
-        knap.setOnAction(event -> opretLeverandør());
+        knap.setOnAction(event -> opretOprindelse());
 
         popup.setScene(new Scene(box, 200, 250));
         popup.show();
@@ -95,15 +114,13 @@ public class RåvareTab implements Updatable {
 
     }
 
-    private void opretLeverandør(){
+    private void opretOprindelse(){
+        if (!oprindelseMark.getText().isEmpty() && !oprindelseGaard.getText().isEmpty()){
 
-        if (!levNavn.getText().isEmpty() && !levAdresse.getText().isEmpty() && !levTLF.getText().isEmpty()){
-            Controller.createLeverandør(levNavn.getText(),levAdresse.getText(),levTLF.getText());
-            leverandørListView.getItems().setAll(Controller.getLeverandører());
+            update();
 
-            levTLF.clear();
-            levAdresse.clear();
-            levNavn.clear();
+            oprindelseGaard.clear();
+            oprindelseMark.clear();
 
             popup.close();
         }
@@ -112,6 +129,7 @@ public class RåvareTab implements Updatable {
 
     @Override
     public void update() {
-
+        oprindelseListView.getItems().setAll(Controller.oprindelser());
+        råvareListView.getItems().setAll(Controller.getRåvare());
     }
 }
