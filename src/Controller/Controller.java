@@ -187,10 +187,8 @@ public abstract class Controller {
     public static String findFadPåLager(int fadID){
         if (fadID < 1)throw new IllegalArgumentException("fadID skal være 1 eller over.");
         boolean iBrug = false;
-        while (!iBrug){
-            for (Fad fad : Storage.getFade()) {
-                if (fadID == fad.getId()) iBrug = true;
-            }
+        for (Fad fad : Storage.getFade()) {
+            if (fadID == fad.getId()) iBrug = true;
         }
 
         StringBuilder sb = new StringBuilder();
