@@ -209,6 +209,7 @@ public abstract class Controller {
 
     public static int antalLedigePladserPåLager(Lager lager){
         int count = 0;
+        if(lager == null) throw new IllegalArgumentException("Du skal vælge et lager");
         for (Reol reol : lager.getReoler()) {
             for (Række række : reol.getRækker()) {
                 for (Hylde hylde : række.getHylder()) {

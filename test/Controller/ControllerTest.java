@@ -442,4 +442,49 @@ class ControllerTest {
         Storage.storeMedarbejder(medarbejder);
         assertThrows(IllegalArgumentException.class, () -> Controller.createMedarbejder(5, "Jens", "34213421"));
     }
+
+    @Test
+    void antalLedigePladserPåLager01(){
+        Lager lager1 = new Lager("Lager1", 200);
+        Reol reol1 = new Reol(1, lager1);
+        lager1.addReolTilLager(reol1);
+
+        Række række1 = new Række(1, reol1);
+        reol1.addRækkeTilReol(række1);
+
+        Hylde hylde1 = new Hylde(1, række1);
+        Hylde hylde2 = new Hylde(2, række1);
+        Hylde hylde3 = new Hylde(3, række1);
+        række1.addHyldeTilRække(hylde1);
+        række1.addHyldeTilRække(hylde2);
+        række1.addHyldeTilRække(hylde3);
+
+       int antalPladser = Controller.antalLedigePladserPåLager(lager1);
+
+        assertEquals(3, antalPladser);
+    }
+
+    @Test
+    void antalLedigePladserPåLager02(){
+        Lager lager1 = new Lager("Lager1", 200);
+        Reol reol1 = new Reol(1, lager1);
+        lager1.addReolTilLager(reol1);
+
+        Række række1 = new Række(1, reol1);
+        reol1.addRækkeTilReol(række1);
+
+        Hylde hylde1 = new Hylde(1, række1);
+        række1.addHyldeTilRække(hylde1);
+        hylde1.setErOptaget(true);
+
+        int antalPladser = Controller.antalLedigePladserPåLager(lager1);
+
+        assertEquals(0, antalPladser);
+    }
+
+    @Test
+    void antalLedigePladserPåLager03(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.antalLedigePladserPåLager(null));
+    }
+
 }
