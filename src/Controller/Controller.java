@@ -207,6 +207,20 @@ public abstract class Controller {
         return sb.toString();
     }
 
+    public static int antalLedigePladserPåLager(Lager lager){
+        int count = 0;
+        for (Reol reol : lager.getReoler()) {
+            for (Række række : reol.getRækker()) {
+                for (Hylde hylde : række.getHylder()) {
+                    if(!hylde.isErOptaget()){
+                        count++;
+                    }
+                }
+            }
+        }
+        return count;
+    }
+
     public static void printHistorie(FærdigVare færdigVare){
         System.out.println(færdigVare.printInformationFraFærdigvare());
     }
