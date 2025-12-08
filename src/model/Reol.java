@@ -12,6 +12,14 @@ public class Reol {
         this.lager = lager;
     }
 
+    public int getNr() {
+        return nr;
+    }
+
+    public Lager getLager() {
+        return lager;
+    }
+
     public void addRækkeTilReol(Række række){
         rækker.add(række);
     }

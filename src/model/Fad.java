@@ -72,6 +72,10 @@ public class Fad {
         return alkoholProcent;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public void setAlkoholProcent(double alkoholProcent) {
         this.alkoholProcent = alkoholProcent;
     }

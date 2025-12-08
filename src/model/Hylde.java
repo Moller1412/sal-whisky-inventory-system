@@ -14,6 +14,14 @@ public class Hylde {
         this.erOptaget = false;
     }
 
+    public int getNr() {
+        return nr;
+    }
+
+    public Række getRække() {
+        return række;
+    }
+
     public boolean isErOptaget() {
         return erOptaget;
     }

@@ -12,6 +12,14 @@ public class Række {
         this.reol = reol;
     }
 
+    public int getNr() {
+        return nr;
+    }
+
+    public Reol getReol() {
+        return reol;
+    }
+
     public void addHyldeTilRække(Hylde hylde){
         hylder.add(hylde);
     }

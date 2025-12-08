@@ -11,9 +11,15 @@ public class Lager {
         this.navn = navn;
         this.antalKvadratMeter = antalKvadratMeter;
     }
+
+    public String getNavn() {
+        return navn;
+    }
+
     public void addReolTilLager(Reol reol){
         reoler.add(reol);
     }
+
     public void removeReolFraLager(Reol reol){
         reoler.remove(reol);
     }
@@ -21,4 +27,6 @@ public class Lager {
     public ArrayList<Reol> getReoler() {
         return reoler;
     }
+
+
 }
