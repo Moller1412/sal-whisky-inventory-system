@@ -7,12 +7,17 @@ public class Hylde {
     private int nr;
     private Række række;
     private boolean erOptaget;
+    private Fad fad;
 
 
     public Hylde(int nr, Række række) {
         this.nr = nr;
         this.række = række;
         this.erOptaget = false;
+    }
+
+    public Fad getFad() {
+        return fad;
     }
 
     public int getNr() {

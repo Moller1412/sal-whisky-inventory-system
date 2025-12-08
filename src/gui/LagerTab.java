@@ -23,6 +23,8 @@ public class LagerTab implements Updatable{
     private ListView<Hylde> hyldeListView = new ListView<>();
     Button opretHylde = new Button("Opret Hylde");
 
+    private ListView<Fad> fadListViewListView = new ListView<>();
+
     //lager popup
     private Stage lagerPopup;
     private TextField lagerNavn = new TextField();
@@ -44,7 +46,7 @@ public class LagerTab implements Updatable{
         LagerListView.getItems().setAll(Controller.getLagere());
         pane.add(LagerListView, 0,1,1,1);
 
-        // reol list lsitener
+        // reol
         LagerListView.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) -> {
             update();
 
@@ -57,7 +59,7 @@ public class LagerTab implements Updatable{
         pane.add(ReolListView,1,1,1,1);
 
 
-        // række listener
+        // række
         ReolListView.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) ->{
             update();
             if (newItem != null){
@@ -67,7 +69,7 @@ public class LagerTab implements Updatable{
         pane.add(new Label("Række"), 2,0);
         pane.add(rækkeListView,2,1,1,1);
 
-        // hylde list
+        // hylde
         rækkeListView.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) ->{
             update();
             if (newItem != null){
@@ -77,6 +79,16 @@ public class LagerTab implements Updatable{
         pane.add(new Label("Hylde"), 3,0);
         pane.add(hyldeListView,3,1,1,1);
 
+        // fad
+        hyldeListView.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) ->{
+            update();
+            if (newItem != null){
+                fadListViewListView.getItems().setAll(hyldeListView.getSelectionModel().getSelectedItem().getFad());
+            }
+        });
+        pane.add(new Label("Fadet på hylden"), 3,3);
+        pane.add(fadListViewListView,3,4,1,1);
+        fadListViewListView.setPrefHeight(100);
 
         //knapper
         pane.add(opretLagerBtn,0,2);
@@ -94,6 +106,7 @@ public class LagerTab implements Updatable{
         return pane;
     }
 
+/// ///////////////////////////////////////////////////////////////////////////////////////////
     private void opretLagerPopUp() {
 
         lagerPopup = new Stage();
@@ -176,20 +189,27 @@ public class LagerTab implements Updatable{
 
     @Override
     public void update() {
-        Lager valgt = LagerListView.getSelectionModel().getSelectedItem();
+        Lager valgtLager = LagerListView.getSelectionModel().getSelectedItem();
         Reol valgtReol = ReolListView.getSelectionModel().getSelectedItem();
         Række valgtRække = rækkeListView.getSelectionModel().getSelectedItem();
+        Hylde valgtHylde = hyldeListView.getSelectionModel().getSelectedItem();
+
 
         LagerListView.getItems().setAll(Controller.getLagere());
 
-        if (valgt != null)
-            ReolListView.getItems().setAll(valgt.getReoler());
+        if (valgtLager != null){
+            ReolListView.getItems().setAll(valgtLager.getReoler());
+        }
         if (valgtReol != null) {
             rækkeListView.getItems().setAll(valgtReol.getRækker());
         }
         if (valgtRække != null) {
             hyldeListView.getItems().setAll(valgtRække.getHylder());
         }
+        if (valgtHylde != null) {
+            fadListViewListView.getItems().setAll(valgtHylde.getFad());
+        }
+
 
     }
 
