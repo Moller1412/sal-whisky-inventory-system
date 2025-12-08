@@ -13,7 +13,7 @@ class ControllerTest {
 
     Oprindelse oprindelse = new Oprindelse("gaard", "mark");
     Råvare råvare = new Råvare("test","test",100, LocalDate.of(2025,12,1),oprindelse);
-    Medarbejder medarbejder = new Medarbejder(1,"test testerson", "123123");
+    Medarbejder medarbejder = new Medarbejder(5,"test testerson", "123123");
     Destillering destillering = new Destillering(1,true,100,råvare,medarbejder);
     Leverandør leverandør = new Leverandør("test","test","123123123");
     Fad fad = new Fad(1,200,FadType.Sherry,leverandør);
@@ -384,5 +384,57 @@ class ControllerTest {
     @Test
     void createOprindelse02(){
         assertThrows(IllegalArgumentException.class, () -> Controller.createOprindelse(null, "Gården"));
+    }
+
+    @Test
+    void createOprindelse03(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createOprindelse("Marken", null));
+    }
+
+    @Test
+    void createOprindelse04(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createOprindelse("", "Gården"));
+    }
+
+    @Test
+    void createOprindelse05(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createOprindelse("Marken", ""));
+    }
+
+    @Test
+    void createMedarbejder01(){
+        int før = Storage.getMedarbejdere().size();
+        Controller.createMedarbejder(3,"Jens", "34213421");
+        int efter = Storage.getMedarbejdere().size();
+        assertEquals(før + 1, efter);
+    }
+
+    @Test
+    void createMedarbejder02(){
+        int før = Storage.getMedarbejdere().size();
+        Controller.createMedarbejder(1, "Jens", "34213421");
+        int efter = Storage.getMedarbejdere().size();
+        assertEquals(før + 1, efter);
+    }
+
+    @Test
+    void createMedarbejder03(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createMedarbejder(0, "Jens", "34213421"));
+    }
+
+    @Test
+    void createMedarbejder04(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createMedarbejder(4, "", "34213421"));
+    }
+
+    @Test
+    void createMedarbejder05(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createMedarbejder(4, "Jens", ""));
+    }
+
+    @Test
+    void createMedarbejder06(){
+        Storage.storeMedarbejder(medarbejder);
+        assertThrows(IllegalArgumentException.class, () -> Controller.createMedarbejder(5, "Jens", "34213421"));
     }
 }
