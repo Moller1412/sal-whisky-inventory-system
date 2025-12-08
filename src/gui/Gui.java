@@ -46,8 +46,10 @@ public class Gui extends Application {
         destillatTab.setClosable(false);
         færdigvareTab.setClosable(false);
         fadTab.setClosable(false);
+        råvareTab.setClosable(false);
+        destilleringTab.setClosable(false);
 
-        tabPane.getTabs().addAll(destillatTab, fadTab, færdigvareTab);
+        tabPane.getTabs().addAll(destillatTab, fadTab, færdigvareTab, råvareTab, destilleringTab);
 
         stage.setTitle("Sall Whisky");
         GridPane pane = new GridPane();
