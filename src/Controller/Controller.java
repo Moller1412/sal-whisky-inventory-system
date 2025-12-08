@@ -128,6 +128,9 @@ public abstract class Controller {
         if (medarbejderNr <= 0)throw new IllegalArgumentException("medarbejderNr må ikke være 0 eller under.");
         if (navn == null || tlf == null)throw new IllegalArgumentException("Navn og tlf må ikke være null.");
         if (navn.isBlank() || tlf.isBlank())throw new IllegalArgumentException("Navn og tlf må ikke stå tomt");
+        for (Medarbejder medarbejder : Storage.getMedarbejdere()) {
+            if (medarbejderNr == medarbejder.getMedarbejderNr())throw new IllegalArgumentException("MedarbejderNr allerede i brug. Ugyldigt.");
+        }
 
         Medarbejder medarbejder = new Medarbejder(medarbejderNr, navn, tlf);
         Storage.storeMedarbejder(medarbejder);

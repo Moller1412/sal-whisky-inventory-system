@@ -28,6 +28,10 @@ public class Medarbejder {
         return destilleringer;
     }
 
+    public int getMedarbejderNr() {
+        return medarbejderNr;
+    }
+
     @Override
     public String toString() {
         return "NAVN: " + navn +
