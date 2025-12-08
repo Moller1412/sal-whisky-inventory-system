@@ -11,7 +11,7 @@ import model.Destillering;
 import model.Medarbejder;
 import model.Råvare;
 
-public class DestilleringTab implements Updatable{
+public class LagerTab implements Updatable{
     private TextField NRTxtF = new TextField();
     private TextField antalRåvareTxtF = new TextField();
     private CheckBox erRøgetCheckBox = new CheckBox();
@@ -38,25 +38,14 @@ public class DestilleringTab implements Updatable{
 
 
         pane.add(new Label("NR:"), 0, 0);
-        pane.add(NRTxtF,1,0);
-
-        pane.add(new Label("Antal Råvare:"), 0, 1);
-        pane.add(antalRåvareTxtF,1,1);
-
-        pane.add(new Label("Røget status:"), 0, 2);
-        pane.add(erRøgetCheckBox, 1, 2);
-
-        pane.add(new Label("Vælg råvare:"), 0,3,2,1);
-        råvareListView.getItems().setAll(Controller.getRåvare());
-        pane.add(råvareListView, 0,4,2,1);
 
         pane.add(new Label("Vælg medarbejder:"), 2,3,2,1);
         medarbejderListView.getItems().setAll(Controller.getMedarbejder());
-        pane.add(medarbejderListView, 2,4,2,1);
+        pane.add(medarbejderListView, 0,1,1,1);
 
-        pane.add(new Label("Nuværende destilleringer"), 4,3,2,1);
+        pane.add(new Label("Nuværende destilleringer"), 1,2,1,1);
         destilleringListView.getItems().setAll(Controller.getDestillering());
-        pane.add(destilleringListView,4,4,2,1);
+        pane.add(destilleringListView,1,2,1,1);
 
         pane.add(opretDestilleringBtn,0,5);
         opretDestilleringBtn.setOnAction(event -> opretDestillering());
@@ -139,4 +128,5 @@ public class DestilleringTab implements Updatable{
         medarbejderListView.getItems().setAll(Controller.getMedarbejder());
         destilleringListView.getItems().setAll(Controller.getDestillering());
     }
+
 }
