@@ -16,7 +16,7 @@ class ControllerTest {
     Medarbejder medarbejder = new Medarbejder(5,"test testerson", "123123");
     Destillering destillering = new Destillering(1,true,100,råvare,medarbejder);
     Leverandør leverandør = new Leverandør("test","test","123123123");
-    Fad fad = new Fad(1,200,FadType.Sherry,leverandør);
+    Fad fad = new Fad(5,200,FadType.Sherry,leverandør);
     Destillat destillat = new Destillat(1,200,50,destillering);
     Lager lager = new Lager("Lager", 200);
     Reol reol = new Reol(1, lager);
@@ -487,4 +487,92 @@ class ControllerTest {
         assertThrows(IllegalArgumentException.class, () -> Controller.antalLedigePladserPåLager(null));
     }
 
+    @Test
+    void findFadPåLager01(){
+        Lager lager1 = new Lager("Lager 1", 200);
+        Reol reol1 = new Reol(1, lager1);
+        lager1.addReolTilLager(reol1);
+
+
+        Række række1 = new Række(1, reol1);
+        reol1.addRækkeTilReol(række1);
+
+
+        Hylde hylde1 = new Hylde(1, række1);
+        række1.addHyldeTilRække(hylde1);
+
+
+        Fad fad1 = new Fad(3, 100, FadType.Bourbon, leverandør);
+        Storage.storeFad(fad1);
+        Controller.addFadTilHylde(fad1, hylde1);
+
+        String result = Controller.findFadPåLager(3);
+
+        assertTrue(result.contains("Fad ID: 3"));
+        assertTrue(result.contains("Lager: Lager 1"));
+        assertTrue(result.contains("Reol nummer: 1"));
+        assertTrue(result.contains("Række nummer: 1"));
+        assertTrue(result.contains("Hylde nummer: 1"));
+    }
+
+    @Test
+    void findFadPåLager02(){
+        Lager lager1 = new Lager("Lager 1", 200);
+        Reol reol1 = new Reol(1, lager1);
+        lager1.addReolTilLager(reol1);
+
+
+        Række række1 = new Række(1, reol1);
+        reol1.addRækkeTilReol(række1);
+
+
+        Hylde hylde1 = new Hylde(1, række1);
+        række1.addHyldeTilRække(hylde1);
+
+
+        Fad fad2 = new Fad(1, 100, FadType.Bourbon, leverandør);
+        Storage.storeFad(fad2);
+        Controller.addFadTilHylde(fad2, hylde1);
+
+        String result = Controller.findFadPåLager(1);
+
+        assertTrue(result.contains("Fad ID: 1"));
+        assertTrue(result.contains("Lager: Lager 1"));
+        assertTrue(result.contains("Reol nummer: 1"));
+        assertTrue(result.contains("Række nummer: 1"));
+        assertTrue(result.contains("Hylde nummer: 1"));
+    }
+
+    @Test
+    void findFadPåLager03(){
+        String result = Controller.findFadPåLager(10);
+        assertTrue(result.contains("FadID ikke i brug."));
+
+    }
+
+    @Test
+    void findFadPåLager04(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.findFadPåLager(0));
+    }
+
+    @Test
+    void createHylde01(){
+        int før = Storage.getHylder().size();
+        Controller.createHylde(5,række);
+        int efter = Storage.getHylder().size();
+        assertEquals(før + 1, efter);
+    }
+
+    @Test
+    void createHylde02(){
+        int før = Storage.getHylder().size();
+        Controller.createHylde(1,række);
+        int efter = Storage.getHylder().size();
+        assertEquals(før + 1, efter);
+    }
+
+    @Test
+    void createHylde03(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createHylde(0, række));
+    }
 }
