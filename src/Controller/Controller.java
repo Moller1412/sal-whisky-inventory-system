@@ -192,16 +192,19 @@ public abstract class Controller {
                 if (fadID == fad.getId()) iBrug = true;
             }
         }
-        if (!iBrug)throw new IllegalArgumentException("fadID ikke i brug.");
 
         StringBuilder sb = new StringBuilder();
-        for (Fad fad : Storage.getFade()) {
-            if (fad.getId() == fadID && fad.getHylde() != null){
-                sb.append("Fad ID: ").append(fadID);
-                sb.append("\nLager: ").append(fad.getHylde().getRække().getReol().getLager().getNavn());
-                sb.append("\nReol nummer: ").append(fad.getHylde().getRække().getReol().getNr());
-                sb.append("\nRække nummer: ").append(fad.getHylde().getRække().getNr());
-                sb.append("\nHylde nummer: ").append(fad.getHylde().getNr());
+        if (!iBrug){
+            sb.append("FadID ikke i brug.");
+        } else {
+            for (Fad fad : Storage.getFade()) {
+                if (fad.getId() == fadID && fad.getHylde() != null){
+                    sb.append("Fad ID: ").append(fadID);
+                    sb.append("\nLager: ").append(fad.getHylde().getRække().getReol().getLager().getNavn());
+                    sb.append("\nReol nummer: ").append(fad.getHylde().getRække().getReol().getNr());
+                    sb.append("\nRække nummer: ").append(fad.getHylde().getRække().getNr());
+                    sb.append("\nHylde nummer: ").append(fad.getHylde().getNr());
+                }
             }
         }
         return sb.toString();
