@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import model.Destillat;
 import model.Fad;
 import model.FærdigVare;
 
@@ -19,14 +20,28 @@ public class Gui extends Application {
 
         TabPane tabPane = new TabPane();
 
-        Tab destillatTab = new Tab("Opret destillat",new DestillatTab().getContent());
-        Tab fadTab = new Tab("Opret fad", new FadTab().getContent());
+        //opret tabs og content
+        DestillatTab destillatContent = new DestillatTab();
+        Tab destillatTab = new Tab("Opret destillat",destillatContent.getContent());
+
+        FadTab fadContent = new FadTab();
+        Tab fadTab = new Tab("Opret fad", fadContent.getContent());
 
         FærdigvareTab færdigvareContent = new FærdigvareTab();
         Tab færdigvareTab = new Tab("Opret færdigvare", færdigvareContent.getContent());
 
+        RåvareTab råvareContent = new RåvareTab();
+        Tab råvareTab = new Tab("Opret Råvare", råvareContent.getContent());
 
+        DestilleringTab destilleringContent = new DestilleringTab();
+        Tab destilleringTab = new Tab("Opret destillering", destilleringContent.getContent());
+
+        // brug updatable
         færdigvareTab.setOnSelectionChanged(event -> færdigvareContent.update());
+        fadTab.setOnSelectionChanged(event -> fadContent.update());
+        destillatTab.setOnSelectionChanged(event -> destillatContent.update());
+        råvareTab.setOnSelectionChanged(event -> råvareContent.update());
+        destilleringTab.setOnSelectionChanged(event -> destilleringContent.update());
 
         destillatTab.setClosable(false);
         færdigvareTab.setClosable(false);
