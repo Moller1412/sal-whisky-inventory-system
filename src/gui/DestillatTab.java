@@ -3,10 +3,7 @@ package gui;
 import Controller.Controller;
 import Storage.Storage;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import model.Destillat;
 import model.Destillering;
@@ -58,6 +55,12 @@ public class DestillatTab implements Updatable{
     }
 
     private void opretDestillat(){
+
+        if (destilleringListView.getSelectionModel().getSelectedItem() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR,"Der blev ikke valgt en destillering");
+            alert.showAndWait();
+        }
+
         destilleringListView.getSelectionModel().getSelectedItem();
         Controller.createDestillat(
                 Integer.parseInt(nrTxtF.getText()),Double.parseDouble(mængdeTxtF.getText()),

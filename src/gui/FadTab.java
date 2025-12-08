@@ -66,6 +66,12 @@ public class FadTab implements Updatable{
     }
 
     private void opretFad(){
+
+        if (leverandørListView.getSelectionModel().getSelectedItem() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR,"Der blev ikke valgt en leverandør");
+            alert.showAndWait();
+        }
+
         Controller.createFad(Integer.parseInt(IDTxtF.getText()), Double.parseDouble(strTxtF.getText())
                 ,fadTypeComboBox.getValue(),leverandørListView.getSelectionModel().getSelectedItem());
 

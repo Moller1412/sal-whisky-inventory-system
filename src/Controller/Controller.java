@@ -225,8 +225,8 @@ public abstract class Controller {
         return count;
     }
 
-    public static void printHistorie(FærdigVare færdigVare){
-        System.out.println(færdigVare.printInformationFraFærdigvare());
+    public static String printHistorie(FærdigVare færdigVare){
+        return færdigVare.printInformationFraFærdigvare();
     }
 
     public static ArrayList<Destillering> getDestillering() {

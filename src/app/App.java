@@ -36,9 +36,10 @@ public class App {
 
         FærdigVare færdigVare = new FærdigVare("test",200, fad);
         Storage.storeFærdigvare(færdigVare);
-
+        færdigVare.setDatoForTabning(LocalDate.now());
 
         Storage.storeFad(fad);
+
 
     }
 }

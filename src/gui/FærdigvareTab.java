@@ -39,11 +39,11 @@ public class FærdigvareTab implements Updatable{
         pane.add(new Label("Nuværende færdigvare:"), 3,3,2,1);
         færdigvareListView.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) -> {
                     if (newItem != null) {
-                        historieTxtArea.appendText(færdigvareListView.getSelectionModel().getSelectedItem().printInformationFraFærdigvare());
+                        historieTxtArea.clear();
+                        historieTxtArea.appendText(Controller.printHistorie(færdigvareListView.getSelectionModel().getSelectedItem()));
 
                     }
-        }
-        );
+        });
         pane.add(færdigvareListView, 3,4,2,1);
 
         pane.add(new Label("Vælg fad:"), 0,3,2,1);
@@ -56,9 +56,6 @@ public class FærdigvareTab implements Updatable{
 
         pane.add(opretFærdigvareBtn,0,5);
         opretFærdigvareBtn.setOnAction(event -> opretFærdigvare());
-
-        pane.add(opretPrintHistorieBtn, 3, 5);
-
 
         return pane;
     }
@@ -77,4 +74,6 @@ public class FærdigvareTab implements Updatable{
         færdigvareListView.getItems().setAll(Controller.getFærdigvare());
 
     }
+
+
 }
