@@ -7,21 +7,20 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.Fad;
-import model.FadType;
-import model.Leverandør;
+import model.Medarbejder;
+import model.Råvare;
 
 public class DestilleringTab implements Updatable{
-    private TextField IDTxtF = new TextField();
-    private TextField strTxtF = new TextField();
-    private ComboBox<FadType> fadTypeComboBox = new ComboBox<>();
-    private ListView<Leverandør> leverandørListView = new ListView<>();
-    private Button opretFadBtn = new Button("Opret Fad");
-    private ListView<Fad> fadListView = new ListView<>();
-    private Button opretLeverandørBtn = new Button("Opret leverandør");
-    private TextField levNavn = new TextField();
-    private TextField levAdresse = new TextField();
-    private TextField levTLF= new TextField();
+    private TextField NRTxtF = new TextField();
+    private TextField antalRåvareTxtF = new TextField();
+    private ComboBox<Boolean> erRøgetComboBox = new ComboBox<>();
+    private ListView<Råvare> råvareListView = new ListView<>();
+    private Button opretDestilleringBtn = new Button("Opret destillering");
+    private ListView<Medarbejder> medarbejderListView = new ListView<>();
+    private Button opretMedarbejderBtn = new Button("Opret medarbejder");
+    private TextField medNavn = new TextField();
+    private TextField medNr = new TextField();
+    private TextField medTLF = new TextField();
 
     private Stage popup;
 
@@ -36,58 +35,58 @@ public class DestilleringTab implements Updatable{
         pane.setVgap(10);
 
 
-        pane.add(new Label("ID"), 0, 0);
-        pane.add(IDTxtF,1,0);
+        pane.add(new Label("NR:"), 0, 0);
+        pane.add(NRTxtF,1,0);
 
-        pane.add(new Label("str:"), 0, 1);
-        pane.add(strTxtF,1,1);
+        pane.add(new Label("Antal Råvare:"), 0, 1);
+        pane.add(antalRåvareTxtF,1,1);
 
-        pane.add(new Label("Fad type:"), 0, 2);
-        fadTypeComboBox.getItems().setAll(FadType.values());
-        fadTypeComboBox.setValue(FadType.Sherry);
-        pane.add(fadTypeComboBox, 1, 2);
+        pane.add(new Label("Røget status:"), 0, 2);
+        erRøgetComboBox.getItems().setAll(true, false);
+        erRøgetComboBox.setValue(false);
+        pane.add(erRøgetComboBox, 1, 2);
 
-        pane.add(new Label("Vælg leverandør:"), 0,3,2,1);
-        leverandørListView.getItems().setAll(Controller.getLeverandører());
-        pane.add(leverandørListView, 0,4,2,1);
+        pane.add(new Label("Vælg råvare:"), 0,3,2,1);
+        råvareListView.getItems().setAll(Controller.getRåvare());
+        pane.add(råvareListView, 0,4,2,1);
 
-        pane.add(new Label("Nuværende fade:"), 2,3,2,1);
-        fadListView.getItems().setAll(Controller.getFade());
-        pane.add(fadListView, 2,4,2,1);
+        pane.add(new Label("Vælg medarbejder:"), 2,3,2,1);
+        medarbejderListView.getItems().setAll(Controller.getMedarbejder());
+        pane.add(medarbejderListView, 2,4,2,1);
 
-        pane.add(opretFadBtn,3,5);
-        opretFadBtn.setOnAction(event -> opretFad());
+        pane.add(opretDestilleringBtn,3,5);
+        opretDestilleringBtn.setOnAction(event -> opretFad());
 
-        pane.add(opretLeverandørBtn,0,5);
-        opretLeverandørBtn.setOnAction(event -> opretLeverandørPopUp());
+        pane.add(opretMedarbejderBtn,0,5);
+        opretMedarbejderBtn.setOnAction(event -> opretMedarbejderPopUp());
 
         return pane;
     }
 
     private void opretFad(){
-        Controller.createFad(Integer.parseInt(IDTxtF.getText()), Double.parseDouble(strTxtF.getText())
-                ,fadTypeComboBox.getValue(),leverandørListView.getSelectionModel().getSelectedItem());
+        //Controller.createFad(Integer.parseInt(NRTxtF.getText()), Double.parseDouble(strTxtF.getText())
+               // , erRøgetComboBox.getValue(),leverandørListView.getSelectionModel().getSelectedItem());
 
-        fadListView.getItems().setAll(Controller.getFade());
+        medarbejderListView.getItems().setAll(Controller.getMedarbejder());
     }
 
-    private void opretLeverandørPopUp() {
+    private void opretMedarbejderPopUp() {
         popup = new Stage();
-        popup.setTitle("Opret leverandør");
+        popup.setTitle("Opret medarbejder");
 
-        Button knap = new Button("Opret leverandør");
+        Button knap = new Button("Opret medarbejder");
 
         VBox box = new VBox(10);
         box.setPadding(new Insets(10));
         box.getChildren().add(new Label("Navn: "));
-        box.getChildren().add(levNavn);
-        box.getChildren().add(new Label("Adresse: "));
-        box.getChildren().add(levAdresse);
+        box.getChildren().add(medNavn);
+        box.getChildren().add(new Label("Nr: "));
+        box.getChildren().add(medNr);
         box.getChildren().add(new Label("TLF: "));
-        box.getChildren().add(levTLF);
+        box.getChildren().add(medTLF);
         box.getChildren().add(knap);
 
-        knap.setOnAction(event -> opretLeverandør());
+        knap.setOnAction(event -> opretMedarbejder());
 
         popup.setScene(new Scene(box, 200, 250));
         popup.show();
@@ -95,15 +94,16 @@ public class DestilleringTab implements Updatable{
 
     }
 
-    private void opretLeverandør(){
+    private void opretMedarbejder(){
 
-        if (!levNavn.getText().isEmpty() && !levAdresse.getText().isEmpty() && !levTLF.getText().isEmpty()){
-            Controller.createLeverandør(levNavn.getText(),levAdresse.getText(),levTLF.getText());
-            leverandørListView.getItems().setAll(Controller.getLeverandører());
+        if (!medNavn.getText().isEmpty() && !medNr.getText().isEmpty() && !medTLF.getText().isEmpty()){
 
-            levTLF.clear();
-            levAdresse.clear();
-            levNavn.clear();
+            Controller.createMedarbejder(Integer.parseInt(medNr.getText()),medNavn.getText(),medTLF.getText());
+            update();
+
+            medTLF.clear();
+            medNr.clear();
+            medNavn.clear();
 
             popup.close();
         }
@@ -113,6 +113,7 @@ public class DestilleringTab implements Updatable{
 
     @Override
     public void update() {
-
+        råvareListView.getItems().setAll(Controller.getRåvare());
+        medarbejderListView.getItems().setAll(Controller.getMedarbejder());
     }
 }
