@@ -126,6 +126,7 @@ public abstract class Controller {
 
     public static void createMedarbejder(int medarbejderNr, String navn, String tlf){
         if (medarbejderNr <= 0)throw new IllegalArgumentException("medarbejderNr må ikke være 0 eller under.");
+        if (navn == null || tlf == null)throw new IllegalArgumentException("Navn og tlf må ikke være null.");
         if (navn.isBlank() || tlf.isBlank())throw new IllegalArgumentException("Navn og tlf må ikke stå tomt");
 
         Medarbejder medarbejder = new Medarbejder(medarbejderNr, navn, tlf);
@@ -133,6 +134,7 @@ public abstract class Controller {
     }
 
     public static void createRåvare(String navn, String type, int mængde, LocalDate høstDato, Oprindelse oprindelse){
+        if (navn == null || type == null)throw new IllegalArgumentException("navn og type må ikke være null.");
         if (navn.isBlank() || type.isBlank())throw new IllegalArgumentException("navn og type må ikke være tomt.");
         if (mængde <= 0)throw new IllegalArgumentException("mængde må ikke være 0 eller under.");
         if (!høstDato.isBefore(LocalDate.now().plusDays(1)))throw new IllegalArgumentException("høstDato skal være senest datoen i dag.");
@@ -143,6 +145,8 @@ public abstract class Controller {
     }
 
     public static void createOprindelse(String mark, String gaard){
+        if (mark == null || mark.isBlank())throw new IllegalArgumentException("Mark skal udfyldes.");
+        if (gaard == null || gaard.isBlank())throw new IllegalArgumentException("Gaard skal udfyldes.");
         Oprindelse oprindelse = new Oprindelse(mark, gaard);
         Storage.storeOprindelse(oprindelse);
     }
