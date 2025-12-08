@@ -162,7 +162,7 @@ public abstract class Controller {
     }
 
     public static void createReol(int nr, Lager lager){
-        if (nr < 0)throw new IllegalArgumentException("nummer skal være et positivt tal.");
+        if (nr < 1)throw new IllegalArgumentException("nummer skal være et positivt tal.");
         if (lager == null)throw new IllegalArgumentException("Lager må ikke være null.");
         Reol reol = new Reol(nr, lager);
         lager.addReolTilLager(reol);
@@ -170,7 +170,7 @@ public abstract class Controller {
     }
 
     public static void createRække(int nr, Reol reol){
-        if (nr < 0)throw new IllegalArgumentException("nummer skal være et positivt tal.");
+        if (nr < 1)throw new IllegalArgumentException("nummer skal være et positivt tal.");
         if (reol == null)throw new IllegalArgumentException("Reol må ikke være null.");
         Række række = new Række(nr, reol);
         reol.addRækkeTilReol(række);
@@ -255,8 +255,23 @@ public abstract class Controller {
         return Storage.getMedarbejdere();
     }
 
-    public static ArrayList<Oprindelse> oprindelser(){
+    public static ArrayList<Oprindelse> getOprindelser(){
         return Storage.getOprindelser();
     }
 
+    public static ArrayList<Lager> getLagere(){
+        return Storage.getLagere();
+    }
+
+    public static ArrayList<Reol> getReoler(){
+        return Storage.getReoler();
+    }
+
+    public static ArrayList<Række> getRækker(){
+        return Storage.getRækker();
+    }
+
+    public static ArrayList<Hylde> getHylder(){
+        return Storage.getHylder();
+    }
 }
