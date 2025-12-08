@@ -42,7 +42,7 @@ public class FærdigVare {
         Period p = Period.between(LocalDate.ofEpochDay(datoForTabning.getYear()), fad.getStartLagring());
         String antalÅr = String.format("%d år, %d måneder og %d dage.", p.getYears(), p.getMonths(), p.getDays());
         sb.append("\nAntal år på fad: "); sb.append(antalÅr);
-        sb.append(fad.printInformationOmFad());
+        sb.append("\n").append(fad.printInformationOmFad());
         return sb.toString();
     }
 
