@@ -28,9 +28,6 @@ public class LagerTab implements Updatable{
     private TextField lagerNavn = new TextField();
     private TextField antalKVM = new TextField();
 
-    // Reol popup
-    private Stage reolPopup;
-    private TextField RoelNr = new TextField();
 
     public GridPane getContent() {
         GridPane pane = new GridPane();
@@ -47,31 +44,46 @@ public class LagerTab implements Updatable{
         LagerListView.getItems().setAll(Controller.getLagere());
         pane.add(LagerListView, 0,1,1,1);
 
-        ReolListView.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) -> {
+        // reol list lsitener
+        LagerListView.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) -> {
+            update();
+
             if (newItem != null) {
-                ReolListView
-                historieTxtArea.appendText(Controller.printHistorie(færdigvareListView.getSelectionModel().getSelectedItem()));
+                ReolListView.getItems().setAll(LagerListView.getSelectionModel().getSelectedItem().getReoler());
 
             }
         });
-
         pane.add(new Label("Reol"), 1,0);
-        ReolListView.getItems().setAll(Controller.getReoler());
         pane.add(ReolListView,1,1,1,1);
 
+
+        // række listener
+        ReolListView.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) ->{
+            update();
+            if (newItem != null){
+                rækkeListView.getItems().setAll(ReolListView.getSelectionModel().getSelectedItem().getRækker());
+            }
+        });
         pane.add(new Label("Række"), 2,0);
-        rækkeListView.getItems().setAll(Controller.getRækker());
         pane.add(rækkeListView,2,1,1,1);
 
-        pane.add(new Label("Række"), 3,0);
-        hyldeListView.getItems().setAll(Controller.getHylder());
+        // hylde list
+        rækkeListView.getSelectionModel().selectedItemProperty().addListener((obs, oldItem, newItem) ->{
+            update();
+            if (newItem != null){
+                hyldeListView.getItems().setAll(rækkeListView.getSelectionModel().getSelectedItem().getHylder());
+            }
+        });
+        pane.add(new Label("Hylde"), 3,0);
         pane.add(hyldeListView,3,1,1,1);
 
+
+        //knapper
         pane.add(opretLagerBtn,0,2);
         opretLagerBtn.setOnAction(event -> opretLagerPopUp());
 
         pane.add(opretReolBtn,1,2);
-        opretReolBtn.setOnAction(event -> setOpretReolPopup());
+        opretReolBtn.setOnAction(event -> opretReol());
 
         pane.add(opretRækkeBtn,2,2);
         opretRækkeBtn.setOnAction(event -> opretRække());
@@ -111,45 +123,75 @@ public class LagerTab implements Updatable{
         update();
     }
 
-    public void setOpretReolPopup(){
+
+    public void opretReol(){
 
         if (LagerListView.getSelectionModel().getSelectedItem() == null){
             Alert alert = new Alert(Alert.AlertType.ERROR, "Vælg venligst et lager du vil oprette en reol til");
             alert.show();
         } else {
+            int num = 1;
+            if (LagerListView.getSelectionModel().getSelectedItem().getReoler().size() > 0) {
+                num = LagerListView.getSelectionModel().getSelectedItem().getReoler().size() + 1;
+            }
+
+            Controller.createReol(num, LagerListView.getSelectionModel().getSelectedItem());
             update();
-            reolPopup = new Stage();
-            reolPopup.setTitle("Opret reol");
-
-            VBox box = new VBox(10);
-            box.setPadding(new Insets(10));
-            box.getChildren().add(new Label("NR"));
-            box.getChildren().add(RoelNr);
-
-            reolPopup.setScene(new Scene(box, 200, 200));
-            reolPopup.show();
         }
-
-    }
-
-    public void opretReol(){
-
     }
 
     public void opretRække(){
+
+        if (ReolListView.getSelectionModel().getSelectedItem() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Vælg venligst et reol du vil oprette en række til");
+            alert.show();
+        } else {
+            int num = 1;
+            if (ReolListView.getSelectionModel().getSelectedItem().getRækker().size() > 0) {
+                num = ReolListView.getSelectionModel().getSelectedItem().getRækker().size() + 1;
+            }
+
+            Controller.createRække(num, ReolListView.getSelectionModel().getSelectedItem());
+            update();
+        }
 
     }
 
     public void opretHylde(){
 
+        if (rækkeListView.getSelectionModel().getSelectedItem() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Vælg venligst et række du vil oprette en hylde til");
+            alert.show();
+        } else {
+            int num = 1;
+            if (rækkeListView.getSelectionModel().getSelectedItem().getHylder().size() > 0) {
+                num = rækkeListView.getSelectionModel().getSelectedItem().getHylder().size() + 1;
+            }
+
+            Controller.createHylde(num, rækkeListView.getSelectionModel().getSelectedItem());
+            update();
+        }
+
     }
 
     @Override
     public void update() {
+        Lager valgt = LagerListView.getSelectionModel().getSelectedItem();
+        Reol valgtReol = ReolListView.getSelectionModel().getSelectedItem();
+        Række valgtRække = rækkeListView.getSelectionModel().getSelectedItem();
+
         LagerListView.getItems().setAll(Controller.getLagere());
-        ReolListView.getItems().setAll(Controller.getReoler());
-        rækkeListView.getItems().setAll(Controller.getRækker());
-        hyldeListView.getItems().setAll(Controller.getHylder());
+
+        if (valgt != null)
+            ReolListView.getItems().setAll(valgt.getReoler());
+        if (valgtReol != null) {
+            rækkeListView.getItems().setAll(valgtReol.getRækker());
+        }
+        if (valgtRække != null) {
+            hyldeListView.getItems().setAll(valgtRække.getHylder());
+        }
+
     }
+
 
 }

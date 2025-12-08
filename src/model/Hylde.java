@@ -31,4 +31,8 @@ public class Hylde {
         this.erOptaget = erOptaget;
     }
 
+    @Override
+    public String toString() {
+        return "NR: " + nr + ", række nr: " + række.getNr();
+    }
 }

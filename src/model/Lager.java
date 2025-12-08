@@ -28,5 +28,8 @@ public class Lager {
         return reoler;
     }
 
-
+    @Override
+    public String toString() {
+        return "Navn: " + navn + ", KVM: " + antalKvadratMeter;
+    }
 }

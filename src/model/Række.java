@@ -31,4 +31,9 @@ public class Række {
     public ArrayList<Hylde> getHylder() {
         return hylder;
     }
+
+    @Override
+    public String toString() {
+        return "NR: " + nr + ", Reol nr: " + reol.getNr();
+    }
 }

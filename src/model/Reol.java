@@ -31,4 +31,9 @@ public class Reol {
     public ArrayList<Række> getRækker() {
         return rækker;
     }
+
+    @Override
+    public String toString() {
+        return "NR: " + nr + ", lager: " + lager.getNavn();
+    }
 }
