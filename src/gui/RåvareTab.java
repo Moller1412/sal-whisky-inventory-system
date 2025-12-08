@@ -61,7 +61,7 @@ public class RåvareTab implements Updatable {
 
 
         pane.add(new Label("Vælg oprindelse:"), 0,4,2,1);
-        oprindelseListView.getItems().setAll(Controller.oprindelser());
+        oprindelseListView.getItems().setAll(Controller.getOprindelser());
         pane.add(oprindelseListView, 0,5,2,1);
 
         pane.add(new Label("Nuværende råvarer:"), 2,4,2,1);
@@ -129,7 +129,7 @@ public class RåvareTab implements Updatable {
 
     @Override
     public void update() {
-        oprindelseListView.getItems().setAll(Controller.oprindelser());
+        oprindelseListView.getItems().setAll(Controller.getOprindelser());
         råvareListView.getItems().setAll(Controller.getRåvare());
     }
 }
