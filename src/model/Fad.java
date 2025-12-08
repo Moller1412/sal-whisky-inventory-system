@@ -119,9 +119,9 @@ public class Fad {
 
     public String printInformationOmFad(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Information om fad ");
-        sb.append("\nId "); sb.append(id);
-        sb.append("\nFad type "); sb.append(fadType);
+        sb.append("\nInformation om fad: ");
+        sb.append("\nID: "); sb.append(id);
+        sb.append("\nFad type: "); sb.append(fadType);
         sb.append("\n");
         sb.append(leverandør.printInformationOmLeverandør());
         sb.append("\n");

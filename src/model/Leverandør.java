@@ -13,9 +13,9 @@ public class Leverandør {
 
     public String printInformationOmLeverandør(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Information om Leverandør");
-        sb.append("\nNavn"); sb.append(navn);
-        sb.append("\nAdresse"); sb.append(adresse);
+        sb.append("\nInformation om Leverandør:");
+        sb.append("\nNavn: "); sb.append(navn);
+        sb.append("\nAdresse: "); sb.append(adresse);
         return sb.toString();
     }
 
