@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 public class Hylde {
     private int nr;
+    private Række række;
     private boolean erOptaget;
 
 
-    public Hylde(int nr) {
+    public Hylde(int nr, Række række) {
         this.nr = nr;
+        this.række = række;
         this.erOptaget = false;
     }
 

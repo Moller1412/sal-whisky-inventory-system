@@ -164,7 +164,7 @@ public abstract class Controller {
     public static void createReol(int nr, Lager lager){
         if (nr < 0)throw new IllegalArgumentException("nummer skal være et positivt tal.");
         if (lager == null)throw new IllegalArgumentException("Lager må ikke være null.");
-        Reol reol = new Reol(nr);
+        Reol reol = new Reol(nr, lager);
         lager.addReolTilLager(reol);
         Storage.storeReol(reol);
     }
@@ -172,14 +172,14 @@ public abstract class Controller {
     public static void createRække(int nr, Reol reol){
         if (nr < 0)throw new IllegalArgumentException("nummer skal være et positivt tal.");
         if (reol == null)throw new IllegalArgumentException("Reol må ikke være null.");
-        Række række = new Række(nr);
+        Række række = new Række(nr, reol);
         reol.addRækkeTilReol(række);
         Storage.storeRække(række);
     }
 
     public static void createHylde(int nr, Række række){
         if (nr < 0)throw new IllegalArgumentException("nummer skal være et positivt tal.");
-        Hylde hylde = new Hylde(nr);
+        Hylde hylde = new Hylde(nr, række);
         række.addHyldeTilRække(hylde);
         Storage.storeHylde(hylde);
     }

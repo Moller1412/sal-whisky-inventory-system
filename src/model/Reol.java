@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 public class Reol {
     private int nr;
+    private Lager lager;
     private ArrayList<Række> rækker = new ArrayList<>();
 
-    public Reol(int nr) {
+    public Reol(int nr, Lager lager) {
         this.nr = nr;
+        this.lager = lager;
     }
 
     public void addRækkeTilReol(Række række){

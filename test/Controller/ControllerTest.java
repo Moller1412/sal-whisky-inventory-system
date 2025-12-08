@@ -18,6 +18,10 @@ class ControllerTest {
     Leverandør leverandør = new Leverandør("test","test","123123123");
     Fad fad = new Fad(1,200,FadType.Sherry,leverandør);
     Destillat destillat = new Destillat(1,200,50,destillering);
+    Lager lager = new Lager("Lager", 200);
+    Reol reol = new Reol(1, lager);
+    Række række = new Række(1, reol);
+
 
     @Test
     void createDestillat01() {
@@ -141,7 +145,7 @@ class ControllerTest {
     void addFadTilHylde01() {
 
         Fad fad = new Fad(1,200,FadType.Bourbon, leverandør);
-        Hylde hylde = new Hylde(1);
+        Hylde hylde = new Hylde(1, række);
         hylde.setErOptaget(false);
 
         Controller.addFadTilHylde(fad, hylde);
@@ -154,7 +158,7 @@ class ControllerTest {
     @Test
     void addFadTilHylde02() {
         Fad fad = new Fad(1,200,FadType.Bourbon, leverandør);
-        Hylde hylde = new Hylde(1);
+        Hylde hylde = new Hylde(1, række);
 
         hylde.setErOptaget(true);
 
@@ -165,7 +169,7 @@ class ControllerTest {
     void addFadTilHylde03() {
 
         Fad fad = null;
-        Hylde hylde = new Hylde(1);
+        Hylde hylde = new Hylde(1, række);
         hylde.setErOptaget(false);
 
         IllegalArgumentException ex = assertThrows(
@@ -434,6 +438,7 @@ class ControllerTest {
 
     @Test
     void createMedarbejder06(){
+        // medarbejders nr er også 5
         Storage.storeMedarbejder(medarbejder);
         assertThrows(IllegalArgumentException.class, () -> Controller.createMedarbejder(5, "Jens", "34213421"));
     }

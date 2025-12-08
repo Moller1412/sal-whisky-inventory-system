@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 public class Række {
     private int nr;
+    private Reol reol;
     private ArrayList<Hylde> hylder = new ArrayList<>();
 
-    public Række(int nr) {
+    public Række(int nr, Reol reol) {
         this.nr = nr;
+        this.reol = reol;
     }
 
     public void addHyldeTilRække(Hylde hylde){
