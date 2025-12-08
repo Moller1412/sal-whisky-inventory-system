@@ -100,7 +100,7 @@ public class FadTab implements Updatable{
 
         if (!levNavn.getText().isEmpty() && !levAdresse.getText().isEmpty() && !levTLF.getText().isEmpty()){
             Controller.createLeverandør(levNavn.getText(),levAdresse.getText(),levTLF.getText());
-            leverandørListView.getItems().setAll(Controller.getLeverandører());
+            update();
 
             levTLF.clear();
             levAdresse.clear();
@@ -114,6 +114,8 @@ public class FadTab implements Updatable{
 
     @Override
     public void update() {
+        leverandørListView.getItems().setAll(Controller.getLeverandører());
+        fadListView.getItems().setAll(Controller.getFade());
 
     }
 }

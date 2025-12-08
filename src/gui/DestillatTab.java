@@ -44,7 +44,7 @@ public class DestillatTab implements Updatable{
         pane.add(new Label("%"), 2, 2);
 
         pane.add(new Label("Vælg destillering:"), 0, 3);
-        destilleringListView.getItems().setAll(Controller.getDestillering()); // ændre til at hente gennem controller
+        destilleringListView.getItems().setAll(Controller.getDestillering());
         pane.add(destilleringListView,0,4,2,1);
 
         pane.add(new Label("Destillater:"), 2, 3);
@@ -68,6 +68,8 @@ public class DestillatTab implements Updatable{
 
     @Override
     public void update() {
+        eksisterendeDestillater.getItems().setAll(Controller.getDestillater());
+        destilleringListView.getItems().setAll(Controller.getDestillering());
 
     }
 }

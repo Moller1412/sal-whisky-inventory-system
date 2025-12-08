@@ -7,13 +7,14 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.Destillering;
 import model.Medarbejder;
 import model.Råvare;
 
 public class DestilleringTab implements Updatable{
     private TextField NRTxtF = new TextField();
     private TextField antalRåvareTxtF = new TextField();
-    private ComboBox<Boolean> erRøgetComboBox = new ComboBox<>();
+    private CheckBox erRøgetCheckBox = new CheckBox();
     private ListView<Råvare> råvareListView = new ListView<>();
     private Button opretDestilleringBtn = new Button("Opret destillering");
     private ListView<Medarbejder> medarbejderListView = new ListView<>();
@@ -21,6 +22,7 @@ public class DestilleringTab implements Updatable{
     private TextField medNavn = new TextField();
     private TextField medNr = new TextField();
     private TextField medTLF = new TextField();
+    private ListView<Destillering> destilleringListView = new ListView<>();
 
     private Stage popup;
 
@@ -42,9 +44,7 @@ public class DestilleringTab implements Updatable{
         pane.add(antalRåvareTxtF,1,1);
 
         pane.add(new Label("Røget status:"), 0, 2);
-        erRøgetComboBox.getItems().setAll(true, false);
-        erRøgetComboBox.setValue(false);
-        pane.add(erRøgetComboBox, 1, 2);
+        pane.add(erRøgetCheckBox, 1, 2);
 
         pane.add(new Label("Vælg råvare:"), 0,3,2,1);
         råvareListView.getItems().setAll(Controller.getRåvare());
@@ -54,8 +54,12 @@ public class DestilleringTab implements Updatable{
         medarbejderListView.getItems().setAll(Controller.getMedarbejder());
         pane.add(medarbejderListView, 2,4,2,1);
 
+        pane.add(new Label("Nuværende destilleringer"), 4,3,2,1);
+        destilleringListView.getItems().setAll(Controller.getDestillering());
+        pane.add(destilleringListView,4,4,2,1);
+
         pane.add(opretDestilleringBtn,3,5);
-        opretDestilleringBtn.setOnAction(event -> opretFad());
+        opretDestilleringBtn.setOnAction(event -> opretDestillering());
 
         pane.add(opretMedarbejderBtn,0,5);
         opretMedarbejderBtn.setOnAction(event -> opretMedarbejderPopUp());
@@ -63,11 +67,29 @@ public class DestilleringTab implements Updatable{
         return pane;
     }
 
-    private void opretFad(){
-        //Controller.createFad(Integer.parseInt(NRTxtF.getText()), Double.parseDouble(strTxtF.getText())
-               // , erRøgetComboBox.getValue(),leverandørListView.getSelectionModel().getSelectedItem());
+    private void opretDestillering(){
 
-        medarbejderListView.getItems().setAll(Controller.getMedarbejder());
+        if (råvareListView.getSelectionModel().getSelectedItem() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR,"Der blev ikke valgt en råvare");
+            alert.showAndWait();
+        }
+
+        if (råvareListView.getSelectionModel().getSelectedItem().getMængde() < Integer.parseInt(antalRåvareTxtF.getText())){
+            Alert alert = new Alert(Alert.AlertType.ERROR,"antal råvare overstiger mængden af valgte råvare");
+            alert.showAndWait();
+        }
+
+        if (medarbejderListView.getSelectionModel().getSelectedItem() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR,"Der blev ikke valgt en medarbejder");
+            alert.showAndWait();
+        }
+
+
+        Controller.createDestillering(Integer.parseInt(NRTxtF.getText()), erRøgetCheckBox.isSelected(),
+                Integer.parseInt(antalRåvareTxtF.getText()),råvareListView.getSelectionModel().getSelectedItem(),
+                medarbejderListView.getSelectionModel().getSelectedItem());
+
+        update();
     }
 
     private void opretMedarbejderPopUp() {
@@ -115,5 +137,6 @@ public class DestilleringTab implements Updatable{
     public void update() {
         råvareListView.getItems().setAll(Controller.getRåvare());
         medarbejderListView.getItems().setAll(Controller.getMedarbejder());
+        destilleringListView.getItems().setAll(Controller.getDestillering());
     }
 }

@@ -26,7 +26,6 @@ public class App {
         Destillering destillering = new Destillering(1,true,100,råvare,medarbejder);
         Storage.storeDestillering(destillering);
 
-
         Leverandør leverandør = new Leverandør("John whisky", "test Adresse", "123456789");
         Storage.storeLeverandører(leverandør);
 
@@ -34,6 +33,9 @@ public class App {
         Fad fad = new Fad(1,500,FadType.Sherry,leverandør);
         Controller.addDestillatTilFad(fad,destillat);
         fad.setStartLagring(LocalDate.of(2020,12,1));
+
+        FærdigVare færdigVare = new FærdigVare("test",200, fad);
+        Storage.storeFærdigvare(færdigVare);
 
 
         Storage.storeFad(fad);
