@@ -575,4 +575,9 @@ class ControllerTest {
     void createHylde03(){
         assertThrows(IllegalArgumentException.class, () -> Controller.createHylde(0, række));
     }
+
+    @Test
+    void createHylde04(){
+        assertThrows(IllegalArgumentException.class, () -> Controller.createHylde(5, null));
+    }
 }

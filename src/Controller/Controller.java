@@ -179,6 +179,7 @@ public abstract class Controller {
 
     public static void createHylde(int nr, Række række){
         if (nr < 1)throw new IllegalArgumentException("nummer skal være et positivt tal.");
+        if(række == null) throw new IllegalArgumentException("Række må ikke være null");
         Hylde hylde = new Hylde(nr, række);
         række.addHyldeTilRække(hylde);
         Storage.storeHylde(hylde);
