@@ -11,7 +11,7 @@ import model.Fad;
 import model.FadType;
 import model.Leverandør;
 
-public class FadTab {
+public class FadTab implements Updatable{
 
     private TextField IDTxtF = new TextField();
     private TextField strTxtF = new TextField();
@@ -112,4 +112,8 @@ public class FadTab {
     }
 
 
+    @Override
+    public void update() {
+
+    }
 }

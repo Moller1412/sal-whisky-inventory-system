@@ -12,7 +12,7 @@ import model.Destillat;
 import model.Destillering;
 import model.Fad;
 
-public class DestillatTab {
+public class DestillatTab implements Updatable{
 
     private TextField nrTxtF = new TextField();
     private TextField mængdeTxtF = new TextField();
@@ -64,5 +64,10 @@ public class DestillatTab {
                 Double.parseDouble(alkoholPrcentTxtf.getText()), destilleringListView.getSelectionModel().getSelectedItem());
 
         eksisterendeDestillater.getItems().setAll(Controller.getDestillater());
+    }
+
+    @Override
+    public void update() {
+
     }
 }
