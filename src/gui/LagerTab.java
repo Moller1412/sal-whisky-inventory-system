@@ -42,30 +42,51 @@ public class LagerTab implements Updatable{
 
 
         pane.add(new Label("Lager:"), 0, 0);
-        LagerListView.getItems().setAll(Storage.getLagere());
+        LagerListView.getItems().setAll(Controller.getLagere());
         pane.add(LagerListView, 0,1,1,1);
 
         pane.add(new Label("Reol"), 1,0);
-        ReolListView.getItems().setAll(Storage.getReoler());
+        ReolListView.getItems().setAll(Controller.getReoler());
         pane.add(ReolListView,1,1,1,1);
 
         pane.add(new Label("Række"), 2,0);
-        rækkeListView.getItems().setAll(Storage.getRækker());
+        rækkeListView.getItems().setAll(Controller.getRækker());
         pane.add(rækkeListView,2,1,1,1);
 
+        pane.add(new Label("Række"), 3,0);
+        pane.add(hyldeListView,3,1,1,1);
+
         pane.add(opretLagerBtn,0,2);
-        //opretLagerBtn.setOnAction(event -> opretDestillering());
+        opretLagerBtn.setOnAction(event -> opretLager());
 
         pane.add(opretReolBtn,1,2);
-        //opretReolBtn.setOnAction(event -> opretMedarbejderPopUp());
+        opretReolBtn.setOnAction(event -> opretReol());
 
         pane.add(opretRækkeBtn,2,2);
+        opretRækkeBtn.setOnAction(event -> opretRække());
+
+        pane.add(opretHylde,3,2);
+        opretHylde.setOnAction(event -> opretHylde());
+
 
         return pane;
     }
 
+    public void opretLager(){
 
+    }
 
+    public void opretReol(){
+
+    }
+
+    public void opretRække(){
+
+    }
+
+    public void opretHylde(){
+
+    }
 
     @Override
     public void update() {
