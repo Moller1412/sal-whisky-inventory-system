@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class Hylde {
@@ -29,4 +30,5 @@ public class Hylde {
     public void setErOptaget(boolean erOptaget) {
         this.erOptaget = erOptaget;
     }
+
 }

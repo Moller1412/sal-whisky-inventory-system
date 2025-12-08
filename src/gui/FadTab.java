@@ -1,15 +1,17 @@
 package gui;
 
 import Controller.Controller;
+import Storage.Storage;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.Fad;
-import model.FadType;
-import model.Leverandør;
+import model.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FadTab implements Updatable{
 
@@ -22,7 +24,9 @@ public class FadTab implements Updatable{
     private Button opretLeverandørBtn = new Button("Opret leverandør");
     private TextField levNavn = new TextField();
     private TextField levAdresse = new TextField();
-    private TextField levTLF= new TextField();
+    private TextField levTLF = new TextField();
+    private ListView<Hylde> hyldeListView = new ListView<>();
+    private Button addFadTilHyldeBtn = new Button("Placer fad på hylde");
 
     private Stage popup;
 
@@ -56,13 +60,57 @@ public class FadTab implements Updatable{
         fadListView.getItems().setAll(Controller.getFade());
         pane.add(fadListView, 2,4,2,1);
 
-        pane.add(opretFadBtn,3,5);
+        pane.add(new Label("Ledige pladser:"), 4,3,2,1);
+        List<Hylde> ledigeHylder = new ArrayList<>();
+        for (Lager lager : Controller.getLagere()) {
+            for (Reol reol : lager.getReoler()) {
+                for (Række række : reol.getRækker()) {
+                    for (Hylde hylde : række.getHylder()) {
+                        if (hylde.isErOptaget()) {
+                            ledigeHylder.add(hylde);
+                        }
+                    }
+                }
+            }
+        }
+
+        hyldeListView.getItems().setAll(ledigeHylder);
+        pane.add(hyldeListView, 4,4,2,1);
+
+        pane.add(opretFadBtn,2,5);
         opretFadBtn.setOnAction(event -> opretFad());
 
         pane.add(opretLeverandørBtn,0,5);
         opretLeverandørBtn.setOnAction(event -> opretLeverandørPopUp());
 
+        pane.add(addFadTilHyldeBtn, 4,5);
+        addFadTilHyldeBtn.setOnAction(event -> placerFadPåHylde());
+
         return pane;
+    }
+
+    private void placerFadPåHylde() {
+
+        Fad fad = fadListView.getSelectionModel().getSelectedItem();
+        Hylde hylde = hyldeListView.getSelectionModel().getSelectedItem();
+
+        if (fad == null) {
+            new Alert(Alert.AlertType.ERROR, "Vælg et fad først.").showAndWait();
+            return;
+        }
+
+        if (hylde == null) {
+            new Alert(Alert.AlertType.ERROR, "Vælg en ledig hylde.").showAndWait();
+            return;
+        }
+
+        try {
+            Controller.addFadTilHylde(fad, hylde);
+            update();
+
+        } catch (IllegalArgumentException ex) {
+            new Alert(Alert.AlertType.ERROR, ex.getMessage()).showAndWait();
+        }
     }
 
     private void opretFad(){
@@ -75,7 +123,7 @@ public class FadTab implements Updatable{
         Controller.createFad(Integer.parseInt(IDTxtF.getText()), Double.parseDouble(strTxtF.getText())
                 ,fadTypeComboBox.getValue(),leverandørListView.getSelectionModel().getSelectedItem());
 
-        fadListView.getItems().setAll(Controller.getFade());
+        update();
     }
 
     private void opretLeverandørPopUp() {
@@ -117,11 +165,24 @@ public class FadTab implements Updatable{
 
     }
 
-
     @Override
     public void update() {
         leverandørListView.getItems().setAll(Controller.getLeverandører());
         fadListView.getItems().setAll(Controller.getFade());
 
+        List<Hylde> ledigeHylder = new ArrayList<>();
+
+        for (Lager lager : Controller.getLagere()) {
+            for (Reol reol : lager.getReoler()) {
+                for (Række række : reol.getRækker()) {
+                    for (Hylde hylde : række.getHylder()) {
+                        if (!hylde.isErOptaget()) {
+                            ledigeHylder.add(hylde);
+                        }
+                    }
+                }
+            }
+        }
+        hyldeListView.getItems().setAll(ledigeHylder);
     }
 }
