@@ -14,6 +14,9 @@ public abstract class Controller {
     public static void setStorage(Storage storage) {
         Controller.storage = storage;
     }
+    public static Storage getStorage() {
+        return storage;
+    }
 
     public static Destillat createDestillat(int nr, double maengde, double alkoholProcent,
                                         Destillering destillering){
