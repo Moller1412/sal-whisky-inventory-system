@@ -53,7 +53,11 @@ public class LagerTab implements Updatable{
             if (newItem != null) {
                 ReolListView.getItems().setAll(LagerListView.getSelectionModel().getSelectedItem().getReoler());
 
+                rækkeListView.getItems().clear();
+                hyldeListView.getItems().clear();
+                fadListViewListView.getItems().clear();
             }
+
         });
         pane.add(new Label("Reol"), 1,0);
         pane.add(ReolListView,1,1,1,1);
@@ -64,7 +68,12 @@ public class LagerTab implements Updatable{
             update();
             if (newItem != null){
                 rækkeListView.getItems().setAll(ReolListView.getSelectionModel().getSelectedItem().getRækker());
+
+                hyldeListView.getItems().clear();
+                fadListViewListView.getItems().clear();
             }
+
+
         });
         pane.add(new Label("Række"), 2,0);
         pane.add(rækkeListView,2,1,1,1);
@@ -74,7 +83,9 @@ public class LagerTab implements Updatable{
             update();
             if (newItem != null){
                 hyldeListView.getItems().setAll(rækkeListView.getSelectionModel().getSelectedItem().getHylder());
+                fadListViewListView.getItems().clear();
             }
+
         });
         pane.add(new Label("Hylde"), 3,0);
         pane.add(hyldeListView,3,1,1,1);
@@ -106,7 +117,7 @@ public class LagerTab implements Updatable{
         return pane;
     }
 
-/// ///////////////////////////////////////////////////////////////////////////////////////////
+    /// ///////////////////////////////////////////////////////////////////////////////////////////
     private void opretLagerPopUp() {
 
         lagerPopup = new Stage();
@@ -197,14 +208,18 @@ public class LagerTab implements Updatable{
 
         LagerListView.getItems().setAll(Controller.getLagere());
 
+
         if (valgtLager != null){
             ReolListView.getItems().setAll(valgtLager.getReoler());
+
         }
         if (valgtReol != null) {
             rækkeListView.getItems().setAll(valgtReol.getRækker());
+
         }
         if (valgtRække != null) {
             hyldeListView.getItems().setAll(valgtRække.getHylder());
+
         }
         if (valgtHylde != null) {
             fadListViewListView.getItems().setAll(valgtHylde.getFad());

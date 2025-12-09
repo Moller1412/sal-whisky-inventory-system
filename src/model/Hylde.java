@@ -21,6 +21,10 @@ public class Hylde implements Serializable {
         return fad;
     }
 
+    public void setFad(Fad fad) {
+        this.fad = fad;
+    }
+
     public int getNr() {
         return nr;
     }
