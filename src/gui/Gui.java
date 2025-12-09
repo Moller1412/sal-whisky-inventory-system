@@ -11,9 +11,6 @@ import model.Fad;
 import model.FærdigVare;
 
 public class Gui extends Application {
-    public static void main(String[] args) {
-        launch();
-    }
 
     @Override
     public void start(Stage stage) {
