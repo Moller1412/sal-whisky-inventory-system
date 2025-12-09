@@ -1,12 +1,19 @@
 package Controller;
 
-import Storage.Storage;
+import Storage.ListStorage;
+import gui.Updatable;
 import model.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Observer;
 
 public abstract class Controller {
+    private static Storage storage;
+    public static void setStorage(Storage storage) {
+        Controller.storage = storage;
+    }
 
     public static void createDestillat(int nr, double maengde, double alkoholProcent,
                                         Destillering destillering){
@@ -15,7 +22,8 @@ public abstract class Controller {
         if (alkoholProcent < 0 || alkoholProcent > 100) throw new IllegalArgumentException("Alkohol procent skal være mellem 0 og 100.");
         if (destillering == null) throw new IllegalArgumentException("Destillering må ikke være null.");
         Destillat destillat = new Destillat(nr, maengde, alkoholProcent, destillering);
-        Storage.storeDestillat(destillat);
+        storage.storeDestillat(destillat);
+        notifyObservers();
     }
 
     public static void createFad(int id, double størrelse, FadType fadType, Leverandør leverandør){
@@ -23,7 +31,8 @@ public abstract class Controller {
         if (id <= 0 || størrelse <= 0) throw new IllegalArgumentException("Id og størrelse skal være et positivt tal.");
         if (fadType == null || leverandør == null) throw new IllegalArgumentException("fadType og leverandør må ikke være null.");
         Fad fad = new Fad(id, størrelse, fadType, leverandør);
-        Storage.storeFad(fad);
+        storage.storeFad(fad);
+        notifyObservers();
     }
 
     public static String addDestillatTilFad(Fad fad, Destillat destillat){
@@ -65,11 +74,12 @@ public abstract class Controller {
        if(fad.erFadKlarTilTapning()){
           FærdigVare færdigVare = new FærdigVare(navn, pris, fad);
            færdigVare.setDatoForTabning(LocalDate.now());
-           Storage.storeFærdigvare(færdigVare);
+           storage.storeFærdigvare(færdigVare);
            fad.setErAktiv(false);
            fad.setStartLagring(null);
            fad.setLiterIFad(0);
            fad.setHylde(null);
+           notifyObservers();
 
        }
        else
@@ -78,7 +88,7 @@ public abstract class Controller {
 
     public static ArrayList<Fad> fadeDerErKlarTilFærdigvare(){
         ArrayList<Fad> fadeKlarTilTap = new ArrayList<>();
-        for (Fad f : Storage.getFade()) {
+        for (Fad f : storage.getFad()) {
             if(f.erFadKlarTilTapning()){
                 fadeKlarTilTap.add(f);
             }
@@ -97,7 +107,8 @@ public abstract class Controller {
             throw new IllegalArgumentException("leverandør mangler gyldigt tlf");
         }
         Leverandør leverandør = new Leverandør(navn, adresse, tlf);
-        Storage.storeLeverandører(leverandør);
+        storage.storeLeverandør(leverandør);
+        notifyObservers();
     }
 
     public static void createDestillering(int nr, boolean erRøget, int antalRåvare, Råvare råvare, Medarbejder medarbejder){
@@ -121,19 +132,21 @@ public abstract class Controller {
 
         int mængde = råvare.getMængde() - antalRåvare;
         råvare.setMængde(mængde);
-        Storage.storeDestillering(destillering);
+        storage.storeDestillering(destillering);
+        notifyObservers();
     }
 
     public static void createMedarbejder(int medarbejderNr, String navn, String tlf){
         if (medarbejderNr <= 0)throw new IllegalArgumentException("medarbejderNr må ikke være 0 eller under.");
         if (navn == null || tlf == null)throw new IllegalArgumentException("Navn og tlf må ikke være null.");
         if (navn.isBlank() || tlf.isBlank())throw new IllegalArgumentException("Navn og tlf må ikke stå tomt");
-        for (Medarbejder medarbejder : Storage.getMedarbejdere()) {
+        for (Medarbejder medarbejder : storage.getMedarbejder()) {
             if (medarbejderNr == medarbejder.getMedarbejderNr())throw new IllegalArgumentException("MedarbejderNr allerede i brug. Ugyldigt.");
         }
 
         Medarbejder medarbejder = new Medarbejder(medarbejderNr, navn, tlf);
-        Storage.storeMedarbejder(medarbejder);
+        storage.storeMedarbejder(medarbejder);
+        notifyObservers();
     }
 
     public static void createRåvare(String navn, String type, int mængde, LocalDate høstDato, Oprindelse oprindelse){
@@ -144,21 +157,24 @@ public abstract class Controller {
         if (oprindelse == null)throw new IllegalArgumentException("oprindelse må ikke være null.");
 
         Råvare råvare = new Råvare(navn, type, mængde, høstDato, oprindelse);
-        Storage.storeRåvarer(råvare);
+        storage.storeRåvare(råvare);
+        notifyObservers();
     }
 
     public static void createOprindelse(String mark, String gaard){
         if (mark == null || mark.isBlank())throw new IllegalArgumentException("Mark skal udfyldes.");
         if (gaard == null || gaard.isBlank())throw new IllegalArgumentException("Gaard skal udfyldes.");
         Oprindelse oprindelse = new Oprindelse(mark, gaard);
-        Storage.storeOprindelse(oprindelse);
+        storage.storeOprindelse(oprindelse);
+        notifyObservers();
     }
 
     public static void createLager(String navn, int antalKvadratMeter){
         if (navn == null || navn.isBlank())throw new IllegalArgumentException("navn skal være udfyldt.");
         if (antalKvadratMeter <= 0)throw new IllegalArgumentException("Antal kvadratmeter skal være over 0.");
         Lager lager = new Lager(navn, antalKvadratMeter);
-        Storage.storeLager(lager);
+        storage.storeLager(lager);
+        notifyObservers();
     }
 
     public static void createReol(int nr, Lager lager){
@@ -166,7 +182,8 @@ public abstract class Controller {
         if (lager == null)throw new IllegalArgumentException("Lager må ikke være null.");
         Reol reol = new Reol(nr, lager);
         lager.addReolTilLager(reol);
-        Storage.storeReol(reol);
+        storage.storeReol(reol);
+        notifyObservers();
     }
 
     public static void createRække(int nr, Reol reol){
@@ -174,7 +191,8 @@ public abstract class Controller {
         if (reol == null)throw new IllegalArgumentException("Reol må ikke være null.");
         Række række = new Række(nr, reol);
         reol.addRækkeTilReol(række);
-        Storage.storeRække(række);
+        storage.storeRække(række);
+        notifyObservers();
     }
 
     public static void createHylde(int nr, Række række){
@@ -182,13 +200,14 @@ public abstract class Controller {
         if(række == null) throw new IllegalArgumentException("Række må ikke være null");
         Hylde hylde = new Hylde(nr, række);
         række.addHyldeTilRække(hylde);
-        Storage.storeHylde(hylde);
+        storage.storeHylde(hylde);
+        notifyObservers();
     }
 
     public static String findFadPåLager(int fadID){
         if (fadID < 1)throw new IllegalArgumentException("fadID skal være 1 eller over.");
         boolean iBrug = false;
-        for (Fad fad : Storage.getFade()) {
+        for (Fad fad : storage.getFad()) {
             if (fadID == fad.getId()) iBrug = true;
         }
 
@@ -196,7 +215,7 @@ public abstract class Controller {
         if (!iBrug){
             sb.append("FadID ikke i brug.");
         } else {
-            for (Fad fad : Storage.getFade()) {
+            for (Fad fad : storage.getFad()) {
                 if (fad.getId() == fadID && fad.getHylde() != null){
                     sb.append("Fad ID: ").append(fadID);
                     sb.append("\nLager: ").append(fad.getHylde().getRække().getReol().getLager().getNavn());
@@ -228,50 +247,62 @@ public abstract class Controller {
         return færdigVare.printInformationFraFærdigvare();
     }
 
-    public static ArrayList<Destillering> getDestillering() {
-        return Storage.getDestillering();
+    public static List<Destillering> getDestillering() {
+        return storage.getDestillering();
     }
 
-    public static ArrayList<Destillat> getDestillater() {
-        return Storage.getDestillater();
+    public static List<Destillat> getDestillater() {
+        return storage.getDestillat();
     }
 
-    public static ArrayList<Leverandør> getLeverandører() {
-        return Storage.getLeverandører();
+    public static List<Leverandør> getLeverandører() {
+        return storage.getLeverandør();
     }
 
-    public static ArrayList<Fad> getFade(){
-        return Storage.getFade();
+    public static List<Fad> getFade(){
+        return storage.getFad();
     }
 
-    public static ArrayList<FærdigVare> getFærdigvare(){
-        return Storage.getFærdigvarer();}
+    public static List<FærdigVare> getFærdigvare(){
+        return storage.getFærdigvare();}
 
-    public static ArrayList<Råvare> getRåvare(){
-        return Storage.getRåvarer();
+    public static List<Råvare> getRåvare(){
+        return storage.getRåvare();
     }
 
-    public static ArrayList<Medarbejder> getMedarbejder(){
-        return Storage.getMedarbejdere();
+    public static List<Medarbejder> getMedarbejder(){
+        return storage.getMedarbejder();
     }
 
-    public static ArrayList<Oprindelse> getOprindelser(){
-        return Storage.getOprindelser();
+    public static List<Oprindelse> getOprindelser(){
+        return storage.getOprindelse();
     }
 
-    public static ArrayList<Lager> getLagere(){
-        return Storage.getLagere();
+    public static List<Lager> getLagere(){
+        return storage.getLager();
     }
 
-    public static ArrayList<Reol> getReoler(){
-        return Storage.getReoler();
+    public static List<Reol> getReoler(){
+        return storage.getReol();
     }
 
-    public static ArrayList<Række> getRækker(){
-        return Storage.getRækker();
+    public static List<Række> getRækker(){
+        return storage.getRækker();
     }
 
-    public static ArrayList<Hylde> getHylder(){
-        return Storage.getHylder();
+    public static List<Hylde> getHylder(){
+        return storage.getHylde();
+    }
+
+    private static final List<Updatable> observers = new ArrayList<>();
+
+    public static void addObserver(Updatable observer) {
+        observers.add(observer);
+    }
+
+    private static void notifyObservers() {
+        for (Updatable observer : observers) {
+            observer.update();
+        }
     }
 }

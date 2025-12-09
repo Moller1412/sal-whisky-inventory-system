@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 
-public class Hylde {
+public class Hylde implements Serializable {
     private int nr;
     private Række række;
     private boolean erOptaget;

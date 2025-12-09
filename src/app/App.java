@@ -1,33 +1,48 @@
 package app;
 
 import Controller.Controller;
-import Storage.Storage;
+import Storage.ListStorage;
 import gui.Gui;
 import javafx.application.Application;
 import model.*;
-
+import Controller.Storage;
 import java.time.LocalDate;
 
 public class App {
     public static void main(String[] args) {
+        String fileName = "src/storage.ser";
+        Storage storage = ListStorage.loadStorage(fileName);
+        if (storage == null) {
+            storage = new ListStorage();
+            System.out.println("Empty ListStorage is created");
+            Controller.setStorage(storage);
+            initStorage();
+            System.out.println("Storage is initialized");
+        } else {
+            Controller.setStorage(storage);
+        }
+
+
+        ListStorage.saveStorage(fileName, storage);
         initStorage();
         Application.launch(Gui.class);
+
 
     }
 
     public static void initStorage(){
         //test
         Oprindelse oprindelse = new Oprindelse("markTest", "gaardTest");
-        Storage.storeOprindelse(oprindelse);
+
         Råvare råvare = new Råvare("test","test",5, LocalDate.of(2025, 1, 1),oprindelse);
-        Storage.storeRåvarer(råvare);
+
         Medarbejder medarbejder = new Medarbejder(1,"test","123123");
-        Storage.storeMedarbejder(medarbejder);
+
         Destillering destillering = new Destillering(1,true,100,råvare,medarbejder);
-        Storage.storeDestillering(destillering);
+
 
         Leverandør leverandør = new Leverandør("John whisky", "test Adresse", "123456789");
-        Storage.storeLeverandører(leverandør);
+
 
         Destillat destillat = new Destillat(1,200,50,destillering);
         Fad fad = new Fad(1,500,FadType.Sherry,leverandør);
@@ -35,14 +50,14 @@ public class App {
         fad.setStartLagring(LocalDate.of(2020,12,1));
 
         FærdigVare færdigVare = new FærdigVare("test",200, fad);
-        Storage.storeFærdigvare(færdigVare);
+
         færdigVare.setDatoForTabning(LocalDate.now());
 
-        Storage.storeFad(fad);
+
 
 
         Lager lager = new Lager("Lager", 200);
-        Storage.storeLager(lager);
+
 
         Reol reol = new Reol(1, lager);
         lager.addReolTilLager(reol);

@@ -1,6 +1,8 @@
 package model;
 
-public class Leverandør {
+import java.io.Serializable;
+
+public class Leverandør implements Serializable {
     private String navn;
     private String adresse;
     private String mobilnummer;

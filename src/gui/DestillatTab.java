@@ -1,13 +1,11 @@
 package gui;
 
 import Controller.Controller;
-import Storage.Storage;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import model.Destillat;
 import model.Destillering;
-import model.Fad;
 
 public class DestillatTab implements Updatable{
 

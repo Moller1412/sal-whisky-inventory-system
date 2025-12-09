@@ -1,5 +1,7 @@
 package model;
 
-public enum FadType {
+import java.io.Serializable;
+
+public enum FadType implements Serializable {
     Sherry, Bourbon, Fondillion
 }

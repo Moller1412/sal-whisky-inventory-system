@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Reol {
+public class Reol implements Serializable {
     private int nr;
     private Lager lager;
     private ArrayList<Række> rækker = new ArrayList<>();

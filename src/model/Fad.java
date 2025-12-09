@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 
-public class Fad {
+public class Fad implements Serializable {
     private int id;
     private double størrelse;
     private boolean erAktiv;

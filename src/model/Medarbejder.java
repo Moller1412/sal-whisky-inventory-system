@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Medarbejder {
+public class Medarbejder implements Serializable {
 
     private int medarbejderNr;
     private String navn;

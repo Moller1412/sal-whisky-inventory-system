@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 
-public class FærdigVare {
+public class FærdigVare implements Serializable {
     private String navn;
     private int pris;
     private double mængde;

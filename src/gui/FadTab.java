@@ -1,7 +1,6 @@
 package gui;
 
 import Controller.Controller;
-import Storage.Storage;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;

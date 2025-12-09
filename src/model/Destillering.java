@@ -1,6 +1,8 @@
 package model;
 
-public class Destillering {
+import java.io.Serializable;
+
+public class Destillering implements Serializable {
 
     private int nr;
     private boolean erRøget;

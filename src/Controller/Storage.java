@@ -41,7 +41,7 @@ List<Oprindelse> getOprindelse();
 void storeOprindelse(Oprindelse oprindelse);
 void deleteOprindelse(Oprindelse oprindelse);
 
-List<Reol> getReol(Reol reol);
+List<Reol> getReol();
 void storeReol(Reol reol);
 void deleteReol(Reol reol);
 

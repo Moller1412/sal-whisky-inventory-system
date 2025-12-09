@@ -1,10 +1,9 @@
 package Controller;
 
-import Storage.Storage;
+import Storage.ListStorage;
 import model.*;
 import org.junit.jupiter.api.Test;
 
-import javax.naming.ldap.Control;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,22 +24,22 @@ class ControllerTest {
 
     @Test
     void createDestillat01() {
-        int før = Storage.getDestillater().size();
+        int før = ListStorage.getDestillater().size();
 
         Controller.createDestillat(1, 100, 40, destillering);
 
-        int efter = Storage.getDestillater().size();
+        int efter = ListStorage.getDestillater().size();
 
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createDestillat02() {
-        int før = Storage.getDestillater().size();
+        int før = ListStorage.getDestillater().size();
 
         Controller.createDestillat(2, 80, 0, destillering);
 
-        int efter = Storage.getDestillater().size();
+        int efter = ListStorage.getDestillater().size();
 
         assertEquals(før + 1, efter);
     }
@@ -67,22 +66,22 @@ class ControllerTest {
 
     @Test
     void createFad01(){
-        int før = Storage.getFade().size();
+        int før = ListStorage.getFade().size();
 
         Controller.createFad(5,90,FadType.Sherry,leverandør);
 
-        int efter = Storage.getFade().size();
+        int efter = ListStorage.getFade().size();
 
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createFad02(){
-        int før = Storage.getFade().size();
+        int før = ListStorage.getFade().size();
 
         Controller.createFad(1,1,FadType.Fondillion,leverandør);
 
-        int efter = Storage.getFade().size();
+        int efter = ListStorage.getFade().size();
 
         assertEquals(før + 1, efter);
     }
@@ -187,28 +186,28 @@ class ControllerTest {
 
     @Test
     void createFærdigvare01(){
-        int før = Storage.getFærdigvarer().size();
+        int før = ListStorage.getFærdigvarer().size();
 
         fad.setStartLagring(LocalDate.of(2020,12,1));
         fad.setErAktiv(true);
         Controller.createFærdigvare("GLØD 3.2",749,fad);
 
 
-        int efter = Storage.getFærdigvarer().size();
+        int efter = ListStorage.getFærdigvarer().size();
 
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createFærdigvare02(){
-        int før = Storage.getFærdigvarer().size();
+        int før = ListStorage.getFærdigvarer().size();
 
         fad.setStartLagring(LocalDate.of(2020,12,1));
         fad.setErAktiv(true);
         Controller.createFærdigvare("GLØD 3.2",0,fad);
 
 
-        int efter = Storage.getFærdigvarer().size();
+        int efter = ListStorage.getFærdigvarer().size();
 
         assertEquals(før + 1, efter);
     }
@@ -230,12 +229,12 @@ class ControllerTest {
 
     @Test
     void createLeverandør01(){
-        int før = Storage.getLeverandører().size();
+        int før = ListStorage.getLeverandører().size();
 
         Controller.createLeverandør("Sall whisky","adresse 12","12345678");
 
 
-        int efter = Storage.getLeverandører().size();
+        int efter = ListStorage.getLeverandører().size();
 
         assertEquals(før + 1, efter);
     }
@@ -277,12 +276,12 @@ class ControllerTest {
 
     @Test
     void createDestillering01(){
-        int før = Storage.getDestillering().size();
+        int før = ListStorage.getDestillering().size();
 
         Controller.createDestillering(1,false,50,råvare,medarbejder);
 
 
-        int efter = Storage.getDestillering().size();
+        int efter = ListStorage.getDestillering().size();
 
         assertEquals(før + 1, efter);
     }
@@ -320,13 +319,13 @@ class ControllerTest {
     @Test
     void createDestillering09(){
 
-        int før = Storage.getDestillering().size();
+        int før = ListStorage.getDestillering().size();
 
         råvare.setMængde(1);
         Controller.createDestillering(1,false,1,råvare,medarbejder);
 
 
-        int efter = Storage.getDestillering().size();
+        int efter = ListStorage.getDestillering().size();
 
         assertEquals(før + 1, efter);
     }
@@ -338,17 +337,17 @@ class ControllerTest {
 
     @Test
     void createRåvare01(){
-        int før = Storage.getRåvarer().size();
+        int før = ListStorage.getRåvarer().size();
         Controller.createRåvare("E3", "Evergreen", 110, LocalDate.of(2025,9,4), oprindelse);
-        int efter = Storage.getRåvarer().size();
+        int efter = ListStorage.getRåvarer().size();
         assertEquals(før +1, efter);
     }
 
     @Test
     void createRåvare02(){
-        int før = Storage.getRåvarer().size();
+        int før = ListStorage.getRåvarer().size();
         Controller.createRåvare("E5", "Evergreen", 1, LocalDate.of(2025,3,1), oprindelse);
-        int efter = Storage.getRåvarer().size();
+        int efter = ListStorage.getRåvarer().size();
         assertEquals(før + 1, efter);
     }
 
@@ -379,9 +378,9 @@ class ControllerTest {
 
     @Test
     void createOprindelse01(){
-        int før = Storage.getOprindelser().size();
+        int før = ListStorage.getOprindelser().size();
         Controller.createOprindelse("Marken", "Gården");
-        int efter = Storage.getOprindelser().size();
+        int efter = ListStorage.getOprindelser().size();
         assertEquals(før + 1, efter);
     }
 
@@ -407,17 +406,17 @@ class ControllerTest {
 
     @Test
     void createMedarbejder01(){
-        int før = Storage.getMedarbejdere().size();
+        int før = ListStorage.getMedarbejdere().size();
         Controller.createMedarbejder(3,"Jens", "34213421");
-        int efter = Storage.getMedarbejdere().size();
+        int efter = ListStorage.getMedarbejdere().size();
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createMedarbejder02(){
-        int før = Storage.getMedarbejdere().size();
+        int før = ListStorage.getMedarbejdere().size();
         Controller.createMedarbejder(1, "Jens", "34213421");
-        int efter = Storage.getMedarbejdere().size();
+        int efter = ListStorage.getMedarbejdere().size();
         assertEquals(før + 1, efter);
     }
 
@@ -439,7 +438,7 @@ class ControllerTest {
     @Test
     void createMedarbejder06(){
         // medarbejders nr er også 5
-        Storage.storeMedarbejder(medarbejder);
+        ListStorage.storeMedarbejder(medarbejder);
         assertThrows(IllegalArgumentException.class, () -> Controller.createMedarbejder(5, "Jens", "34213421"));
     }
 
@@ -503,7 +502,7 @@ class ControllerTest {
 
 
         Fad fad1 = new Fad(3, 100, FadType.Bourbon, leverandør);
-        Storage.storeFad(fad1);
+        ListStorage.storeFad(fad1);
         Controller.addFadTilHylde(fad1, hylde1);
 
         String result = Controller.findFadPåLager(3);
@@ -531,7 +530,7 @@ class ControllerTest {
 
 
         Fad fad2 = new Fad(1, 100, FadType.Bourbon, leverandør);
-        Storage.storeFad(fad2);
+        ListStorage.storeFad(fad2);
         Controller.addFadTilHylde(fad2, hylde1);
 
         String result = Controller.findFadPåLager(1);
@@ -557,17 +556,17 @@ class ControllerTest {
 
     @Test
     void createHylde01(){
-        int før = Storage.getHylder().size();
+        int før = ListStorage.getHylder().size();
         Controller.createHylde(5,række);
-        int efter = Storage.getHylder().size();
+        int efter = ListStorage.getHylder().size();
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createHylde02(){
-        int før = Storage.getHylder().size();
+        int før = ListStorage.getHylder().size();
         Controller.createHylde(1,række);
-        int efter = Storage.getHylder().size();
+        int efter = ListStorage.getHylder().size();
         assertEquals(før + 1, efter);
     }
 
@@ -583,17 +582,17 @@ class ControllerTest {
 
     @Test
     void createRække01(){
-        int før = Storage.getRækker().size();
+        int før = ListStorage.getRækker().size();
         Controller.createRække(5, reol);
-        int efter = Storage.getRækker().size();
+        int efter = ListStorage.getRækker().size();
         assertEquals(før +1, efter);
     }
 
     @Test
     void createRække02(){
-        int før = Storage.getRækker().size();
+        int før = ListStorage.getRækker().size();
         Controller.createRække(1, reol);
-        int efter = Storage.getRækker().size();
+        int efter = ListStorage.getRækker().size();
         assertEquals(før +1, efter);
     }
 
@@ -609,17 +608,17 @@ class ControllerTest {
 
     @Test
     void createReol01(){
-        int før = Storage.getReoler().size();
+        int før = ListStorage.getReoler().size();
         Controller.createReol(5,lager);
-        int efter = Storage.getReoler().size();
+        int efter = ListStorage.getReoler().size();
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createReol02(){
-        int før = Storage.getReoler().size();
+        int før = ListStorage.getReoler().size();
         Controller.createReol(1,lager);
-        int efter = Storage.getReoler().size();
+        int efter = ListStorage.getReoler().size();
         assertEquals(før + 1, efter);
     }
 
@@ -635,17 +634,17 @@ class ControllerTest {
 
     @Test
     void createLager01(){
-        int før = Storage.getLagere().size();
+        int før = ListStorage.getLagere().size();
         Controller.createLager("Lager 1", 200);
-        int efter = Storage.getLagere().size();
+        int efter = ListStorage.getLagere().size();
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createLager02(){
-        int før = Storage.getLagere().size();
+        int før = ListStorage.getLagere().size();
         Controller.createLager("Lager 1", 1);
-        int efter = Storage.getLagere().size();
+        int efter = ListStorage.getLagere().size();
         assertEquals(før + 1, efter);
     }
 

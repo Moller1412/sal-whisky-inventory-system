@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Række {
+public class Række implements Serializable {
     private int nr;
     private Reol reol;
     private ArrayList<Hylde> hylder = new ArrayList<>();
