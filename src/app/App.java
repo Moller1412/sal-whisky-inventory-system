@@ -41,6 +41,17 @@ public class App {
         Storage.storeFad(fad);
 
 
+        Lager lager = new Lager("Lager", 200);
+        Storage.storeLager(lager);
+
+        Reol reol = new Reol(1, lager);
+        lager.addReolTilLager(reol);
+
+        Række række = new Række(1, reol);
+        reol.addRækkeTilReol(række);
+
+        Hylde hylde = new Hylde(1, række);
+        række.addHyldeTilRække(hylde);
 
         System.out.println(Controller.printHistorie(færdigVare));
     }

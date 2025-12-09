@@ -66,7 +66,7 @@ public class FadTab implements Updatable{
             for (Reol reol : lager.getReoler()) {
                 for (Række række : reol.getRækker()) {
                     for (Hylde hylde : række.getHylder()) {
-                        if (hylde.isErOptaget()) {
+                        if (!hylde.isErOptaget()) {
                             ledigeHylder.add(hylde);
                         }
                     }
