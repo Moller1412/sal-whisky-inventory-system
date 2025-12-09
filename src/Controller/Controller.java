@@ -15,7 +15,7 @@ public abstract class Controller {
         Controller.storage = storage;
     }
 
-    public static void createDestillat(int nr, double maengde, double alkoholProcent,
+    public static Destillat createDestillat(int nr, double maengde, double alkoholProcent,
                                         Destillering destillering){
 
         if (nr <= 0 || maengde <= 0) throw new IllegalArgumentException("Nummer og mængde skal være et positivt tal.");
@@ -24,15 +24,17 @@ public abstract class Controller {
         Destillat destillat = new Destillat(nr, maengde, alkoholProcent, destillering);
         storage.storeDestillat(destillat);
         notifyObservers();
+        return destillat;
     }
 
-    public static void createFad(int id, double størrelse, FadType fadType, Leverandør leverandør){
+    public static Fad createFad(int id, double størrelse, FadType fadType, Leverandør leverandør){
 
         if (id <= 0 || størrelse <= 0) throw new IllegalArgumentException("Id og størrelse skal være et positivt tal.");
         if (fadType == null || leverandør == null) throw new IllegalArgumentException("fadType og leverandør må ikke være null.");
         Fad fad = new Fad(id, størrelse, fadType, leverandør);
         storage.storeFad(fad);
         notifyObservers();
+        return fad;
     }
 
     public static String addDestillatTilFad(Fad fad, Destillat destillat){
@@ -65,9 +67,10 @@ public abstract class Controller {
         if (hylde.isErOptaget()) throw new IllegalArgumentException("Hylde er optaget ");
         fad.setHylde(hylde);
         hylde.setErOptaget(true);
+        hylde.setFad(fad);
     }
 
-    public static void createFærdigvare(String navn, int pris, Fad fad){
+    public static FærdigVare createFærdigvare(String navn, int pris, Fad fad){
         if (fad == null){
             throw new IllegalArgumentException("Fadet kan ikke være null");
         }
@@ -80,7 +83,7 @@ public abstract class Controller {
            fad.setLiterIFad(0);
            fad.setHylde(null);
            notifyObservers();
-
+           return færdigVare;
        }
        else
            throw new IllegalArgumentException("Der er ikke gået de minimum 3 år ");
@@ -96,7 +99,7 @@ public abstract class Controller {
         return fadeKlarTilTap;
     }
 
-    public static void createLeverandør(String navn, String adresse, String tlf){
+    public static Leverandør createLeverandør(String navn, String adresse, String tlf){
         if (navn == null || navn.isBlank()){
             throw new IllegalArgumentException("leverandør mangler gyldigt navn");
         }
@@ -109,9 +112,10 @@ public abstract class Controller {
         Leverandør leverandør = new Leverandør(navn, adresse, tlf);
         storage.storeLeverandør(leverandør);
         notifyObservers();
+        return leverandør;
     }
 
-    public static void createDestillering(int nr, boolean erRøget, int antalRåvare, Råvare råvare, Medarbejder medarbejder){
+    public static Destillering createDestillering(int nr, boolean erRøget, int antalRåvare, Råvare råvare, Medarbejder medarbejder){
         if (råvare == null)
             throw new IllegalArgumentException("Råvare kan ikke være null");
 
@@ -134,9 +138,10 @@ public abstract class Controller {
         råvare.setMængde(mængde);
         storage.storeDestillering(destillering);
         notifyObservers();
+        return destillering;
     }
 
-    public static void createMedarbejder(int medarbejderNr, String navn, String tlf){
+    public static Medarbejder createMedarbejder(int medarbejderNr, String navn, String tlf){
         if (medarbejderNr <= 0)throw new IllegalArgumentException("medarbejderNr må ikke være 0 eller under.");
         if (navn == null || tlf == null)throw new IllegalArgumentException("Navn og tlf må ikke være null.");
         if (navn.isBlank() || tlf.isBlank())throw new IllegalArgumentException("Navn og tlf må ikke stå tomt");
@@ -147,9 +152,10 @@ public abstract class Controller {
         Medarbejder medarbejder = new Medarbejder(medarbejderNr, navn, tlf);
         storage.storeMedarbejder(medarbejder);
         notifyObservers();
+        return medarbejder;
     }
 
-    public static void createRåvare(String navn, String type, int mængde, LocalDate høstDato, Oprindelse oprindelse){
+    public static Råvare createRåvare(String navn, String type, int mængde, LocalDate høstDato, Oprindelse oprindelse){
         if (navn == null || type == null)throw new IllegalArgumentException("navn og type må ikke være null.");
         if (navn.isBlank() || type.isBlank())throw new IllegalArgumentException("navn og type må ikke være tomt.");
         if (mængde <= 0)throw new IllegalArgumentException("mængde må ikke være 0 eller under.");
@@ -159,49 +165,55 @@ public abstract class Controller {
         Råvare råvare = new Råvare(navn, type, mængde, høstDato, oprindelse);
         storage.storeRåvare(råvare);
         notifyObservers();
+        return råvare;
     }
 
-    public static void createOprindelse(String mark, String gaard){
+    public static Oprindelse createOprindelse(String mark, String gaard){
         if (mark == null || mark.isBlank())throw new IllegalArgumentException("Mark skal udfyldes.");
         if (gaard == null || gaard.isBlank())throw new IllegalArgumentException("Gaard skal udfyldes.");
         Oprindelse oprindelse = new Oprindelse(mark, gaard);
         storage.storeOprindelse(oprindelse);
         notifyObservers();
+        return oprindelse;
     }
 
-    public static void createLager(String navn, int antalKvadratMeter){
+    public static Lager createLager(String navn, int antalKvadratMeter){
         if (navn == null || navn.isBlank())throw new IllegalArgumentException("navn skal være udfyldt.");
         if (antalKvadratMeter <= 0)throw new IllegalArgumentException("Antal kvadratmeter skal være over 0.");
         Lager lager = new Lager(navn, antalKvadratMeter);
         storage.storeLager(lager);
         notifyObservers();
+        return lager;
     }
 
-    public static void createReol(int nr, Lager lager){
+    public static Reol createReol(int nr, Lager lager){
         if (nr < 1)throw new IllegalArgumentException("nummer skal være et positivt tal.");
         if (lager == null)throw new IllegalArgumentException("Lager må ikke være null.");
         Reol reol = new Reol(nr, lager);
         lager.addReolTilLager(reol);
         storage.storeReol(reol);
         notifyObservers();
+        return reol;
     }
 
-    public static void createRække(int nr, Reol reol){
+    public static Række createRække(int nr, Reol reol){
         if (nr < 1)throw new IllegalArgumentException("nummer skal være et positivt tal.");
         if (reol == null)throw new IllegalArgumentException("Reol må ikke være null.");
         Række række = new Række(nr, reol);
         reol.addRækkeTilReol(række);
         storage.storeRække(række);
         notifyObservers();
+        return række;
     }
 
-    public static void createHylde(int nr, Række række){
+    public static Hylde createHylde(int nr, Række række){
         if (nr < 1)throw new IllegalArgumentException("nummer skal være et positivt tal.");
         if(række == null) throw new IllegalArgumentException("Række må ikke være null");
         Hylde hylde = new Hylde(nr, række);
         række.addHyldeTilRække(hylde);
         storage.storeHylde(hylde);
         notifyObservers();
+        return hylde;
     }
 
     public static String findFadPåLager(int fadID){

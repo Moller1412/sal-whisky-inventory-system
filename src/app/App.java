@@ -22,50 +22,41 @@ public class App {
             Controller.setStorage(storage);
         }
 
-
-        ListStorage.saveStorage(fileName, storage);
-        initStorage();
         Application.launch(Gui.class);
 
-
+        ListStorage.saveStorage(fileName, storage);
     }
 
     public static void initStorage(){
         //test
-        Oprindelse oprindelse = new Oprindelse("markTest", "gaardTest");
+        Oprindelse oprindelse = Controller.createOprindelse("markTest", "gaardTest");
 
-        Råvare råvare = new Råvare("test","test",5, LocalDate.of(2025, 1, 1),oprindelse);
+        Råvare råvare = Controller.createRåvare("test","test",5, LocalDate.of(2025, 1, 1),oprindelse);
 
-        Medarbejder medarbejder = new Medarbejder(1,"test","123123");
+        Medarbejder medarbejder = Controller.createMedarbejder(1,"test","123123");
 
-        Destillering destillering = new Destillering(1,true,100,råvare,medarbejder);
+        Destillering destillering = Controller.createDestillering(1,true,100,råvare,medarbejder);
 
+        Leverandør leverandør = Controller.createLeverandør("John whisky", "test Adresse", "123456789");
 
-        Leverandør leverandør = new Leverandør("John whisky", "test Adresse", "123456789");
-
-
-        Destillat destillat = new Destillat(1,200,50,destillering);
-        Fad fad = new Fad(1,500,FadType.Sherry,leverandør);
+        Destillat destillat = Controller.createDestillat(1,200,50,destillering);
+        Fad fad = Controller.createFad(1,500,FadType.Sherry,leverandør);
         Controller.addDestillatTilFad(fad,destillat);
         fad.setStartLagring(LocalDate.of(2020,12,1));
 
-        FærdigVare færdigVare = new FærdigVare("test",200, fad);
+        FærdigVare færdigVare = Controller.createFærdigvare("test",200, fad);
 
         færdigVare.setDatoForTabning(LocalDate.now());
 
+        Lager lager = Controller.createLager("Lager", 200);
 
-
-
-        Lager lager = new Lager("Lager", 200);
-
-
-        Reol reol = new Reol(1, lager);
+        Reol reol = Controller.createReol(1, lager);
         lager.addReolTilLager(reol);
 
-        Række række = new Række(1, reol);
+        Række række = Controller.createRække(1, reol);
         reol.addRækkeTilReol(række);
 
-        Hylde hylde = new Hylde(1, række);
+        Hylde hylde = Controller.createHylde(1, række);
         række.addHyldeTilRække(hylde);
 
         System.out.println(Controller.printHistorie(færdigVare));
