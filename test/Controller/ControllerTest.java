@@ -2,6 +2,7 @@ package Controller;
 
 import Storage.ListStorage;
 import model.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -10,101 +11,123 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ControllerTest {
 
+    private ListStorage storage;
+
+    // Test-data (ny instans for hver test – JUnit 5 laver ny testinstans pr. @Test)
     Oprindelse oprindelse = new Oprindelse("gaard", "mark");
     Råvare råvare = new Råvare("test","test",100, LocalDate.of(2025,12,1),oprindelse);
     Medarbejder medarbejder = new Medarbejder(5,"test testerson", "123123");
     Destillering destillering = new Destillering(1,true,100,råvare,medarbejder);
-    Leverandør leverandør = new Leverandør("test","test","123123123");
+    Leverandør leverandør = new Leverandør("test","test","12312312"); // 8 cifre
     Fad fad = new Fad(5,200,FadType.Sherry,leverandør);
     Destillat destillat = new Destillat(1,200,50,destillering);
     Lager lager = new Lager("Lager", 200);
     Reol reol = new Reol(1, lager);
     Række række = new Række(1, reol);
 
+    @BeforeEach
+    void setUp() {
+        storage = new ListStorage();
+        Controller.setStorage(storage);
+    }
+
+    // ---------- createDestillat ----------
 
     @Test
     void createDestillat01() {
-        int før = ListStorage.getDestillater().size();
+        int før = Controller.getDestillater().size();
 
         Controller.createDestillat(1, 100, 40, destillering);
 
-        int efter = ListStorage.getDestillater().size();
+        int efter = Controller.getDestillater().size();
 
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createDestillat02() {
-        int før = ListStorage.getDestillater().size();
+        int før = Controller.getDestillater().size();
 
         Controller.createDestillat(2, 80, 0, destillering);
 
-        int efter = ListStorage.getDestillater().size();
+        int efter = Controller.getDestillater().size();
 
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createDestillat03() {
-        assertThrows(IllegalArgumentException.class, () -> Controller.createDestillat(-3, 90, 60, destillering));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createDestillat(-3, 90, 60, destillering));
     }
 
     @Test
     void createDestillat04() {
-        assertThrows(IllegalArgumentException.class, () -> Controller.createDestillat(3, -10, 60, destillering));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createDestillat(3, -10, 60, destillering));
     }
 
     @Test
     void createDestillat05() {
-        assertThrows(IllegalArgumentException.class, () -> Controller.createDestillat(4, 90, 105, destillering));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createDestillat(4, 90, 105, destillering));
     }
 
     @Test
     void createDestillat06() {
-        assertThrows(IllegalArgumentException.class, () -> Controller.createDestillat(5, 90, 62, null));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createDestillat(5, 90, 62, null));
     }
+
+    // ---------- createFad ----------
 
     @Test
     void createFad01(){
-        int før = ListStorage.getFade().size();
+        int før = Controller.getFade().size();
 
         Controller.createFad(5,90,FadType.Sherry,leverandør);
 
-        int efter = ListStorage.getFade().size();
+        int efter = Controller.getFade().size();
 
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createFad02(){
-        int før = ListStorage.getFade().size();
+        int før = Controller.getFade().size();
 
         Controller.createFad(1,1,FadType.Fondillion,leverandør);
 
-        int efter = ListStorage.getFade().size();
+        int efter = Controller.getFade().size();
 
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createFad03(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createFad(-2,80,FadType.Bourbon,leverandør));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createFad(-2,80,FadType.Bourbon,leverandør));
     }
 
     @Test
     void createFad04(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createFad(2,-50,FadType.Bourbon,leverandør));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createFad(2,-50,FadType.Bourbon,leverandør));
     }
 
     @Test
     void createFad05(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createFad(2,50,null,leverandør));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createFad(2,50,null,leverandør));
     }
 
     @Test
     void createFad06(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createFad(2,50,FadType.Bourbon,null));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createFad(2,50,FadType.Bourbon,null));
     }
+
+    // ---------- addDestillatTilFad ----------
 
     @Test
     void addDestillatTilFad01(){
@@ -118,27 +141,32 @@ class ControllerTest {
         fad.setErAktiv(false);
         destillat.setMaengde(210);
         double rest = destillat.getMaengde() - fad.getStørrelse();
-        assertEquals("Der er " + rest + " Til overs",Controller.addDestillatTilFad(fad,destillat));
+        assertEquals("Der er " + rest + " Til overs",
+                Controller.addDestillatTilFad(fad,destillat));
     }
 
     @Test
     void addDestillatTilFad03(){
         fad.setErAktiv(false);
-        assertThrows(IllegalArgumentException.class, () ->Controller.addDestillatTilFad(null,destillat));
+        assertThrows(IllegalArgumentException.class,
+                () ->Controller.addDestillatTilFad(null,destillat));
     }
 
     @Test
     void addDestillatTilFad04(){
         fad.setErAktiv(false);
-        assertThrows(IllegalArgumentException.class, () ->Controller.addDestillatTilFad(fad,null));
+        assertThrows(IllegalArgumentException.class,
+                () ->Controller.addDestillatTilFad(fad,null));
     }
 
     @Test
     void addDestillatTilFad05(){
         fad.setErAktiv(true);
-        assertThrows(IllegalArgumentException.class, () ->Controller.addDestillatTilFad(fad,destillat));
+        assertThrows(IllegalArgumentException.class,
+                () ->Controller.addDestillatTilFad(fad,destillat));
     }
 
+    // ---------- addFadTilHylde ----------
 
     @Test
     void addFadTilHylde01() {
@@ -153,7 +181,6 @@ class ControllerTest {
         assertTrue(hylde.isErOptaget(), "Hylden skal være markeret som optaget");
     }
 
-
     @Test
     void addFadTilHylde02() {
         Fad fad = new Fad(1,200,FadType.Bourbon, leverandør);
@@ -161,7 +188,8 @@ class ControllerTest {
 
         hylde.setErOptaget(true);
 
-        assertThrows(IllegalArgumentException.class, () -> Controller.addFadTilHylde(fad,hylde));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.addFadTilHylde(fad,hylde));
     }
 
     @Test
@@ -171,8 +199,8 @@ class ControllerTest {
         Hylde hylde = new Hylde(1, række);
         hylde.setErOptaget(false);
 
-        IllegalArgumentException ex = assertThrows(
-                IllegalArgumentException.class, () -> Controller.addFadTilHylde(fad, hylde));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.addFadTilHylde(fad, hylde));
     }
 
     @Test
@@ -180,267 +208,314 @@ class ControllerTest {
         Fad fad = new Fad(1,200,FadType.Bourbon, leverandør);
         Hylde hylde = null;
 
-        IllegalArgumentException ex = assertThrows(
-                IllegalArgumentException.class, () -> Controller.addFadTilHylde(fad, hylde));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.addFadTilHylde(fad, hylde));
     }
+
+    // ---------- createFærdigvare ----------
 
     @Test
     void createFærdigvare01(){
-        int før = ListStorage.getFærdigvarer().size();
+        int før = Controller.getFærdigvare().size();
 
         fad.setStartLagring(LocalDate.of(2020,12,1));
         fad.setErAktiv(true);
         Controller.createFærdigvare("GLØD 3.2",749,fad);
 
-
-        int efter = ListStorage.getFærdigvarer().size();
+        int efter = Controller.getFærdigvare().size();
 
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createFærdigvare02(){
-        int før = ListStorage.getFærdigvarer().size();
+        int før = Controller.getFærdigvare().size();
 
         fad.setStartLagring(LocalDate.of(2020,12,1));
         fad.setErAktiv(true);
         Controller.createFærdigvare("GLØD 3.2",0,fad);
 
-
-        int efter = ListStorage.getFærdigvarer().size();
+        int efter = Controller.getFærdigvare().size();
 
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createFærdigvare03(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createFærdigvare("",749,fad));
+        // Hvis FærdigVare-konstruktøren validerer navn, vil denne kaste
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createFærdigvare("",749,fad));
     }
 
     @Test
     void createFærdigvare04(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createFærdigvare("GLØD 3.2",-1,fad));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createFærdigvare("GLØD 3.2",-1,fad));
     }
 
     @Test
     void createFærdigvare05(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createFærdigvare("GLØD 3.2",749,null));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createFærdigvare("GLØD 3.2",749,null));
     }
+
+    // ---------- createLeverandør ----------
 
     @Test
     void createLeverandør01(){
-        int før = ListStorage.getLeverandører().size();
+        int før = Controller.getLeverandører().size();
 
         Controller.createLeverandør("Sall whisky","adresse 12","12345678");
 
-
-        int efter = ListStorage.getLeverandører().size();
+        int efter = Controller.getLeverandører().size();
 
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createLeverandør02(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createLeverandør(null,"adresse 12","12345678"));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createLeverandør(null,"adresse 12","12345678"));
     }
 
     @Test
     void createLeverandør03(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createLeverandør("","adresse 12","12345678"));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createLeverandør("","adresse 12","12345678"));
     }
 
     @Test
     void createLeverandør04(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createLeverandør("Sall whisky",null,"12345678"));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createLeverandør("Sall whisky",null,"12345678"));
     }
 
     @Test
     void createLeverandør05(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createLeverandør("Sall whisky","adresse 12",null));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createLeverandør("Sall whisky","adresse 12",null));
     }
 
     @Test
     void createLeverandør06(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createLeverandør("Sall whisky","","12345678"));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createLeverandør("Sall whisky","","12345678"));
     }
 
     @Test
     void createLeverandør07(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createLeverandør("Sall whisky","adresse 12",""));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createLeverandør("Sall whisky","adresse 12",""));
     }
 
     @Test
     void createLeverandør08(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createLeverandør("Sall whisky","adresse 12","abcdefgh"));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createLeverandør("Sall whisky","adresse 12","abcdefgh"));
     }
+
+    // ---------- createDestillering ----------
 
     @Test
     void createDestillering01(){
-        int før = ListStorage.getDestillering().size();
+        int før = Controller.getDestillering().size();
 
         Controller.createDestillering(1,false,50,råvare,medarbejder);
 
-
-        int efter = ListStorage.getDestillering().size();
+        int efter = Controller.getDestillering().size();
 
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createDestillering02(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createDestillering(0,false,50,råvare,medarbejder));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createDestillering(0,false,50,råvare,medarbejder));
     }
 
     @Test
     void createDestillering03(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createDestillering(-1,false,101,råvare,medarbejder));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createDestillering(-1,false,101,råvare,medarbejder));
     }
 
     @Test
     void createDestillering04(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createDestillering(1,false,0,råvare,medarbejder));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createDestillering(1,false,0,råvare,medarbejder));
     }
 
     @Test
     void createDestillering05(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createDestillering(1,false,-30,råvare,medarbejder));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createDestillering(1,false,-30,råvare,medarbejder));
     }
 
     @Test
     void createDestillering07(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createDestillering(1,false,-30,null,medarbejder));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createDestillering(1,false,-30,null,medarbejder));
     }
 
     @Test
     void createDestillering08(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createDestillering(1,false,-30,råvare, null));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createDestillering(1,false,-30,råvare, null));
     }
 
     @Test
     void createDestillering09(){
 
-        int før = ListStorage.getDestillering().size();
+        int før = Controller.getDestillering().size();
 
         råvare.setMængde(1);
         Controller.createDestillering(1,false,1,råvare,medarbejder);
 
-
-        int efter = ListStorage.getDestillering().size();
+        int efter = Controller.getDestillering().size();
 
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createDestillering10(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createDestillering(1,false,150,råvare, medarbejder));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createDestillering(1,false,150,råvare, medarbejder));
     }
+
+    // ---------- createRåvare ----------
 
     @Test
     void createRåvare01(){
-        int før = ListStorage.getRåvarer().size();
-        Controller.createRåvare("E3", "Evergreen", 110, LocalDate.of(2025,9,4), oprindelse);
-        int efter = ListStorage.getRåvarer().size();
+        int før = Controller.getRåvare().size();
+        Controller.createRåvare("E3", "Evergreen", 110,
+                LocalDate.of(2025,9,4), oprindelse);
+        int efter = Controller.getRåvare().size();
         assertEquals(før +1, efter);
     }
 
     @Test
     void createRåvare02(){
-        int før = ListStorage.getRåvarer().size();
-        Controller.createRåvare("E5", "Evergreen", 1, LocalDate.of(2025,3,1), oprindelse);
-        int efter = ListStorage.getRåvarer().size();
+        int før = Controller.getRåvare().size();
+        Controller.createRåvare("E5", "Evergreen", 1,
+                LocalDate.of(2025,3,1), oprindelse);
+        int efter = Controller.getRåvare().size();
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createRåvare03(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createRåvare("", "Evergreen", 100, LocalDate.of(2025,8,3), oprindelse));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createRåvare("", "Evergreen", 100,
+                        LocalDate.of(2025,8,3), oprindelse));
     }
 
     @Test
     void createRåvare04(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createRåvare("E6", "", 100, LocalDate.of(2025,8,3), oprindelse));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createRåvare("E6", "", 100,
+                        LocalDate.of(2025,8,3), oprindelse));
     }
 
     @Test
     void createRåvare05(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createRåvare("E6", "Evergreen", 0, LocalDate.of(2025,8,3), oprindelse));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createRåvare("E6", "Evergreen", 0,
+                        LocalDate.of(2025,8,3), oprindelse));
     }
 
     @Test
     void createRåvare06(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createRåvare("E6", "Evergreen", 100, LocalDate.of(2026,8,3), oprindelse));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createRåvare("E6", "Evergreen", 100,
+                        LocalDate.of(2026,8,3), oprindelse));
     }
 
     @Test
     void createRåvare07(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createRåvare("E3", "Evergreen", 100, LocalDate.of(2025,8,3), null));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createRåvare("E3", "Evergreen", 100,
+                        LocalDate.of(2025,8,3), null));
     }
+
+    // ---------- createOprindelse ----------
 
     @Test
     void createOprindelse01(){
-        int før = ListStorage.getOprindelser().size();
+        int før = Controller.getOprindelser().size();
         Controller.createOprindelse("Marken", "Gården");
-        int efter = ListStorage.getOprindelser().size();
+        int efter = Controller.getOprindelser().size();
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createOprindelse02(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createOprindelse(null, "Gården"));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createOprindelse(null, "Gården"));
     }
 
     @Test
     void createOprindelse03(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createOprindelse("Marken", null));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createOprindelse("Marken", null));
     }
 
     @Test
     void createOprindelse04(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createOprindelse("", "Gården"));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createOprindelse("", "Gården"));
     }
 
     @Test
     void createOprindelse05(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createOprindelse("Marken", ""));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createOprindelse("Marken", ""));
     }
+
+    // ---------- createMedarbejder ----------
 
     @Test
     void createMedarbejder01(){
-        int før = ListStorage.getMedarbejdere().size();
+        int før = Controller.getMedarbejder().size();
         Controller.createMedarbejder(3,"Jens", "34213421");
-        int efter = ListStorage.getMedarbejdere().size();
+        int efter = Controller.getMedarbejder().size();
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createMedarbejder02(){
-        int før = ListStorage.getMedarbejdere().size();
+        int før = Controller.getMedarbejder().size();
         Controller.createMedarbejder(1, "Jens", "34213421");
-        int efter = ListStorage.getMedarbejdere().size();
+        int efter = Controller.getMedarbejder().size();
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createMedarbejder03(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createMedarbejder(0, "Jens", "34213421"));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createMedarbejder(0, "Jens", "34213421"));
     }
 
     @Test
     void createMedarbejder04(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createMedarbejder(4, "", "34213421"));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createMedarbejder(4, "", "34213421"));
     }
 
     @Test
     void createMedarbejder05(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createMedarbejder(4, "Jens", ""));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createMedarbejder(4, "Jens", ""));
     }
 
     @Test
     void createMedarbejder06(){
         // medarbejders nr er også 5
-        ListStorage.storeMedarbejder(medarbejder);
-        assertThrows(IllegalArgumentException.class, () -> Controller.createMedarbejder(5, "Jens", "34213421"));
+        storage.storeMedarbejder(medarbejder);
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createMedarbejder(5, "Jens", "34213421"));
     }
+
+    // ---------- antalLedigePladserPåLager ----------
 
     @Test
     void antalLedigePladserPåLager01(){
@@ -458,7 +533,7 @@ class ControllerTest {
         række1.addHyldeTilRække(hylde2);
         række1.addHyldeTilRække(hylde3);
 
-       int antalPladser = Controller.antalLedigePladserPåLager(lager1);
+        int antalPladser = Controller.antalLedigePladserPåLager(lager1);
 
         assertEquals(3, antalPladser);
     }
@@ -483,8 +558,11 @@ class ControllerTest {
 
     @Test
     void antalLedigePladserPåLager03(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.antalLedigePladserPåLager(null));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.antalLedigePladserPåLager(null));
     }
+
+    // ---------- findFadPåLager ----------
 
     @Test
     void findFadPåLager01(){
@@ -492,17 +570,14 @@ class ControllerTest {
         Reol reol1 = new Reol(1, lager1);
         lager1.addReolTilLager(reol1);
 
-
         Række række1 = new Række(1, reol1);
         reol1.addRækkeTilReol(række1);
-
 
         Hylde hylde1 = new Hylde(1, række1);
         række1.addHyldeTilRække(hylde1);
 
-
         Fad fad1 = new Fad(3, 100, FadType.Bourbon, leverandør);
-        ListStorage.storeFad(fad1);
+        storage.storeFad(fad1);
         Controller.addFadTilHylde(fad1, hylde1);
 
         String result = Controller.findFadPåLager(3);
@@ -520,17 +595,14 @@ class ControllerTest {
         Reol reol1 = new Reol(1, lager1);
         lager1.addReolTilLager(reol1);
 
-
         Række række1 = new Række(1, reol1);
         reol1.addRækkeTilReol(række1);
-
 
         Hylde hylde1 = new Hylde(1, række1);
         række1.addHyldeTilRække(hylde1);
 
-
         Fad fad2 = new Fad(1, 100, FadType.Bourbon, leverandør);
-        ListStorage.storeFad(fad2);
+        storage.storeFad(fad2);
         Controller.addFadTilHylde(fad2, hylde1);
 
         String result = Controller.findFadPåLager(1);
@@ -545,121 +617,138 @@ class ControllerTest {
     @Test
     void findFadPåLager03(){
         String result = Controller.findFadPåLager(10);
-        assertTrue(result.contains("FadID ikke i brug."));
-
+        assertEquals("FadID ikke i brug.", result.trim());
     }
 
     @Test
     void findFadPåLager04(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.findFadPåLager(0));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.findFadPåLager(0));
     }
+
+    // ---------- createHylde ----------
 
     @Test
     void createHylde01(){
-        int før = ListStorage.getHylder().size();
+        int før = Controller.getHylder().size();
         Controller.createHylde(5,række);
-        int efter = ListStorage.getHylder().size();
+        int efter = Controller.getHylder().size();
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createHylde02(){
-        int før = ListStorage.getHylder().size();
+        int før = Controller.getHylder().size();
         Controller.createHylde(1,række);
-        int efter = ListStorage.getHylder().size();
+        int efter = Controller.getHylder().size();
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createHylde03(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createHylde(0, række));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createHylde(0, række));
     }
 
     @Test
     void createHylde04(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createHylde(5, null));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createHylde(5, null));
     }
+
+    // ---------- createRække ----------
 
     @Test
     void createRække01(){
-        int før = ListStorage.getRækker().size();
+        int før = Controller.getRækker().size();
         Controller.createRække(5, reol);
-        int efter = ListStorage.getRækker().size();
+        int efter = Controller.getRækker().size();
         assertEquals(før +1, efter);
     }
 
     @Test
     void createRække02(){
-        int før = ListStorage.getRækker().size();
+        int før = Controller.getRækker().size();
         Controller.createRække(1, reol);
-        int efter = ListStorage.getRækker().size();
+        int efter = Controller.getRækker().size();
         assertEquals(før +1, efter);
     }
 
     @Test
     void createRække03(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createRække(0, reol));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createRække(0, reol));
     }
 
     @Test
     void createRække04(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createRække(5, null));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createRække(5, null));
     }
+
+    // ---------- createReol ----------
 
     @Test
     void createReol01(){
-        int før = ListStorage.getReoler().size();
+        int før = Controller.getReoler().size();
         Controller.createReol(5,lager);
-        int efter = ListStorage.getReoler().size();
+        int efter = Controller.getReoler().size();
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createReol02(){
-        int før = ListStorage.getReoler().size();
+        int før = Controller.getReoler().size();
         Controller.createReol(1,lager);
-        int efter = ListStorage.getReoler().size();
+        int efter = Controller.getReoler().size();
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createReol03(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createReol(0, lager));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createReol(0, lager));
     }
 
     @Test
     void createReol04(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createReol(5, null));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createReol(5, null));
     }
+
+    // ---------- createLager ----------
 
     @Test
     void createLager01(){
-        int før = ListStorage.getLagere().size();
+        int før = Controller.getLagere().size();
         Controller.createLager("Lager 1", 200);
-        int efter = ListStorage.getLagere().size();
+        int efter = Controller.getLagere().size();
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createLager02(){
-        int før = ListStorage.getLagere().size();
+        int før = Controller.getLagere().size();
         Controller.createLager("Lager 1", 1);
-        int efter = ListStorage.getLagere().size();
+        int efter = Controller.getLagere().size();
         assertEquals(før + 1, efter);
     }
 
     @Test
     void createLager03(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createLager(null, 200));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createLager(null, 200));
     }
 
     @Test
     void createLager04(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createLager("", 200));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createLager("", 200));
     }
 
     @Test
     void createLager05(){
-        assertThrows(IllegalArgumentException.class, () -> Controller.createLager("Lager 1", 0));
+        assertThrows(IllegalArgumentException.class,
+                () -> Controller.createLager("Lager 1", 0));
     }
 }
