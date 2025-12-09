@@ -1,6 +1,7 @@
 package gui;
 
 import Controller.Controller;
+import Storage.ListStorage;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -9,6 +10,7 @@ import javafx.stage.Stage;
 import model.Destillat;
 import model.Fad;
 import model.FærdigVare;
+import Controller.Storage;
 
 public class Gui extends Application {
     public static void main(String[] args) {
@@ -64,6 +66,14 @@ public class Gui extends Application {
         stage.show();
 
 
+    }
+
+    @Override
+    public void stop() {
+        String fileName = "src/storage.ser";
+        Storage storage = Controller.getStorage();
+        ListStorage.saveStorage(fileName, storage);
+        System.out.println("Storage er gemt i " + fileName);
     }
 
     // -------------------------------------------------------------------------
