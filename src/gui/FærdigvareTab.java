@@ -60,11 +60,46 @@ public class FærdigvareTab implements Updatable{
         return pane;
     }
 
-    private void opretFærdigvare(){
-       Controller.createFærdigvare(navn.getText(),Integer.parseInt(pris.getText()),
-               fadListView.getSelectionModel().getSelectedItem());
+    private void opretFærdigvare() {
 
-       update();
+        if (navn.getText().isBlank()) {
+            alert("Fejl", "Du skal indtaste et navn på færdigvaren.");
+            return;
+        }
+
+        int prisInt;
+        try {
+            prisInt = Integer.parseInt(pris.getText());
+        } catch (NumberFormatException e) {
+            alert("Fejl", "Pris skal være et gyldigt tal.");
+            return;
+        }
+
+
+        Fad valgtFad = fadListView.getSelectionModel().getSelectedItem();
+        if (valgtFad == null) {
+            alert("Fejl", "Du skal vælge et fad.");
+            return;
+        }
+
+        try {
+
+            Controller.createFærdigvare(navn.getText(), prisInt, valgtFad);
+
+            alert("Success", "Færdigvaren er oprettet!");
+            update();
+        }
+        catch (Exception ex) {
+            alert("Fejl", ex.getMessage());
+        }
+    }
+
+    private void alert(String title, String message) {
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        a.setTitle(title);
+        a.setHeaderText(null);
+        a.setContentText(message);
+        a.show();
     }
 
 

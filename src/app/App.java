@@ -40,9 +40,14 @@ public class App {
         Leverandør leverandør = Controller.createLeverandør("John whisky", "test Adresse", "12345678");
 
         Destillat destillat = Controller.createDestillat(1,200,50,destillering);
+        Destillat destillat1 = Controller.createDestillat(2,200,55,destillering);
+
+        Fad fad1 = Controller.createFad(2,400,FadType.Bourbon,leverandør);
+        Controller.addDestillatTilFad(fad1,destillat1);
+        fad1.setStartLagring(LocalDate.of(2022,5,5));
         Fad fad = Controller.createFad(1,500,FadType.Sherry,leverandør);
         Controller.addDestillatTilFad(fad,destillat);
-        fad.setStartLagring(LocalDate.of(2020,12,1));
+        fad.setStartLagring(LocalDate.of(2022,12,1));
 
         FærdigVare færdigVare = Controller.createFærdigvare("test",200, fad);
 
@@ -59,6 +64,6 @@ public class App {
         Hylde hylde = Controller.createHylde(1, række);
         række.addHyldeTilRække(hylde);
 
-//        System.out.println(Controller.printHistorie(færdigVare));
+        System.out.println(Controller.printHistorie(færdigVare));
     }
 }

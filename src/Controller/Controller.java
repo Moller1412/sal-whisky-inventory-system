@@ -82,8 +82,8 @@ public abstract class Controller {
            færdigVare.setDatoForTabning(LocalDate.now());
            storage.storeFærdigvare(færdigVare);
            fad.setErAktiv(false);
-           fad.setStartLagring(null);
-           fad.setLiterIFad(0);
+           //fad.setStartLagring(null);
+           //fad.setLiterIFad(0);
            fad.setHylde(null);
            notifyObservers();
            return færdigVare;
