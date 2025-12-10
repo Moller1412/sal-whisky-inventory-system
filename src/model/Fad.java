@@ -136,7 +136,7 @@ public class Fad implements Serializable {
     public String toString() {
         return "FadID: " + id + " " + "Str: " + størrelse +
                 " " + "Fadtype: " + fadType + " " +
-                "Leverandør: " + leverandør + " " +
+                "Leverandør: " + leverandør.getNavn() + " " +
                 "Liter i fad: " + literIFad;
     }
 }

@@ -13,6 +13,10 @@ public class Leverandør implements Serializable {
         this.mobilnummer = mobilnummer;
     }
 
+    public String getNavn() {
+        return navn;
+    }
+
     public String printInformationOmLeverandør(){
         StringBuilder sb = new StringBuilder();
         sb.append("\nInformation om Leverandør:");

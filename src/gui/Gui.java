@@ -21,19 +21,19 @@ public class Gui extends Application {
 
         //opret tabs og content
         DestillatTab destillatContent = new DestillatTab();
-        Tab destillatTab = new Tab("Opret destillat",destillatContent.getContent());
+        Tab destillatTab = new Tab("Destillat",destillatContent.getContent());
 
         FadTab fadContent = new FadTab();
-        Tab fadTab = new Tab("Opret fad", fadContent.getContent());
+        Tab fadTab = new Tab("Fad", fadContent.getContent());
 
         FærdigvareTab færdigvareContent = new FærdigvareTab();
-        Tab færdigvareTab = new Tab("Opret færdigvare", færdigvareContent.getContent());
+        Tab færdigvareTab = new Tab("Færdigvare", færdigvareContent.getContent());
 
         RåvareTab råvareContent = new RåvareTab();
-        Tab råvareTab = new Tab("Opret Råvare", råvareContent.getContent());
+        Tab råvareTab = new Tab("Råvare", råvareContent.getContent());
 
         DestilleringTab destilleringContent = new DestilleringTab();
-        Tab destilleringTab = new Tab("Opret destillering", destilleringContent.getContent());
+        Tab destilleringTab = new Tab("Destillering", destilleringContent.getContent());
 
         LagerTab lagerContent = new LagerTab();
         Tab lagerTab = new Tab("Lager", lagerContent.getContent());
