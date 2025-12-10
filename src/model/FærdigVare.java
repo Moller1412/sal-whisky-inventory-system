@@ -40,7 +40,7 @@ public class FærdigVare implements Serializable {
         sb.append("\nAntal flasker: "); sb.append(udregnAntalFlaskerFraFærdigvare());
         sb.append("\nResterende mængde: "); sb.append(restVærdi);
         sb.append("\nAlkohol procent: "); sb.append(fad.getAlkoholProcent());
-        Period p = Period.between(LocalDate.ofEpochDay(datoForTabning.getYear()), fad.getStartLagring());
+        Period p = Period.between(fad.getStartLagring(),datoForTabning);
         String antalÅr = String.format("%d år, %d måneder og %d dage.", p.getYears(), p.getMonths(), p.getDays());
         sb.append("\nAntal år på fad: "); sb.append(antalÅr);
         sb.append("\n").append(fad.printInformationOmFad());
