@@ -25,6 +25,7 @@ public class Fad implements Serializable {
         this.erAktiv = false;
     }
 
+
     public Destillat getDestillat() {
         return destillat;
     }

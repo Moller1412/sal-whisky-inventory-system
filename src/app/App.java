@@ -56,13 +56,10 @@ public class App {
         Lager lager = Controller.createLager("Lager", 200);
 
         Reol reol = Controller.createReol(1, lager);
-        lager.addReolTilLager(reol);
 
         Række række = Controller.createRække(1, reol);
-        reol.addRækkeTilReol(række);
 
         Hylde hylde = Controller.createHylde(1, række);
-        række.addHyldeTilRække(hylde);
 
         System.out.println(Controller.printHistorie(færdigVare));
     }
