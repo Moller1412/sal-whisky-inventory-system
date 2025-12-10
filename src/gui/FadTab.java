@@ -118,6 +118,11 @@ public class FadTab implements Updatable {
             return;
         }
 
+        if (fad.getHylde() != null){
+            fad.getHylde().setFad(null);
+            fad.getHylde().setErOptaget(false);
+        }
+
         try {
             Controller.addFadTilHylde(fad, hylde);
             update();
