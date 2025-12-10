@@ -44,9 +44,9 @@ public class App {
         Controller.addDestillatTilFad(fad,destillat);
         fad.setStartLagring(LocalDate.of(2020,12,1));
 
-//        FærdigVare færdigVare = Controller.createFærdigvare("test",200, fad);
-//
-//        færdigVare.setDatoForTabning(LocalDate.now());
+        FærdigVare færdigVare = Controller.createFærdigvare("test",200, fad);
+
+        færdigVare.setDatoForTabning(LocalDate.now());
 
         Lager lager = Controller.createLager("Lager", 200);
 
