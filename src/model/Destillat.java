@@ -69,9 +69,6 @@ public class Destillat implements Serializable {
 
     @Override
     public String toString() {
-        return
-                "NR: " + nr +
-                " | MÆNGDE: " + maengde +
-                " | ALC: " + alkoholProcent;
+        return "Nr: " + nr + " " + "Mængde: " + maengde + " " + "Alkohol %: " + alkoholProcent;
     }
 }

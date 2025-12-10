@@ -8,7 +8,7 @@ import java.util.List;
 public class Råvare implements Serializable {
 
     private String navn;
-    private  String type;
+    private String type;
     private int mængde;
     private LocalDate høstDato;
     private Oprindelse oprindelse;
@@ -43,7 +43,12 @@ public class Råvare implements Serializable {
         return oprindelse;
     }
 
+    public String getNavn() {
+        return navn;
+    }
+
     @Override
     public String toString() {
-        return navn;}
+        return "Navn: " + navn + " " + "Type: " + type;
+    }
 }

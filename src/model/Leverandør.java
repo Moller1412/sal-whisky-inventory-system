@@ -23,9 +23,7 @@ public class Leverandør implements Serializable {
 
     @Override
     public String toString() {
-        return  "NAVN: " + navn  +
-                ", TLF: " + mobilnummer +
-                ", ADRESSE: '" + adresse +
-                '}';
+        return  "Navn: " + navn + " " + "Adresse: " + adresse +
+                " " + "MobilNr: " + mobilnummer;
     }
 }

@@ -35,6 +35,6 @@ public class Reol implements Serializable {
 
     @Override
     public String toString() {
-        return "NR: " + nr + ", lager: " + lager.getNavn();
+        return "Reol nr: " + nr + " " + "Lager: " + lager.getNavn();
     }
 }

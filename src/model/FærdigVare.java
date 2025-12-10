@@ -78,4 +78,8 @@ public class FærdigVare implements Serializable {
     public void setDatoForTabning(LocalDate datoForTabning) {
         this.datoForTabning = datoForTabning;
     }
+
+    public String toString(){
+        return "Navn: " + navn + " " + "Pris: " + pris + " " + "FadID: " + fad.getId();
+    }
 }

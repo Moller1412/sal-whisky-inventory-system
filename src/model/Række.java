@@ -35,6 +35,6 @@ public class Række implements Serializable {
 
     @Override
     public String toString() {
-        return "NR: " + nr + ", Reol nr: " + reol.getNr();
+        return "Række nr: " + nr + " " + "Reol nr: " + reol.getNr();
     }
 }

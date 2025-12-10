@@ -133,10 +133,9 @@ public class Fad implements Serializable {
 
     @Override
     public String toString() {
-        return "ID: " + id +
-                ", STR: " + størrelse +
-                ", AKTIV: " + erAktiv +
-                ", TYPE: " + fadType +
-                '}';
+        return "FadID: " + id + " " + "Str: " + størrelse +
+                " " + "Fadtype: " + fadType + " " +
+                "Leverandør: " + leverandør + " " +
+                "Liter i fad: " + literIFad;
     }
 }

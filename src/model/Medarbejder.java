@@ -33,11 +33,13 @@ public class Medarbejder implements Serializable {
         return medarbejderNr;
     }
 
+    public String getNavn() {
+        return navn;
+    }
+
     @Override
     public String toString() {
-        return "NAVN: " + navn +
-                " TLF: " + tlf +
-                " NR" + medarbejderNr
-                ;
+        return "Navn: " + navn + " " + "MedarbejderNr: " + medarbejderNr +
+                " " + "MobilNr: " + tlf;
     }
 }

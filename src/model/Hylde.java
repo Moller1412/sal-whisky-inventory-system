@@ -43,6 +43,6 @@ public class Hylde implements Serializable {
 
     @Override
     public String toString() {
-        return "NR: " + nr + ", række nr: " + række.getNr();
+        return "Hylde nr: " + nr + " " + "Række nr: " + række.getNr();
     }
 }

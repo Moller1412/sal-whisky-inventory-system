@@ -35,9 +35,8 @@ public class Destillering implements Serializable {
 
     @Override
     public String toString() {
-        return
-                "NR: " + nr + "RÅVARE: " + råvare + ", RØGET: " + erRøget +
-                ", ANTAL RÅVARE: " + antalRåvare +
-                ", MEDARBEJDER: " + medarbejder;
+        return "Nr: " + nr + " " + "Røget: " + erRøget + " " +
+                "Antal råvarer: " + antalRåvare + " " +
+                "Råvarer: " + råvare.getNavn() + " " + "Medarbejder: " + medarbejder.getNavn();
     }
 }

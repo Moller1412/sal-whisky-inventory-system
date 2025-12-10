@@ -31,6 +31,6 @@ public class Lager implements Serializable {
 
     @Override
     public String toString() {
-        return "Navn: " + navn + ", KVM: " + antalKvadratMeter;
+        return "Navn: " + navn + " " + "KVM: " + antalKvadratMeter;
     }
 }
