@@ -97,7 +97,7 @@ public class LagerTab implements Updatable{
                 fadListViewListView.getItems().setAll(hyldeListView.getSelectionModel().getSelectedItem().getFad());
             }
         });
-        pane.add(new Label("Fadet på hylden"), 3,3);
+        pane.add(new Label("Fadet på Lager"), 3,3);
         pane.add(fadListViewListView,3,4,1,1);
         fadListViewListView.setPrefHeight(100);
 
@@ -225,6 +225,13 @@ public class LagerTab implements Updatable{
             fadListViewListView.getItems().setAll(valgtHylde.getFad());
         }
 
+    }
+
+    public void clearAllLvw(){
+        ReolListView.getItems().clear();
+        rækkeListView.getItems().clear();
+        hyldeListView.getItems().clear();
+        fadListViewListView.getItems().clear();
 
     }
 

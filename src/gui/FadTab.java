@@ -26,6 +26,7 @@ public class FadTab implements Updatable {
     private TextField levTLF = new TextField();
     private ListView<Hylde> hyldeListView = new ListView<>();
     private Button addFadTilHyldeBtn = new Button("Placer fad på hylde");
+    private TextArea FadPåLagerTextArea= new TextArea();
 
     private Stage popup;
 
@@ -56,7 +57,7 @@ public class FadTab implements Updatable {
         pane.add(leverandørListView, 0, 4, 2, 1);
 
         pane.add(new Label("Nuværende fade:"), 2, 3, 2, 1);
-        fadListView.getItems().setAll(fadeUdenHylde());
+        fadListView.getItems().setAll(Controller.getFade());
         pane.add(fadListView, 2, 4, 2, 1);
 
         pane.add(new Label("Ledige pladser:"), 4, 3, 2, 1);
@@ -76,6 +77,19 @@ public class FadTab implements Updatable {
         hyldeListView.getItems().setAll(ledigeHylder);
         pane.add(hyldeListView, 4, 4, 2, 1);
 
+        pane.add(FadPåLagerTextArea, 6,4,1,1);
+        FadPåLagerTextArea.setPrefWidth(250);
+        FadPåLagerTextArea.setEditable(false);
+        fadListView.getSelectionModel().selectedItemProperty().addListener((obs,oldItem,newItem) ->{
+            if (newItem != null){
+                FadPåLagerTextArea.clear();
+                FadPåLagerTextArea.appendText(Controller.findFadPåLager(fadListView.getSelectionModel().getSelectedItem().getId()));
+                if (fadListView.getSelectionModel().getSelectedItem().getHylde() == null){
+                    FadPåLagerTextArea.appendText("Dette fad er ikke på lager");
+                }
+            }
+        });
+
         pane.add(opretFadBtn, 2, 5);
         opretFadBtn.setOnAction(event -> opretFad());
 
@@ -92,6 +106,7 @@ public class FadTab implements Updatable {
 
         Fad fad = fadListView.getSelectionModel().getSelectedItem();
         Hylde hylde = hyldeListView.getSelectionModel().getSelectedItem();
+        FadPåLagerTextArea.clear();
 
         if (fad == null) {
             new Alert(Alert.AlertType.ERROR, "Vælg et fad først.").showAndWait();
@@ -101,6 +116,11 @@ public class FadTab implements Updatable {
         if (hylde == null) {
             new Alert(Alert.AlertType.ERROR, "Vælg en ledig hylde.").showAndWait();
             return;
+        }
+
+        if (fad.getHylde() != null){
+            fad.getHylde().setFad(null);
+            fad.getHylde().setErOptaget(false);
         }
 
         try {
@@ -164,22 +184,10 @@ public class FadTab implements Updatable {
 
     }
 
-    public ArrayList<Fad> fadeUdenHylde() {
-        ArrayList<Fad> fade = new ArrayList<>();
-
-        for (Fad fad : Controller.getFade()) {
-            if (fad.getHylde() == null) {
-                fade.add(fad);
-            }
-        }
-        return fade;
-
-    }
-
         @Override
         public void update () {
             leverandørListView.getItems().setAll(Controller.getLeverandører());
-            fadListView.getItems().setAll(fadeUdenHylde());
+            fadListView.getItems().setAll(Controller.getFade());
 
             List<Hylde> ledigeHylder = new ArrayList<>();
 

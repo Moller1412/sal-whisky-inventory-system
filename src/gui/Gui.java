@@ -40,7 +40,10 @@ public class Gui extends Application {
 
         // brug updatable
         færdigvareTab.setOnSelectionChanged(event -> færdigvareContent.update());
-        fadTab.setOnSelectionChanged(event -> fadContent.update());
+        fadTab.setOnSelectionChanged(event -> {
+            fadContent.update();
+            lagerContent.clearAllLvw();
+        } );
         destillatTab.setOnSelectionChanged(event -> destillatContent.update());
         råvareTab.setOnSelectionChanged(event -> råvareContent.update());
         destilleringTab.setOnSelectionChanged(event -> destilleringContent.update());
