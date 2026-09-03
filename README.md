@@ -1,30 +1,55 @@
-# Sal Whisky – Tracking & Inventory System
+# Sal Whisky Inventory System
 
-A desktop application developed as part of a 2nd semester project on the Computer Science programme at Erhvervsakademi Aarhus.
+A Java and JavaFX application developed for managing inventory and tracking the whisky production process at Sal Whisky.
 
-The system was developed for Sal Whisky, a small Danish whisky producer, with the purpose of supporting the management and tracking of whisky production and warehouse inventory.
+## Project Description
 
-## About the Project
+This project is an inventory and production management system developed for a small whisky producer.
 
-The application provides a graphical user interface for managing different parts of the whisky production process.
+The application models the different stages of the whisky production process and makes it possible to keep track of raw materials, distillates, barrels and finished products.
 
-The system allows employees to create and manage raw materials, distillations, distillates, barrels and finished products, while also keeping track of where barrels are located in the warehouse.
+The system also includes warehouse management, allowing products and materials to be organized and tracked throughout the production process.
 
-The project was developed as a group project based on a real-world business case.
+The project was developed as part of my studies at Erhvervsakademi Aarhus.
 
-## Main Features
+## Features
 
 - Manage raw materials
-- Manage suppliers and origins
-- Manage distillations
-- Manage distillates
-- Manage whisky barrels
+- Track whisky production stages
+- Manage distillates and barrels
 - Manage finished products
-- Track barrel locations
-- Manage warehouses, racks, rows and shelves
-- Input validation
-- Persistent data storage
+- Warehouse management
+- Track products through the production process
+- Graphical user interface using JavaFX
 - Unit testing
+
+## Technologies
+
+- Java
+- JavaFX
+- Object-Oriented Programming
+- JUnit
+- Git
+
+## Project Structure
+
+```text
+Sal Whisky/
+├── src/
+│   ├── app/
+│   ├── Controller/
+│   ├── gui/
+│   └── model/
+└── test/
+```
+
+The project is structured into different areas:
+
+- **Model** – Contains the application's data and domain classes
+- **Controller** – Handles application logic and interaction between the GUI and model
+- **GUI** – Contains the JavaFX user interface
+- **App** – Contains the application entry point
+- **Test** – Contains unit tests
 
 ## Production Flow
 
@@ -40,13 +65,15 @@ Distillate
 Barrel
      ↓
 Finished Product
+```
 
 This makes it possible to follow the different entities throughout the production process.
 
-Warehouse Management
+## Warehouse Management
 
 The warehouse is represented using a hierarchical structure:
 
+```text
 Warehouse
     ↓
 Rack
@@ -54,82 +81,50 @@ Rack
 Row
     ↓
 Shelf
-    ↓
-Barrel
+```
 
-This allows individual barrels to be associated with a specific location in the warehouse.
+This structure makes it possible to organize and locate products within the warehouse.
 
-Technologies
-Java
-JavaFX
-JUnit
-Maven
-Git
-Object Serialization
-Project Structure
-src/
-├── Controller/
-├── Storage/
-├── app/
-├── gui/
-└── model/
+## Screenshots
 
-test/
-├── Controller/
-└── model/
-Model
+Screenshots of the application are included below.
 
-Contains the main domain classes used to represent the whisky production and warehouse system.
+### Distillation
 
-Examples include:
+![Distillation](destillat.png)
 
-Råvare
-Destillering
-Destillat
-Fad
-FærdigVare
-Lager
-Reol
-Række
-Hylde
-Leverandør
-Medarbejder
-GUI
+### Finished Product
 
-The graphical user interface is built using JavaFX and provides different views for managing the system.
+![Finished Product](færdigvare.png)
 
-Controller
+### Warehouse
 
-The controller handles operations within the application and connects the GUI with the underlying model and storage.
+![Warehouse](lager.png)
 
-Storage
+## Testing
 
-The application uses object serialization for persistent storage of application data.
+The project includes unit tests to verify important parts of the application's functionality.
 
-Testing
+Testing was used to help ensure that the different components of the system behaved as expected.
 
-The project includes JUnit tests covering important parts of the application.
+## Project Context
 
-The tests include validation of:
+This project was developed as a school project at Erhvervsakademi Aarhus.
 
-Object creation
-Invalid input
-Relationships between objects
-Barrel and shelf assignments
-Exception handling
-Running the Project
-Requirements
-Java
-Maven
-IntelliJ IDEA or another Java IDE
-Run
-Clone the repository.
-Open the project in IntelliJ IDEA.
-Configure the required Java version.
-Build the project using Maven.
-Run App.java.
-Project Context
+The purpose of the project was to gain practical experience with object-oriented programming, application architecture, graphical user interfaces and testing.
 
-This project was developed as part of the 2nd semester of the Computer Science programme at Erhvervsakademi Aarhus.
+The project was developed around a real-world scenario where a whisky producer needed a system for managing production and inventory.
 
-The project focused on applying object-oriented programming, software architecture, GUI development, data persistence and testing to a real-world business case.
+## What I Learned
+
+Through this project I gained experience with:
+
+- Object-oriented programming in Java
+- Developing graphical user interfaces with JavaFX
+- Structuring a larger Java application
+- Separating models, controllers and GUI components
+- Working with collections and application data
+- Implementing a production workflow
+- Designing a warehouse management structure
+- Writing unit tests with JUnit
+- Using Git and GitHub for version control
