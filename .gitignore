@@ -1,5 +1,6 @@
 ### IntelliJ IDEA ###
+.idea/
+*.iml
 out/
-
 ### Mac OS ###
 .DS_Store
